@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sony TV</string>
+    <string name="hint_menu">OK / ← 呼出频道 · CH+ CH- 切台 · 菜单键换源</string>
+    <string name="loading">正在加载节目源…</string>
+    <string name="channel_count">%1$d 个频道</string>
+</resources>

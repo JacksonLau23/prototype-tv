@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 电视桌面横幅：黑底 + 白色「tv」，Apple TV 风格 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="320dp"
+    android:height="180dp"
+    android:viewportWidth="320"
+    android:viewportHeight="180">
+
+    <path android:pathData="M0,0h320v180H0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="0"
+                android:endX="320"
+                android:endY="180"
+                android:type="linear">
+                <item android:color="#FF2C2C31" android:offset="0" />
+                <item android:color="#FF000000" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- t 竖干 -->
+    <path
+        android:pathData="M133,48 L133,116 C133,131 140,139 157,139"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="17"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- t 横杠 -->
+    <path
+        android:pathData="M108,67 L157,67"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="17"
+        android:strokeLineCap="round" />
+    <!-- v -->
+    <path
+        android:pathData="M163,75 L184,140 L205,75"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="17"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+</vector>
