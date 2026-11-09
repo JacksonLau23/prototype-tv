@@ -70,7 +70,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             s.flatIndex.add(i);
         }
         // 分桶太碎时（在线聚合源几千频道），退化为按地区分组
-        if (bucket.size() > 12) {
+        if (bucket.size() > 24) {
             bucket.clear();
             for (int i = 0; i < flat.size(); i++) {
                 Channel c = flat.get(i);

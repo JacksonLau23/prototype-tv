@@ -1,264 +1,663 @@
 #EXTM3U
-
-#EXTINF:-1 tvg-name="CCTV-1 综合" group-title="央视",CCTV-1 综合
-http://38.75.136.137:98/gslb/dsdqbv/cctv1hd.m3u8?auth=test20251009
+#EXTINF:-1 tvg-name="CCTV-1" group-title="央视",CCTV-1
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv1hd
+#EXTINF:-1 tvg-name="CCTV-1" group-title="央视",CCTV-1
 http://204.12.221.218:8181/3m1080p/cctv1.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221225880/10000100000000060000000000025506_0.smil
-#EXTINF:-1 tvg-name="CCTV-2 财经" group-title="央视",CCTV-2 财经
-rtsp://61.135.88.136/PLTV/88888892/224/3221226036/10000100000000060000000000285832_0.smil
-#EXTINF:-1 tvg-name="CCTV-3 综艺" group-title="央视",CCTV-3 综艺
-rtsp://61.135.88.136/PLTV/88888892/224/3221226100/10000100000000060000000000831268_0.smil
-#EXTINF:-1 tvg-name="CCTV-4 中文国际" group-title="央视",CCTV-4 中文国际
-rtsp://61.135.88.136/PLTV/88888892/224/3221226172/10000100000000060000000001785134_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226149/10000100000000060000000001154841_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226138/10000100000000060000000001154838_0.smil
-http://74.91.26.218:82/live/cctv4hd.m3u8
-http://107.150.60.122/live/cctv4hd.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226081/10000100000000060000000000545704_0.smil
-#EXTINF:-1 tvg-name="CCTV-5 体育" group-title="央视",CCTV-5 体育
-http://107.150.60.122/live/cctv5hd.m3u8
-http://207.56.13.146:81/cdnlive/cctv5.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226113/10000100000000060000000000831269_0.smil
-#EXTINF:-1 tvg-name="CCTV-5+ 体育赛事" group-title="央视",CCTV-5+ 体育赛事
-http://120.76.248.139/live/bfgd/4200000246.m3u8
-http://38.75.136.137:98/gslb/dsdqbv/cctv5p.m3u8?auth=test20251009
-rtsp://61.135.88.136/PLTV/88888892/224/3221225819/10000100000000060000000000025043_0.smil
-#EXTINF:-1 tvg-name="CCTV-7 国防军事" group-title="央视",CCTV-7 国防军事
+#EXTINF:-1 tvg-name="CCTV-2" group-title="央视",CCTV-2
+http://198.204.228.26/live/cctv2hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-2" group-title="央视",CCTV-2
+http://204.12.221.218:8181/3m1080p/cctv2.m3u8
+#EXTINF:-1 tvg-name="CCTV-3" group-title="央视",CCTV-3
+http://107.150.60.122/live/cctv3hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-3" group-title="央视",CCTV-3
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv3hd
+#EXTINF:-1 tvg-name="CCTV-4" group-title="央视",CCTV-4
+http://38.75.136.137:98/gslb/dsdqpub/cctv4k.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CCTV-4" group-title="央视",CCTV-4
+http://173.208.212.130:8181/1080p/cctv4.m3u8
+#EXTINF:-1 tvg-name="CCTV-6" group-title="央视",CCTV-6
+http://74.91.26.218:82/live/cctv6hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-6" group-title="央视",CCTV-6
+http://198.204.228.26/live/cctv6hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-7" group-title="央视",CCTV-7
 http://74.91.26.218:82/live/cctv7hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-7" group-title="央视",CCTV-7
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv7hd
-rtsp://61.135.88.136/PLTV/88888892/224/3221226031/10000100000000060000000000285833_0.smil
-#EXTINF:-1 tvg-name="CCTV-8 电视剧" group-title="央视",CCTV-8 电视剧
-http://124.165.251.82:85/tsfile/live/0008_1.m3u8?key=txiptv&playlive=1&authid=0
-http://69.30.245.50/live/cctv8.m3u8
+#EXTINF:-1 tvg-name="CCTV-8" group-title="央视",CCTV-8
+http://74.91.26.218:82/live/cctv8hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-8" group-title="央视",CCTV-8
 http://bztv.tvbus.cc:8081/cdnlive/cctv8.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226115/10000100000000060000000000831271_0.smil
-#EXTINF:-1 tvg-name="CCTV-9 纪录" group-title="央视",CCTV-9 纪录
-rtsp://61.135.88.136/PLTV/88888892/224/3221226038/10000100000000060000000000285834_0.smil
-https://xykt-fix.github.io/Y77.m3u8
-#EXTINF:-1 tvg-name="CCTV-10 科教" group-title="央视",CCTV-10 科教
+#EXTINF:-1 tvg-name="CCTV-9" group-title="央视",CCTV-9
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv9hd
+#EXTINF:-1 tvg-name="CCTV-9" group-title="央视",CCTV-9
+http://107.150.60.122/live/cctv9hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-10" group-title="央视",CCTV-10
 http://38.75.136.137:98/gslb/dsdqbv/cctv10hd.m3u8?auth=test20251009
-http://74.91.26.218:82/live/cctv10hd.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226033/10000100000000060000000000285835_0.smil
-#EXTINF:-1 tvg-name="CCTV-11 戏曲" group-title="央视",CCTV-11 戏曲
-rtsp://61.135.88.136/PLTV/88888892/224/3221226086/10000100000000060000000000753288_0.smil
-#EXTINF:-1 tvg-name="CCTV-12 社会与法" group-title="央视",CCTV-12 社会与法
-http://124.165.251.82:85/tsfile/live/0012_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 tvg-name="CCTV-10" group-title="央视",CCTV-10
+http://204.12.221.218:8181/3m1080p/cctv10.m3u8
+#EXTINF:-1 tvg-name="CCTV-11" group-title="央视",CCTV-11
+http://74.91.26.218:82/live/cctv11hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-12" group-title="央视",CCTV-12
 http://107.150.60.122/live/cctv12hd.m3u8
-http://38.75.136.137:98/gslb/dsdqpub/cctv12hd.m3u8?auth=testpub
-rtsp://61.135.88.136/PLTV/88888892/224/3221226040/10000100000000060000000000285836_0.smil
-#EXTINF:-1 tvg-name="CCTV-13 新闻" group-title="央视",CCTV-13 新闻
-http://120.76.248.139/live/bfgd/4200000067.m3u8
+#EXTINF:-1 tvg-name="CCTV-13" group-title="央视",CCTV-13
 http://ali-m-l.cztv.com/channels/lantian/channel21/1080p.m3u8
-https://event.pull.hebtv.com/jishi/cp1.m3u8
+#EXTINF:-1 tvg-name="CCTV-13" group-title="央视",CCTV-13
 http://38.75.136.137:98/gslb/dsdqbv/cctv13hd.m3u8?auth=test20251009
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd
-rtsp://61.135.88.136/PLTV/88888892/224/3221226145/10000100000000060000000001103864_0.smil
-#EXTINF:-1 tvg-name="CCTV-14 少儿" group-title="央视",CCTV-14 少儿
-rtsp://61.135.88.136/PLTV/88888892/224/3221226035/10000100000000060000000000285837_0.smil
-https://event.pull.hebtv.com/jishi/cp2.m3u8
-#EXTINF:-1 tvg-name="CCTV-15 音乐" group-title="央视",CCTV-15 音乐
-rtsp://61.135.88.136/PLTV/88888892/224/3221226099/10000100000000060000000000753287_0.smil
-#EXTINF:-1 tvg-name="CCTV-16 奥林匹克" group-title="央视",CCTV-16 奥林匹克
-rtsp://61.135.88.136/PLTV/88888892/224/3221226148/10000100000000060000000001234273_0.smil
-http://gmxw.7766.org:808/hls/169/index.m3u8
-#EXTINF:-1 tvg-name="CCTV-17 农业农村" group-title="央视",CCTV-17 农业农村
-rtsp://61.135.88.136/PLTV/88888892/224/3221226095/10000100000000060000000000705941_0.smil
-http://120.76.248.139/live/bfgd/4200000204.m3u8
-#EXTINF:-1 tvg-name="CCTV20241" group-title="央视",CCTV20241
-https://p2.bdstatic.com/rtmp.liveshow.lss-user.baidubce.com/live/stream_bduid_6488563992_8982723413/merged_1707497046297_88536_25144_41936.m3u8
-#EXTINF:-1 tvg-name="CCTV+ 1" group-title="央视",CCTV+ 1
-https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL1.smil/playlist.m3u8
-#EXTINF:-1 tvg-name="CCTV+ 2" group-title="央视",CCTV+ 2
-https://cd-live-stream.news.cctvplus.com/live/smil:CHANNEL2.smil/playlist.m3u8
-
-#EXTINF:-1 tvg-name="北京文艺" group-title="北京",北京文艺
-rtsp://61.135.88.136/PLTV/88888892/224/3221225868/10000100000000060000000000025097_0.smil
-#EXTINF:-1 tvg-name="北京影视" group-title="北京",北京影视
-rtsp://61.135.88.136/PLTV/88888892/224/3221226094/10000100000000060000000000804258_0.smil
-#EXTINF:-1 tvg-name="北京新闻" group-title="北京",北京新闻
-rtsp://61.135.88.136/PLTV/88888892/224/3221226092/10000100000000060000000000804251_0.smil
-https://satellitepull.cnr.cn/live/wxbjxwgb/playlist.m3u8
-#EXTINF:-1 tvg-name="北京财经" group-title="北京",北京财经
-rtsp://61.135.88.136/PLTV/88888892/224/3221226134/10000100000000060000000001010593_0.smil
-#EXTINF:-1 tvg-name="北京生活" group-title="北京",北京生活
-rtsp://61.135.88.136/PLTV/88888892/224/3221226141/10000100000000060000000001010592_0.smil
-#EXTINF:-1 tvg-name="北京国际" group-title="北京",北京国际
-rtsp://61.135.88.136/PLTV/88888892/224/3221225804/10000100000000060000000000025033_0.smil
-#EXTINF:-1 tvg-name="纪实科教" group-title="北京",纪实科教
-rtsp://61.135.88.136/PLTV/88888892/224/3221226143/10000100000000060000000001010594_0.smil
-#EXTINF:-1 tvg-name="卡酷少儿" group-title="北京",卡酷少儿
-rtsp://61.135.88.136/PLTV/88888892/224/3221226133/10000100000000060000000000943150_0.smil
-#EXTINF:-1 tvg-name="北京卫视4K超高清 SDR" group-title="北京",北京卫视4K超高清 SDR
-rtsp://61.135.88.136/PLTV/88888892/224/3221226182/390398577.smil
-http://120.76.248.139/live/bfgd/4200000083.m3u8
-http://107.150.60.122/live/bjwshd.m3u8
-http://38.75.136.137:98/gslb/dsdqbv/bjwshd.m3u8?auth=test20251009
-rtsp://61.135.88.136/PLTV/88888892/224/3221226184/391328653.smil
-
-#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
-rtsp://61.135.88.136/PLTV/88888892/224/3221226136/10000100000000060000000001103865_0.smil
-http://112.27.5.218:9901/tsfile/live/faacts/0138_1.m3u8?key=txiptv&playlive=1&authid=0
-#EXTINF:-1 tvg-name="河北卫视" group-title="卫视",河北卫视
-http://120.76.248.139/live/bfgd/4200000108.m3u8
-https://event.pull.hebtv.com/live/live101.m3u8
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hewshd
-http://38.75.136.137:98/gslb/dsdqpub/hewshd.m3u8?auth=testpub
-rtsp://61.135.88.136/PLTV/88888892/224/3221226082/10000100000000060000000000736149_0.smil
-#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
-rtsp://61.135.88.136/PLTV/88888892/224/3221225984/10000100000000060000000000176931_0.smil
-#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
-http://125.43.249.76:9901/tsfile/live/1037_1.m3u8?key=txiptv&playlive=1&authid=0
-http://107.150.60.122/live/ahwshd.m3u8
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ahwshd
-rtsp://61.135.88.136/PLTV/88888892/224/3221225999/10000100000000060000000000205203_0.smil
-#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视",湖北卫视
-http://120.76.248.139/live/bfgd/4200000102.m3u8
-http://107.150.60.122/live/hbwshd.m3u8
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hbwshd
-rtsp://61.135.88.136/PLTV/88888892/224/3221225956/10000100000000060000000000146903_0.smil
+#EXTINF:-1 tvg-name="CCTV-14" group-title="央视",CCTV-14
+http://198.204.228.26/live/cctv14hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-14" group-title="央视",CCTV-14
+http://204.12.221.218:8181/3m1080p/cctv14.m3u8
+#EXTINF:-1 tvg-name="CCTV-15" group-title="央视",CCTV-15
+http://38.75.136.137:98/gslb/dsdqbv/cctv15hd.m3u8?auth=test20251009
+#EXTINF:-1 tvg-name="CCTV-15" group-title="央视",CCTV-15
+http://204.12.221.218:8181/3m1080p/cctv15.m3u8
+#EXTINF:-1 tvg-name="CCTV-16" group-title="央视",CCTV-16
+http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009
+#EXTINF:-1 tvg-name="CCTV-16" group-title="央视",CCTV-16
+http://38.75.136.137:98/gslb/dsdqpub/cctv16hd.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CCTV-17" group-title="央视",CCTV-17
+http://74.91.26.218:82/live/cctv17hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-17" group-title="央视",CCTV-17
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv17hd
+#EXTINF:-1 tvg-name="CGTN" group-title="央视",CGTN
+http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
+#EXTINF:-1 tvg-name="CGTN法语" group-title="央视",CGTN法语
+http://espanol-liveali.cgtn.com/hls/LSveOGBaBw41Ea7ukkVAUdKQ220802LSTexu6xAuFH8VZNBLE1ZNEa220802cd.m3u8
+#EXTINF:-1 tvg-name="CGTN阿语" group-title="央视",CGTN阿语
+https://0472.org/hls/cgtna.m3u8
+#EXTINF:-1 tvg-name="CGTN西语" group-title="央视",CGTN西语
+https://0472.org/hls/cgtnx.m3u8
+#EXTINF:-1 tvg-name="CGTN纪录" group-title="央视",CGTN纪录
+https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
+#EXTINF:-1 tvg-name="CCTV-Storm Football" group-title="央视",CCTV-Storm Football
+http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CCTV-Golf & Tennis" group-title="央视",CCTV-Golf & Tennis
+http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="东南卫视" group-title="卫视",东南卫视
-rtsp://61.135.88.136/PLTV/88888892/224/3221226101/10000100000000060000000000793946_0.smil
-http://120.76.248.139/live/bfgd/4200000483.m3u8
-http://live.zohi.tv/video/s10001-fztv-3/index.m3u8
-#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视",贵州卫视
-http://107.150.60.122/live/gzwshd.m3u8
-http://204.12.221.218:8181/3m1080p/gzws.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226097/10000100000000060000000000736148_0.smil
-#EXTINF:-1 tvg-name="辽宁卫视" group-title="卫视",辽宁卫视
-http://61.136.172.236:9901/tsfile/live/0121_1.m3u8?key=txiptv&playlive=1&authid=0
-http://107.150.60.122/live/lnwshd.m3u8
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=lnwshd
-rtsp://61.135.88.136/PLTV/88888892/224/3221226000/10000100000000060000000000205199_0.smil
-#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
-rtsp://61.135.88.136/PLTV/88888892/224/3221226147/10000100000000060000000001103866_0.smil
-#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视",黑龙江卫视
-http://120.76.248.139/live/bfgd/4200000095.m3u8
-https://idclive.hljtv.com:4430/live/hljws_own.m3u8
-http://107.150.60.122/live/hljwshd.m3u8
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd
-rtsp://61.135.88.136/PLTV/88888892/224/3221225864/10000100000000060000000000025092_0.smil
-#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
-rtsp://61.135.88.136/PLTV/88888892/224/3221226161/10000100000000060000000001233339_0.smil
-#EXTINF:-1 tvg-name="河南卫视高清" group-title="卫视",河南卫视高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226156/10000100000000060000000001276309_0.smil
+http://107.150.60.122/live/dnwshd.m3u8
+#EXTINF:-1 tvg-name="东南卫视" group-title="卫视",东南卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=dnwshd
 #EXTINF:-1 tvg-name="东方卫视" group-title="卫视",东方卫视
-https://txmov2.a.kwimgs.com/bs3/video-hls/5219953535631090825_hlsb.m3u8
-https://bp-resource-dfl.bestv.cn/148/3/video.m3u8
-http://bp-resource-dfl.bestv.cn/155/3/video.m3u8
+http://38.75.136.137:98/gslb/dsdqpub/dfwshd.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="东方卫视" group-title="卫视",东方卫视
+http://38.75.136.137:98/gslb/dsdqbv/dfwshd.m3u8?auth=test20251009
 #EXTINF:-1 tvg-name="云南卫视" group-title="卫视",云南卫视
-http://120.76.248.139/live/bfgd/4200000482.m3u8
+http://192.151.150.154/live/ynwshd.m3u8
+#EXTINF:-1 tvg-name="云南卫视" group-title="卫视",云南卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ynwshd
 #EXTINF:-1 tvg-name="人间卫视" group-title="卫视",人间卫视
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/chunklist_w511254805.m3u8
+#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视",内蒙古卫视
+https://ali-m-l.cztv.com/channels/lantian/channel007/1080p.m3u8$LR•IPV4『线路27』
+#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视",内蒙古卫视
+https://live.264788.xyz/channel/neimengguweishi?streamid=81a015dbecf3031d7d847b7a9b059f67&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="北京卫视" group-title="卫视",北京卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=bjwshd
+#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
+http://107.150.60.122/live/jlwshd.m3u8
+#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jlwshd
+#EXTINF:-1 tvg-name="四川卫视" group-title="卫视",四川卫视
+https://live.264788.xyz/channel/sichuanweishi4k?streamid=21be5901ee81559c827dc84e46f26452&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="四川卫视" group-title="卫视",四川卫视
+https://live.264788.xyz/channel/sichuanweishi4k?streamid=401bf692a1a8b91298f26077d53316d6&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
 #EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视",大湾区卫视
-http://222.128.55.152:9080/live/dwq.m3u8
-#EXTINF:-1 tvg-name="安多卫视" group-title="卫视",安多卫视
-https://liveout.xntv.tv/a65jur/96iln2.m3u8
+http://198.204.228.26/live/nfws.m3u8
+#EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视",大湾区卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nfws
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+http://107.150.60.122/live/tjwshd.m3u8
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=tjwshd
+#EXTINF:-1 tvg-name="宁夏卫视" group-title="卫视",宁夏卫视
+https://live.264788.xyz/channel/ningxiaweishi?streamid=e1236348f815c36a0429357e5b5c5f10&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="宁夏卫视" group-title="卫视",宁夏卫视
+https://live.264788.xyz/channel/ningxiaweishi?streamid=551474d02bee1c160e1692e22c45ddba&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
+http://107.150.60.122/live/ahwshd.m3u8
+#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
+http://204.12.221.218:8181/3m1080p/ahws.m3u8
 #EXTINF:-1 tvg-name="山东卫视" group-title="卫视",山东卫视
-http://120.76.248.139/live/bfgd/4200000099.m3u8
-http://125.43.249.76:9901/tsfile/live/1023_1.m3u8?key=txiptv&playlive=1&authid=0
+http://107.150.60.122/live/sdwshd.m3u8
+#EXTINF:-1 tvg-name="山东卫视" group-title="卫视",山东卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd
 #EXTINF:-1 tvg-name="山西卫视" group-title="卫视",山西卫视
-http://m3u8.channel.wsrtv.com.cn/cms/videos/nmip-media/channellive/channel7/playlist.m3u8
-http://119.39.9.8:9901/tsfile/live/0118_1.m3u8
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd
+#EXTINF:-1 tvg-name="山西卫视" group-title="卫视",山西卫视
+http://204.12.221.218:8181/3m1080p/sxws.m3u8
+#EXTINF:-1 tvg-name="广东卫视" group-title="卫视",广东卫视
+http://107.150.60.122/live/gdwshd.m3u8
+#EXTINF:-1 tvg-name="广东卫视" group-title="卫视",广东卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd
 #EXTINF:-1 tvg-name="广西卫视" group-title="卫视",广西卫视
-http://120.76.248.139/live/bfgd/4200000116.m3u8
+http://107.150.60.122/live/gxwshd.m3u8
+#EXTINF:-1 tvg-name="广西卫视" group-title="卫视",广西卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gxwshd
 #EXTINF:-1 tvg-name="延边卫视" group-title="卫视",延边卫视
 http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8#
+#EXTINF:-1 tvg-name="延边卫视" group-title="卫视",延边卫视
 http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8
-https://srs.iyb983.cn:443/video/CYS/index.m3u8
+#EXTINF:-1 tvg-name="新疆卫视" group-title="卫视",新疆卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xjws
+#EXTINF:-1 tvg-name="新疆卫视" group-title="卫视",新疆卫视
+https://live.264788.xyz/channel/xinjiangweishi?streamid=4f481f56ae39ce5d24203471de9df635&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
 #EXTINF:-1 tvg-name="江苏卫视" group-title="卫视",江苏卫视
-http://125.43.249.76:9901/tsfile/live/1030_1.m3u8?key=txiptv&playlive=1&authid=0
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jswshd
+#EXTINF:-1 tvg-name="江苏卫视" group-title="卫视",江苏卫视
+http://107.150.60.122/live/jswshd.m3u8
+#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
+http://107.150.60.122/live/jxwshd.m3u8
+#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd
+#EXTINF:-1 tvg-name="河北卫视" group-title="卫视",河北卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hewshd
+#EXTINF:-1 tvg-name="河南卫视" group-title="卫视",河南卫视
+http://107.150.60.122/live/hawshd.m3u8
+#EXTINF:-1 tvg-name="河南卫视" group-title="卫视",河南卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hawshd
+#EXTINF:-1 tvg-name="浙江卫视" group-title="卫视",浙江卫视
+http://ali-m-l.cztv.com/channels/lantian/channel01/1080p.m3u8
 #EXTINF:-1 tvg-name="浙江卫视" group-title="卫视",浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8
-http://ali-m-l.cztv.com/channels/lantian/channel01/1080p.m3u8
-http://ali-xwl.cztv.com/live/channel011080Plxw.m3u8
-#EXTINF:-1 tvg-name="海峡卫视" group-title="卫视",海峡卫视
-http://8.138.7.223/tv/hxws.m3u8
+#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视",深圳卫视
+http://107.150.60.122/live/szwshd.m3u8
+#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视",深圳卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=szwshd
+#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视",湖北卫视
+http://107.150.60.122/live/hbwshd.m3u8
+#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视",湖北卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hbwshd
 #EXTINF:-1 tvg-name="湖南卫视" group-title="卫视",湖南卫视
-https://txmov2.a.kwimgs.com/bs3/video-hls/5199687338554291078_hlsb.m3u8
-http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8
-http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/Y2RuZXhfaWQ9YWxfaGxzX2xkdnQmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8
+http://107.150.60.122/live/hnwshd.m3u8
+#EXTINF:-1 tvg-name="湖南卫视" group-title="卫视",湖南卫视
+http://74.91.26.218:82/live/hnwshd.m3u8
 #EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视",甘肃卫视
-http://120.76.248.139/live/bfgd/4200000119.m3u8
-http://218.13.170.98:9901/tsfile/live/0141_1.m3u8
+http://38.75.136.137:98/gslb/dsdqpub/gswshd.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视",甘肃卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd
 #EXTINF:-1 tvg-name="西藏卫视" group-title="卫视",西藏卫视
-http://120.76.248.139/live/bfgd/4200000121.m3u8
-http://112.27.5.218:9901/tsfile/live/0111_1.m3u8?key=txiptv&playlive=1&authid=0
+http://107.150.60.122/live/xzws.m3u8
+#EXTINF:-1 tvg-name="西藏卫视" group-title="卫视",西藏卫视
+https://live.264788.xyz/channel/xizangweishi?streamid=4b4e8ea919f1cfd5e43deed1d1675251&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视",贵州卫视
+http://107.150.60.122/live/gzwshd.m3u8
+#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视",贵州卫视
+http://204.12.221.218:8181/3m1080p/gzws.m3u8
+#EXTINF:-1 tvg-name="辽宁卫视" group-title="卫视",辽宁卫视
+http://204.12.221.218:8181/3m1080p/lnws.m3u8
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+http://107.150.60.122/live/cqwshd.m3u8
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cqwshd
+#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视",陕西卫视
+http://107.150.60.122/live/snwshd.m3u8
+#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视",陕西卫视
+http://192.151.150.154/live/snwshd.m3u8
 #EXTINF:-1 tvg-name="青海卫视" group-title="卫视",青海卫视
-http://120.76.248.139/live/bfgd/4200000111.m3u8
-
-#EXTINF:-1 tvg-name="CGTN英语" group-title="数字",CGTN英语
-rtsp://61.135.88.136/PLTV/88888892/224/3221226144/10000100000000060000000001154854_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226155/10000100000000060000000001154853_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226142/10000100000000060000000001154852_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226140/10000100000000060000000001154848_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226153/10000100000000060000000001154845_0.smil
-rtsp://61.135.88.136/PLTV/88888892/224/3221226151/10000100000000060000000001154843_0.smil
-#EXTINF:-1 tvg-name="中国教育" group-title="数字",中国教育
-rtsp://61.135.88.136/PLTV/88888892/224/3221226065/10000100000000060000000000384776_0.smil
-#EXTINF:-1 tvg-name="中国交通" group-title="数字",中国交通
-rtsp://61.135.88.136/PLTV/88888892/224/3221226173/10000100000000060000000001341044_0.smil
-#EXTINF:-1 tvg-name="金鹰纪实" group-title="数字",金鹰纪实
-rtsp://61.135.88.136/PLTV/88888892/224/3221226050/10000100000000060000000000384062_0.smil
-#EXTINF:-1 tvg-name="睛彩竞技" group-title="数字",睛彩竞技
-rtsp://61.135.88.136/PLTV/88888892/224/3221226160/10000100000000060000000001464323_0.smil
-#EXTINF:-1 tvg-name="睛彩篮球" group-title="数字",睛彩篮球
-rtsp://61.135.88.136/PLTV/88888892/224/3221226162/10000100000000060000000001464344_0.smil
-#EXTINF:-1 tvg-name="睛彩青少" group-title="数字",睛彩青少
-rtsp://61.135.88.136/PLTV/88888892/224/3221226175/10000100000000060000000001464349_0.smil
-#EXTINF:-1 tvg-name="睛彩广场舞" group-title="数字",睛彩广场舞
-rtsp://61.135.88.136/PLTV/88888892/224/3221226164/10000100000000060000000001464351_0.smil
-#EXTINF:-1 tvg-name="城市剧场" group-title="数字",城市剧场
-rtsp://61.135.88.136/PLTV/88888892/224/3221226037/10000100000000060000000000285839_0.smil
-#EXTINF:-1 tvg-name="军旅剧场" group-title="数字",军旅剧场
-rtsp://61.135.88.136/PLTV/88888892/224/3221226007/10000100000000060000000000285639_0.smil
-#EXTINF:-1 tvg-name="古装剧场" group-title="数字",古装剧场
-rtsp://61.135.88.136/PLTV/88888892/224/3221226012/10000100000000060000000000285640_0.smil
-#EXTINF:-1 tvg-name="精选高清" group-title="数字",精选高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226018/10000100000000060000000000285646_0.smil
-#EXTINF:-1 tvg-name="武侠剧场" group-title="数字",武侠剧场
-rtsp://61.135.88.136/PLTV/88888892/224/3221226041/10000100000000060000000000286228_0.smil
-#EXTINF:-1 tvg-name="喜剧影院" group-title="数字",喜剧影院
-rtsp://61.135.88.136/PLTV/88888892/224/3221226044/10000100000000060000000000286227_0.smil
-#EXTINF:-1 tvg-name="动作影院" group-title="数字",动作影院
-rtsp://61.135.88.136/PLTV/88888892/224/3221226039/10000100000000060000000000286226_0.smil
-#EXTINF:-1 tvg-name="家庭影院" group-title="数字",家庭影院
-rtsp://61.135.88.136/PLTV/88888892/224/3221226034/10000100000000060000000000285685_0.smil
-#EXTINF:-1 tvg-name="星影高清" group-title="数字",星影高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226029/10000100000000060000000000285686_0.smil
-#EXTINF:-1 tvg-name="光影高清" group-title="数字",光影高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226028/10000100000000060000000000285656_0.smil
-#EXTINF:-1 tvg-name="经典电影" group-title="数字",经典电影
-rtsp://61.135.88.136/PLTV/88888892/224/3221225857/10000100000000060000000000025082_0.smil
-#EXTINF:-1 tvg-name="热播剧场" group-title="数字",热播剧场
-rtsp://61.135.88.136/PLTV/88888892/224/3221225855/10000100000000060000000000025078_0.smil
-#EXTINF:-1 tvg-name="魅力时尚" group-title="数字",魅力时尚
-rtsp://61.135.88.136/PLTV/88888892/224/3221225850/10000100000000060000000000025079_0.smil
-#EXTINF:-1 tvg-name="少儿动画" group-title="数字",少儿动画
-rtsp://61.135.88.136/PLTV/88888892/224/3221225859/10000100000000060000000000025083_0.smil
-#EXTINF:-1 tvg-name="动画高清" group-title="数字",动画高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226024/10000100000000060000000000285652_0.smil
-
-#EXTINF:-1 tvg-name="四川卫视高清" group-title="其他",四川卫视高清
+http://107.150.60.122/live/qhws.m3u8
+#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视",黑龙江卫视
+http://107.150.60.122/live/hljwshd.m3u8
+#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视",黑龙江卫视
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd
+#EXTINF:-1 tvg-name="CCTV-5+" group-title="体育",CCTV-5+
+http://38.75.136.137:98/gslb/dsdqbv/cctv5p.m3u8?auth=test20251009
+#EXTINF:-1 tvg-name="央视台球" group-title="体育",央视台球
+http://107.150.60.122/live/ystq.m3u8
+#EXTINF:-1 tvg-name="央视台球" group-title="体育",央视台球
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ystq
+#EXTINF:-1 tvg-name="风云足球" group-title="体育",风云足球
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=fyzq
+#EXTINF:-1 tvg-name="广东体育" group-title="体育",广东体育
+http://38.75.136.137:98/gslb/dsdqpub/gdty.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="劲爆体育" group-title="体育",劲爆体育
+http://t.061899.xyz/tl/tl.php?id=jbty
+#EXTINF:-1 tvg-name="天津体育" group-title="体育",天津体育
+http://38.75.136.137:98/gslb/dsdqpub/tjtv5.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="天津体育" group-title="体育",天津体育
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=tjtv5
+#EXTINF:-1 tvg-name="CCTV-Billiards" group-title="体育",CCTV-Billiards
+http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="NBA TV" group-title="体育",NBA TV
+http://23.237.104.106:8080/USA_NBA/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1
+http://88.212.15.50/live/test_arenasport/playlist.m3u8
+#EXTINF:-1 tvg-name="Al Iraqia Sport (720p)" group-title="体育",Al Iraqia Sport (720p)
+https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8
+#EXTINF:-1 tvg-name="ACI Sport TV SD (1080p)" group-title="体育",ACI Sport TV SD (1080p)
+https://webstream.multistream.it/memfs/e2cb3629-c1a2-495b-b43a-9eb386f04ed8.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 2" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 2
+http://88.212.15.50/live/test_arenasport_dva/playlist.m3u8
+#EXTINF:-1 tvg-name="Canal Showsport (720p)" group-title="体育",Canal Showsport (720p)
+https://livestream.lumpentv.com.ar/hls/lumpen.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 2" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 2
+http://57.129.96.133:888/stream/94/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 3" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 3
+http://57.129.96.133:888/stream/93/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 4" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 4
+http://57.129.96.133:888/stream/95/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport (Poland)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport (Poland)
+http://57.129.96.133:888/stream/92/index.m3u8
+#EXTINF:-1 tvg-name="Canal+ Sport (France) (1080p) [Geo-blocked]" group-title="体育",Canal+ Sport (France) (1080p) [Geo-blocked]
+http://tv.streambox.fr/live/testlivestream/testlivestream/31.m3u8
+#EXTINF:-1 tvg-name="Canal+ Sport (France) (1080p) [Geo-blocked]" group-title="体育",Canal+ Sport (France) (1080p) [Geo-blocked]
+http://tv.streambox.fr/live/testlivestream/testlivestream/31.m3u8
+#EXTINF:-1 tvg-name="Canal+ Sport 7 SK" group-title="体育",Canal+ Sport 7 SK
+http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport7/live_fullhd?offsetSeconds=0
+#EXTINF:-1 tvg-name="Canal+ Sport 4 SK" group-title="体育",Canal+ Sport 4 SK
+http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport4/live_fullhd?offsetSeconds=0
+#EXTINF:-1 tvg-name="Canal+ Sport SK" group-title="体育",Canal+ Sport SK
+http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport/live_fullhd?offsetSeconds=0
+#EXTINF:-1 tvg-name="CT Sport (720p)" group-title="体育",CT Sport (720p)
+http://88.212.15.50/live/test_ctsport_25p/playlist.m3u8
+#EXTINF:-1 tvg-name="DiviSport (1080p)" group-title="体育",DiviSport (1080p)
+http://stream.mcquack.net/457/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Dynamo Kyiv TV (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Dynamo Kyiv TV (1080p)
+http://stream.mcquack.net/396/index.m3u8
+#EXTINF:-1 tvg-name="Eleven Sports 1" group-title="体育",Eleven Sports 1
+http://92.114.85.87:8002/play/a00e/index.m3u8
+#EXTINF:-1 tvg-name="Eleven Sports 3 (1080p)" group-title="体育",Eleven Sports 3 (1080p)
+http://92.114.85.87:8002/play/a00g/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Equalympic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Equalympic (1080p)
+http://stream.mcquack.net/485/index.m3u8
+#EXTINF:-1 tvg-name="Eleven Sports 2 (1080p)" group-title="体育",Eleven Sports 2 (1080p)
+http://92.114.85.87:8002/play/a00f/index.m3u8
+#EXTINF:-1 tvg-name="ESPN 2 (United States) HD (720p)" group-title="体育",ESPN 2 (United States) HD (720p)
+http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8
+#EXTINF:-1 tvg-name="ESPN 2 Latin America Colombia (1080p)" group-title="体育",ESPN 2 Latin America Colombia (1080p)
+http://190.61.47.54:8000/play/a005/index.m3u8
+#EXTINF:-1 tvg-name="ESPN 4 (Brazil) (1080p)" group-title="体育",ESPN 4 (Brazil) (1080p)
+http://181.78.197.59:8000/play/a07n/index.m3u8
+#EXTINF:-1 tvg-name="ESPN (Brazil) (1080p)" group-title="体育",ESPN (Brazil) (1080p)
+http://181.78.197.59:8000/play/a07z/index.m3u8
+#EXTINF:-1 tvg-name="ESPN (United States) HD (720p)" group-title="体育",ESPN (United States) HD (720p)
+http://85.237.89.160:9590/usa-s/ESPN-HD/index.m3u8
+#EXTINF:-1 tvg-name="ESPN Latin America Colombia (1080p)" group-title="体育",ESPN Latin America Colombia (1080p)
+http://190.61.47.54:8000/play/a004/index.m3u8
+#EXTINF:-1 tvg-name="ESPN Latin America Mexico (1080p)" group-title="体育",ESPN Latin America Mexico (1080p)
+http://168.228.44.241:9997/play/a06p/index.m3u8
+#EXTINF:-1 tvg-name="ESPN Premium HD (1080p)" group-title="体育",ESPN Premium HD (1080p)
+http://158.172.155.130:8000/play/a0ao/index.m3u8
+#EXTINF:-1 tvg-name="ESPNU HD (720p)" group-title="体育",ESPNU HD (720p)
+http://85.237.89.160:9590/usa-s/ESPN-U-HD/index.m3u8
+#EXTINF:-1 tvg-name="Eurosport 1 Portugal" group-title="体育",Eurosport 1 Portugal
+http://185.228.163.146:8000/play/a03z/index.m3u8
+#EXTINF:-1 tvg-name="Eurosport 1 Romania" group-title="体育",Eurosport 1 Romania
+http://89.44.231.73:7000/eurosport
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport 2 Germany" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport 2 Germany
+http://46.244.99.71:8181/stream/74/index.m3u8
+#EXTINF:-1 tvg-name="Eurosport 2 Portugal" group-title="体育",Eurosport 2 Portugal
+http://185.228.163.146:8000/play/a048/index.m3u8
+#EXTINF:-1 tvg-name="Eurosport 2 Romania" group-title="体育",Eurosport 2 Romania
+http://89.44.231.73:7000/eurosport2
+#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Eurosport 4K Czechia" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Eurosport 4K Czechia
+http://88.212.15.50/live/esp_4k_atk/playlist.m3u8
+#EXTINF:-1 tvg-name="Eurosport 2 Spain (1080p)" group-title="体育",Eurosport 2 Spain (1080p)
+http://45.134.141.161:2200/ARG/Eurosport_2_HD/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport (France)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport (France)
+http://103.253.74.210:7070/stream/122/index.m3u8
+#EXTINF:-1 tvg-name="Eurosport (India) HD (1080p)" group-title="体育",Eurosport (India) HD (1080p)
+https://livetv.shamon-cable.net:8443/Eurosport-HD/index.m3u8
+#EXTINF:-1 tvg-name="Fox Sports News (1080p)" group-title="体育",Fox Sports News (1080p)
+https://skynewsau-live-premium.akamaized.net/hls/live/2105307/foxsportsnews/live_1080p.m3u8
+#EXTINF:-1 tvg-name="Fox Sports 1 (720p)" group-title="体育",Fox Sports 1 (720p)
+http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8
+#EXTINF:-1 tvg-name="Fox Sports HD" group-title="体育",Fox Sports HD
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/1552.m3u8
+#EXTINF:-1 tvg-name="Fox Sports (1080p)" group-title="体育",Fox Sports (1080p)
+http://138.59.227.20:8000/play/a085/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Go3 Sport 1 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Go3 Sport 1 (1080p)
+http://stream.mcquack.net/416/index.m3u8
+#EXTINF:-1 tvg-name="HBCU-GO Sports (720p)" group-title="体育",HBCU-GO Sports (720p)
+https://a-cdn.klowdtv.com/live3/hbcugo_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="Maincast Cybersport (1080p)" group-title="体育",Maincast Cybersport (1080p)
+http://stream.mcquack.net/487/index.m3u8
+#EXTINF:-1 tvg-name="Maincast Sport (1080p)" group-title="体育",Maincast Sport (1080p)
+http://stream.mcquack.net/490/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Max Sport 3 (720p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Max Sport 3 (720p)
+http://213.91.179.28:8000/play/a0ar
+#EXTINF:-1 tvg-name="MNB Sport (1080p)" group-title="体育",MNB Sport (1080p)
+https://live.mnb.mn/hls/mnb_sport.stream.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Real Madrid TV (1080p)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Real Madrid TV (1080p)
+http://90.163.85.113:8093/stream/26/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 2 Eurasia (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 2 Eurasia (1080p)
+http://stream.mcquack.net/235/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 1 Eurasia (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 1 Eurasia (1080p)
+http://stream.mcquack.net/234/index.m3u8
+#EXTINF:-1 tvg-name="Sky Sports 1 (1080p)" group-title="体育",Sky Sports 1 (1080p)
+http://45.228.234.9:8000/play/a06b/index.m3u8
+#EXTINF:-1 tvg-name="Sky Sports 2 (1080p)" group-title="体育",Sky Sports 2 (1080p)
+http://200.115.120.1:8000/play/ca82266/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport1" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport1
+http://88.212.15.50/live/test_sport1_25p/playlist.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport2" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport2
+http://88.212.15.50/live/test_sport_2/playlist.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 1 Baltic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 1 Baltic (1080p)
+http://stream.mcquack.net/461/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 2 (Ukraine) (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 2 (Ukraine) (1080p)
+http://stream.mcquack.net/392/index.m3u8
+#EXTINF:-1 tvg-name="Sport (Slovakia) (1080p)" group-title="体育",Sport (Slovakia) (1080p)
+http://88.212.15.50/live/test_rtvs_sport_hevc/playlist.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 3 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 3 (1080p)
+http://stream.mcquack.net/393/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Sport 5 (1080p)" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Sport 5 (1080p)
+http://stream.mcquack.net/212/index.m3u8
+#EXTINF:-1 tvg-name="Sport (Uzbekistan)" group-title="体育",Sport (Uzbekistan)
+https://stream8.cinerama.uz/1004/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="Sport Total FM (576i)" group-title="体育",Sport Total FM (576i)
+https://livesptfm.com/SPTFM/Live/playlist.m3u8
+#EXTINF:-1 tvg-name="Sports Television (720p) [Not 24/7]" group-title="体育",Sports Television (720p) [Not 24/7]
+https://live.koryocdn.org/sports/index.m3u8
+#EXTINF:-1 tvg-name="SportsMax News (1080p)" group-title="体育",SportsMax News (1080p)
+http://181.79.86.130:8000/play/a081/index.m3u8
+#EXTINF:-1 tvg-name="Sporty TV" group-title="体育",Sporty TV
+https://dash2.antik.sk/live/sporty_tv/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Suspilne. Sport (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Suspilne. Sport (1080p)
+http://stream.mcquack.net/444/index.m3u8
+#EXTINF:-1 tvg-name="Swerve Sports (720p)" group-title="体育",Swerve Sports (720p)
+https://a-cdn.klowdtv.com/live3/swervewomenssports_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="like Geck0) Chrome/102.0.0.0 Safari/537.37" group-title="Sports",Tigo Sports+ (1280p)" group-title="体育",like Geck0) Chrome/102.0.0.0 Safari/537.37" group-title="Sports",Tigo Sports+ (1280p)
+https://stmv7.voxtvhd.com.br/xxvideo/xxvideo/playlist.m3u8
+#EXTINF:-1 tvg-name="TNT Sports (Argentina)" group-title="体育",TNT Sports (Argentina)
+http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/86.m3u8
+#EXTINF:-1 tvg-name="TNT Sports Premium ArgentinaHD (1080p)" group-title="体育",TNT Sports Premium ArgentinaHD (1080p)
+http://181.78.79.131:8000/play/a0q9
+#EXTINF:-1 tvg-name="Trace Sport Stars Russia (720p)" group-title="体育",Trace Sport Stars Russia (720p)
+https://stream8.cinerama.uz/1274/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="viju+ Sport HD (1080p)" group-title="体育",viju+ Sport HD (1080p)
+http://46.53.200.153:7777/play/a01l/index.m3u8
+#EXTINF:-1 tvg-name="Voyo Sport 1 (1080i)" group-title="体育",Voyo Sport 1 (1080i)
+https://vip-acasatv.online:25463/lrZuGxAuP3/6782859900/16677.m3u8
+#EXTINF:-1 tvg-name="Win Sports (1080p)" group-title="体育",Win Sports (1080p)
+http://138.121.15.230:9002/WIN-SPORT/index.m3u8
+#EXTINF:-1 tvg-name="风云剧场" group-title="影视",风云剧场
+http://173.208.212.130:8181/720p/fyjc.m3u8
+#EXTINF:-1 tvg-name="风云剧场" group-title="影视",风云剧场
+https://live.264788.xyz/channel/fengyunjuchang?streamid=31e7b5b7032d25dd215a4069cdee1a48&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="怀旧剧场" group-title="影视",怀旧剧场
+https://live.264788.xyz/channel/huaijiujuchang?streamid=7e5d1abdddde08f588234f3f640f75ff&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="怀旧剧场" group-title="影视",怀旧剧场
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hjjc
+#EXTINF:-1 tvg-name="第一剧场" group-title="影视",第一剧场
+https://live.264788.xyz/channel/diyijuchang?streamid=d81e188b59ece96b7e8f1ce34aea3ef8&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="第一剧场" group-title="影视",第一剧场
+https://live.264788.xyz/channel/diyijuchang?streamid=e9b0fb1ca135a4aeae12944494883794&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视",浙江教科影视
+http://ali-m-l.cztv.com/channels/lantian/channel04/1080p.m3u8
+#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视",浙江教科影视
+https://ali-m-l.cztv.com/channels/lantian/channel004/1080p.m3u8
+#EXTINF:-1 tvg-name="欢笑剧场" group-title="影视",欢笑剧场
+http://38.75.136.137:98/gslb/dsdqpub/hxjchd.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="都市剧场" group-title="影视",都市剧场
+http://38.75.136.137:98/gslb/dsdqpub/dsjchd.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="南宁影视娱乐" group-title="影视",南宁影视娱乐
+http://hls.nntv.cn/nnlive/YSYL_244.m3u8
+#EXTINF:-1 tvg-name="湖南电影" group-title="影视",湖南电影
+http://php.jdshipin.com:8880/iptv.php
+#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视",CHC家庭影院
+http://192.151.150.154/live/chcjt.m3u8
+#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视",CHC家庭影院
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=chcjt
+#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视",CHC动作电影
+http://107.150.60.122/live/chcdz.m3u8
+#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视",CHC动作电影
+http://198.204.228.26/live/chcdz.m3u8
+#EXTINF:-1 tvg-name="天映经典" group-title="影视",天映经典
+http://mag.trexlive.me:80/play/live.php?extension=ts&mac=00:1A:79:7E:2F:ED&stream=1919463
+#EXTINF:-1 tvg-name="三国演义" group-title="影视",三国演义
+https://live.metshop.top/huya/11602081
+#EXTINF:-1 tvg-name="CHC电影" group-title="影视",CHC电影
+http://183.237.95.108:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=0&authid=0
+#EXTINF:-1 tvg-name="倩女幽魂妖魔道" group-title="影视",倩女幽魂妖魔道
+http://jsmov2.a.yximgs.com/bs3/video-hls/5232901391302199073_hlsb.m3u8
+#EXTINF:-1 tvg-name="倩女幽魂人间道" group-title="影视",倩女幽魂人间道
+http://jsmov2.a.yximgs.com/bs3/video-hls/5250634317044855747_hlsb.m3u8
+#EXTINF:-1 tvg-name="倩女幽魂道道道" group-title="影视",倩女幽魂道道道
+http://jsmov2.a.yximgs.com/bs3/video-hls/5216294367991385255_hlsb.m3u8
+#EXTINF:-1 tvg-name="功夫电影" group-title="影视",功夫电影
+https://live.metshop.top/huya/11352941
+#EXTINF:-1 tvg-name="古天乐电影" group-title="影视",古天乐电影
+https://live.metshop.top/huya/29982675
+#EXTINF:-1 tvg-name="CCTV怀旧剧场" group-title="影视",CCTV怀旧剧场
+https://live.264788.xyz/channel/huaijiujuchang?streamid=7e5d1abdddde08f588234f3f640f75ff&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="CCTV第一剧场" group-title="影视",CCTV第一剧场
+https://live.264788.xyz/channel/diyijuchang?streamid=e9b0fb1ca135a4aeae12944494883794&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-name="周星驰电影" group-title="影视",周星驰电影
+https://live.metshop.top/huya/11342412
+#EXTINF:-1 tvg-name="怪兽电影" group-title="影视",怪兽电影
+https://live.metshop.top/huya/21059577
+#EXTINF:-1 tvg-name="强森电影" group-title="影视",强森电影
+https://live.metshop.top/huya/21059581
+#EXTINF:-1 tvg-name="成龙电影" group-title="影视",成龙电影
+https://live.metshop.top/huya/11342386
+#EXTINF:-1 tvg-name="李连杰电影" group-title="影视",李连杰电影
+https://live.metshop.top/huya/11342390
+#EXTINF:-1 tvg-name="枪战电影" group-title="影视",枪战电影
+https://live.metshop.top/huya/21059579
+#EXTINF:-1 tvg-name="林正英电影" group-title="影视",林正英电影
+https://live.metshop.top/huya/11342421
+#EXTINF:-1 tvg-name="人在囧途之泰囧" group-title="影视",人在囧途之泰囧
+https://vip.ffzy-play.com/20221018/1951_47e1adc8/index.m3u8
+#EXTINF:-1 tvg-name="人在囧途之港囧" group-title="影视",人在囧途之港囧
+https://vip.ffzy-play7.com/20230112/11082_fde1a94d/index.m3u8
+#EXTINF:-1 tvg-name="人在囧途" group-title="影视",人在囧途
+https://vip.ffzy-play.com/20221018/1953_2d6ba500/index.m3u8
+#EXTINF:-1 tvg-name="沈腾电影" group-title="影视",沈腾电影
+https://live.metshop.top/huya/11601968
+#EXTINF:-1 tvg-name="武侠电影" group-title="影视",武侠电影
+https://live.metshop.top/huya/11342427
+#EXTINF:-1 tvg-name="狄仁杰电影" group-title="影视",狄仁杰电影
+https://live.metshop.top/huya/30080229
+#EXTINF:-1 tvg-name="王晶电影" group-title="影视",王晶电影
+https://live.metshop.top/huya/11602058
+#EXTINF:-1 tvg-name="甄子丹电影" group-title="影视",甄子丹电影
+https://live.metshop.top/huya/11352935
+#EXTINF:-1 tvg-name="罪犯电影" group-title="影视",罪犯电影
+https://live.metshop.top/huya/11352962
+#EXTINF:-1 tvg-name="贺岁电影" group-title="影视",贺岁电影
+https://live.metshop.top/huya/11601986
+#EXTINF:-1 tvg-name="谍战电影" group-title="影视",谍战电影
+https://live.metshop.top/huya/21059585
+#EXTINF:-1 tvg-name="黄渤电影" group-title="影视",黄渤电影
+https://live.metshop.top/huya/11352876
+#EXTINF:-1 tvg-name="韩国电影2" group-title="影视",韩国电影2
+https://stream.ads.ottera.tv/playlist.m3u8?network_id=743
+#EXTINF:-1 tvg-name="韩国电影1" group-title="影视",韩国电影1
+https://stream.ads.ottera.tv/playlist.m3u8?network_id=595
+#EXTINF:-1 tvg-name="30A Georgia Hollywood Review (720p)" group-title="美国",30A Georgia Hollywood Review (720p)
+https://30a-tv.com/gh.m3u8
+#EXTINF:-1 tvg-name="30A Investment Pitch (720p)" group-title="美国",30A Investment Pitch (720p)
+https://30a-tv.com/feeds/xodglobal/30atv.m3u8
+#EXTINF:-1 tvg-name="30A Luxe Life Discovered (720p)" group-title="美国",30A Luxe Life Discovered (720p)
+https://30a-tv.com/feeds/vidaa/luxelife.m3u8
+#EXTINF:-1 tvg-name="30A Ridiculous TV (720p)" group-title="美国",30A Ridiculous TV (720p)
+https://30a-tv.com/feeds/720p/63.m3u8
+#EXTINF:-1 tvg-name="30A Sidewalks (720p)" group-title="美国",30A Sidewalks (720p)
+https://30a-tv.com/sidewalks.m3u8
+#EXTINF:-1 tvg-name="30A Television Channel (720p)" group-title="美国",30A Television Channel (720p)
+https://30a-tv.com/feeds/masters/30atv.m3u8
+#EXTINF:-1 tvg-name="30A The Beach Show (720p)" group-title="美国",30A The Beach Show (720p)
+https://30a-tv.com/beachy.m3u8
+#EXTINF:-1 tvg-name="30A TV Classic Movies (720p)" group-title="美国",30A TV Classic Movies (720p)
+https://30a-tv.com/feeds/pzaz/30atvmovies.m3u8
+#EXTINF:-1 tvg-name="30A We Love Cars (720p)" group-title="美国",30A We Love Cars (720p)
+https://30a-tv.com/feeds/vidaa/cars.m3u8
+#EXTINF:-1 tvg-name="Anand TV (United Kingdom) (720p) [Not 24/7]" group-title="英国",Anand TV (United Kingdom) (720p) [Not 24/7]
+https://live-anandtv.anandmedia.net/anandtvapp/anandtv/index.m3u8
+#EXTINF:-1 tvg-name="Alb UK TV (1080p) [Not 24/7]" group-title="英国",Alb UK TV (1080p) [Not 24/7]
+http://albuk.dyndns.tv:1935/albuk/albuk.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Ahlulbayt TV (1080p)" group-title="英国",Ahlulbayt TV (1080p)
+https://cd198.anystream.uk:8082/hls/abtv3ng/index.m3u8
+#EXTINF:-1 tvg-name="QVC (Japan) (1080p)" group-title="日本",QVC (Japan) (1080p)
+https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
+#EXTINF:-1 tvg-name="GSTV (720p)" group-title="日本",GSTV (720p)
+https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
+#EXTINF:-1 tvg-name="Shop Channel (1080p) [Not 24/7]" group-title="日本",Shop Channel (1080p) [Not 24/7]
+https://stream3.shopch.jp/HLS/master.m3u8
+#EXTINF:-1 tvg-name="ABN (720p)" group-title="韩国",ABN (720p)
+https://vod2.abn.co.kr/IPHONE/abn.m3u8
+#EXTINF:-1 tvg-name="BBS TV (South Korea) (1080p)" group-title="韩国",BBS TV (South Korea) (1080p)
+http://bbstv.clouducs.com:1935/bbstv-live/livestream/playlist.m3u8
+#EXTINF:-1 tvg-name="BTN TV (South Korea) (1080p)" group-title="韩国",BTN TV (South Korea) (1080p)
+https://btn.nowcdn.co.kr/btn/btnlive2m/playlist.m3u8
+#EXTINF:-1 tvg-name="GCN (720p)" group-title="韩国",GCN (720p)
+http://liveko24-manminglobal3.ktcdn.co.kr/liveko24/gcnko_1300k.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Gugbang TV (1080p) [Not 24/7]" group-title="韩国",Gugbang TV (1080p) [Not 24/7]
+http://mediaworks.dema.mil.kr:1935/live_edge/cudo.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="HLAM-DTV (720p) [Not 24/7]" group-title="韩国",HLAM-DTV (720p) [Not 24/7]
+http://vod.mpmbc.co.kr:1935/live/encoder-tv/playlist.m3u8
+#EXTINF:-1 tvg-name="GS My Shop (1080p)" group-title="韩国",GS My Shop (1080p)
+https://gstv-myshop.gsshop.com/myshop_hd/myshop_hd.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Gugak TV (1080p)" group-title="韩国",Gugak TV (1080p)
+https://mgugaklive.nowcdn.co.kr/gugakvideo/gugakvideo.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="GS Shop (1080p)" group-title="韩国",GS Shop (1080p)
+https://gstv-gsshop.gsshop.com/gsshop_hd/gsshop_hd.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="HLAO-DTV (720p) [Not 24/7]" group-title="韩国",HLAO-DTV (720p) [Not 24/7]
+http://211.33.246.4:32954/cj_live/myStream.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Gongyoung Home Shopping (720p)" group-title="韩国",Gongyoung Home Shopping (720p)
+https://etv.publichs.com/live5.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="HLAN-DTV (480p) [Not 24/7]" group-title="韩国",HLAN-DTV (480p) [Not 24/7]
+https://stream.chmbc.co.kr/TV/myStream/playlist.m3u8
+#EXTINF:-1 tvg-name="HLAT-DTV (1080p) [Not 24/7]" group-title="韩国",HLAT-DTV (1080p) [Not 24/7]
+https://5c3639aa99149.streamlock.net/live_TV/tv/playlist.m3u8
+#EXTINF:-1 tvg-name="FGTV (South Korea) (720p)" group-title="韩国",FGTV (South Korea) (720p)
+https://fgtvlive.fgtv.com/smil:fgtv.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="Adria Music Television" group-title="德国",Adria Music Television
+https://adriaapp.b-cdn.net/1080p/index.m3u8
+#EXTINF:-1 tvg-name="3sat" group-title="德国",3sat
+https://dash4.antik.sk/live/test_drei_sat_tizen/playlist.m3u8
+#EXTINF:-1 tvg-name="arte (Germany) HD" group-title="德国",arte (Germany) HD
+https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Series",AXN White (Germany)" group-title="德国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Series",AXN White (Germany)
+http://46.244.99.71:8181/stream/50/index.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Movies",AXN Black (Germany)" group-title="德国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Movies",AXN Black (Germany)
+http://46.244.99.71:8181/stream/35/index.m3u8
+#EXTINF:-1 tvg-name="Bibel TV Impuls (720p)" group-title="德国",Bibel TV Impuls (720p)
+https://bibeltv02.iptv-playoutcenter.de/bibeltv02/bibeltv02.stream_1/playlist.m3u8
+#EXTINF:-1 tvg-name="Bibel TV Musik (720p)" group-title="德国",Bibel TV Musik (720p)
+https://bibeltv03.iptv-playoutcenter.de/bibeltv03/bibeltv03.stream_1/playlist.m3u8
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment",13eme Rue" group-title="法国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment",13eme Rue
+http://192.99.186.30/stream/251/index.m3u8
+#EXTINF:-1 tvg-name="Africa 24 English (1080p)" group-title="法国",Africa 24 English (1080p)
+https://edge20.vedge.infomaniak.com/livecast/ik:africa24english/manifest.m3u8
+#EXTINF:-1 tvg-name="Africa 24 Sport (1080p)" group-title="法国",Africa 24 Sport (1080p)
+https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8
+#EXTINF:-1 tvg-name="Alpe d'Huez TV (720p) [Not 24/7]" group-title="法国",Alpe d'Huez TV (720p) [Not 24/7]
+https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8
+#EXTINF:-1 tvg-name="Brionnais TV (720p)" group-title="法国",Brionnais TV (720p)
+https://stream2.mandarine.media/brionnaistv/brionnaistv/playlist.m3u8
+#EXTINF:-1 tvg-name="1HD Music Television (1080p)" group-title="俄罗斯",1HD Music Television (1080p)
+http://176.118.197.101/1HD/index.m3u8
+#EXTINF:-1 tvg-name="86 (1080p) [Not 24/7]" group-title="俄罗斯",86 (1080p) [Not 24/7]
+https://sitv.ru/hls/s86.m3u8
+#EXTINF:-1 tvg-name=".black (576p)" group-title="俄罗斯",.black (576p)
+http://stream.mcquack.net/263/index.m3u8
+#EXTINF:-1 tvg-name="5 minut tishiny (1080p)" group-title="俄罗斯",5 minut tishiny (1080p)
+https://cdn-dvr.ntv.ru/5_minut_tishiny/index.m3u8
+#EXTINF:-1 tvg-name=".sci-fi (576p)" group-title="俄罗斯",.sci-fi (576p)
+http://stream.mcquack.net/180/index.m3u8
+#EXTINF:-1 tvg-name="AIST TV (1080p)" group-title="俄罗斯",AIST TV (1080p)
+http://live2-aisttv.cdnvideo.ru/aisttv2/aisttv.sdp/playlist.m3u8
+#EXTINF:-1 tvg-name="Amedia Hit (1080p)" group-title="俄罗斯",Amedia Hit (1080p)
+http://stream.mcquack.net/162/index.m3u8
+#EXTINF:-1 tvg-name=".red HD (1080p)" group-title="俄罗斯",.red HD (1080p)
+http://178.134.1.158:8081/red/index.m3u8
+#EXTINF:-1 tvg-name="Animal Planet (Russia) (1080p)" group-title="俄罗斯",Animal Planet (Russia) (1080p)
+http://stream.mcquack.net/114/index.m3u8
+#EXTINF:-1 tvg-name="Aris 24 (720p) [Not 24/7]" group-title="俄罗斯",Aris 24 (720p) [Not 24/7]
+http://serv25.vintera.tv:8081/test/aris/playlist.m3u8
+#EXTINF:-1 tvg-name="Arsenal (576p)" group-title="俄罗斯",Arsenal (576p)
+https://stream8.cinerama.uz/1414/tracks-v1a1/mono.m3u8
+#EXTINF:-1 tvg-name="AntenaPlay Events (576i) [Not 24/7]" group-title="国际",AntenaPlay Events (576i) [Not 24/7]
+https://live77cdn2.antenaplay.ro/live2_sport07/live2_sport07_3500k.m3u8
+#EXTINF:-1 tvg-name="Bicolor+ Premium [Geo-blocked]" group-title="国际",Bicolor+ Premium [Geo-blocked]
+https://live-evg10.tv360.bitel.com.pe/bitel/bicolorpremium_abr/bitel/bicolorpremium_720p/chunks.m3u8
+#EXTINF:-1 tvg-name="CazeTV (1080p)" group-title="国际",CazeTV (1080p)
+http://138.204.86.4:8080/CAZE_TV/playlist.m3u8
+#EXTINF:-1 tvg-name="CCTV-Storm Football (1080p)" group-title="国际",CCTV-Storm Football (1080p)
+http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CCTV-Golf & Tennis (1080p)" group-title="国际",CCTV-Golf & Tennis (1080p)
+http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CCTV-Billiards (1080p)" group-title="国际",CCTV-Billiards (1080p)
+http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="CRTV (Chile) (720p)" group-title="国际",CRTV (Chile) (720p)
+https://stmv2.voxtvhd.com.br/crtvchile/crtvchile/playlist.m3u8
+#EXTINF:-1 tvg-name="CDN Deportes (720p) [Not 24/7]" group-title="国际",CDN Deportes (720p) [Not 24/7]
+https://hls.tvabierta.net/hls/036.m3u8
+#EXTINF:-1 tvg-name="DAZN 3 Portugal (720p)" group-title="国际",DAZN 3 Portugal (720p)
+http://23.237.104.106:8080/DAZN_3/index.m3u8
+#EXTINF:-1 tvg-name="Fast&FunBox" group-title="国际",Fast&FunBox
+https://dash3.antik.sk/live/test_fast_and_funbox_medium_atk/playlist.m3u8
+#EXTINF:-1 tvg-name="FB TV" group-title="国际",FB TV
+http://1hskrdto.rocketcdn.com/fenerbahcetv.smil/playlist.m3u8
+#EXTINF:-1 tvg-name="FightBox HD" group-title="国际",FightBox HD
+https://nosignal1.antenaplay.ro/hls/fightbox-hd/index.m3u8
+#EXTINF:-1 tvg-name="Futbol (1080p)" group-title="国际",Futbol (1080p)
+http://185.121.1.163:8083/FootballHD/index.m3u8
+#EXTINF:-1 tvg-name="FUTV (1080p)" group-title="国际",FUTV (1080p)
+http://45.228.234.9:8000/play/a06o/index.m3u8
+#EXTINF:-1 tvg-name="Game+ (720p)" group-title="国际",Game+ (720p)
+https://a-cdn.klowdtv.com/live2/fntsy_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="FTV (Bolivia) (720p)" group-title="国际",FTV (Bolivia) (720p)
+https://master.tucableip.com/ftvhd/index.m3u8
+#EXTINF:-1 tvg-name="Golf + (1080p) [Geo-blocked]" group-title="国际",Golf + (1080p) [Geo-blocked]
+http://tv.streambox.fr/live/testlivestream/testlivestream/49.m3u8
+#EXTINF:-1 tvg-name="Golf Channel Latin America (1080p)" group-title="国际",Golf Channel Latin America (1080p)
+http://15.204.246.24:8080/GolfChannelHD/index.m3u8
+#EXTINF:-1 tvg-name="Golf Channel (Czech Republic)" group-title="国际",Golf Channel (Czech Republic)
+https://dash4.antik.sk/live/test_golf_channel/playlist.m3u8
+#EXTINF:-1 tvg-name="Horse TV (720p)" group-title="国际",Horse TV (720p)
+https://a-cdn.klowdtv.com/live2/horsetv_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="L1 Max (1080p)" group-title="国际",L1 Max (1080p)
+http://190.93.224.42/LIGA-1-MAX/index.m3u8
+#EXTINF:-1 tvg-name="LRT Plius (1080p)" group-title="国际",LRT Plius (1080p)
+http://stream.mcquack.net/353/index.m3u8
+#EXTINF:-1 tvg-name="Lacrosse TV (720p)" group-title="国际",Lacrosse TV (720p)
+https://a-cdn.klowdtv.com/live2/lsn_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="Match4 (1080p)" group-title="国际",Match4 (1080p)
+http://141.94.193.53/Match4_HD/index.m3u8
+#EXTINF:-1 tvg-name="Match! Boets (576p)" group-title="国际",Match! Boets (576p)
+http://stream.mcquack.net/112/index.m3u8
+#EXTINF:-1 tvg-name="MadeinBO TV (1080p)" group-title="国际",MadeinBO TV (1080p)
+https://srvx1.selftv.video/dmchannel/live/playlist.m3u8
+#EXTINF:-1 tvg-name="Match! Ultra (1080p)" group-title="国际",Match! Ultra (1080p)
+http://31.148.5.241/kanal_3/index.m3u8
+#EXTINF:-1 tvg-name="Milan TV (720p)" group-title="国际",Milan TV (720p)
+http://team-tv.co:81/milan/index.m3u8
+#EXTINF:-1 tvg-name="Monterrico TV" group-title="国际",Monterrico TV
+https://h.jcp.live.opencaster.com/play_src/index.m3u8
+#EXTINF:-1 tvg-name="NBA TV (720p)" group-title="国际",NBA TV (720p)
+http://23.237.104.106:8080/USA_NBA/index.m3u8
+#EXTINF:-1 tvg-name="Nautical Channel (720p)" group-title="国际",Nautical Channel (720p)
+https://a-cdn.klowdtv.com/live2/nautical_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="Ovacion TV (720p) [Not 24/7]" group-title="国际",Ovacion TV (720p) [Not 24/7]
+http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
+#EXTINF:-1 tvg-name="Persiana Fight" group-title="国际",Persiana Fight
+https://fighthls.persiana.live/hls/stream.m3u8
+#EXTINF:-1 tvg-name="Prime (Syria) (1080p)" group-title="国际",Prime (Syria) (1080p)
+https://cdn.bestream.io/prime/prime.m3u8
+#EXTINF:-1 tvg-name="Real Madrid TV English" group-title="国际",Real Madrid TV English
+http://88.212.15.50/live/real_madrid_tv/index.m3u8
+#EXTINF:-1 tvg-name="Right Now TV (720p)" group-title="国际",Right Now TV (720p)
+https://a-cdn.klowdtv.com/live2/rightnowtv_720p/playlist.m3u8
+#EXTINF:-1 tvg-name="Russian Extreme Ultra (1440p)" group-title="国际",Russian Extreme Ultra (1440p)
+http://46.53.200.153:7777/play/test_krask1/index.m3u8
+#EXTINF:-1 tvg-name="Sky Racing 1 (720p)" group-title="国际",Sky Racing 1 (720p)
+https://636ffd31f0e12.streamlock.net/RacingStream1/RacingStream1/playlist.m3u8
+#EXTINF:-1 tvg-name="SOS Kanal Plus (720p)" group-title="国际",SOS Kanal Plus (720p)
+https://53be5ef2d13aa.streamlock.net/soskanalplus/soskanalplus.stream/playlist.m3u8
+#EXTINF:-1 tvg-name="Tennis Channel 2 (1080p)" group-title="国际",Tennis Channel 2 (1080p)
+https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
+#EXTINF:-1 tvg-name="Tour Spot TV (1280p) [Not 24/7]" group-title="国际",Tour Spot TV (1280p) [Not 24/7]
+https://fox.hostlagarto.com:8081/toursporttv/playlist.m3u8
+#EXTINF:-1 tvg-name="Voyo Events (576i) [Not 24/7]" group-title="国际",Voyo Events (576i) [Not 24/7]
+http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-ro-protv-plus5/live_fullhd?offsetSeconds=0
+#EXTINF:-1 tvg-name="WAPA-TV 4.2 (720p) [Not 24/7]" group-title="国际",WAPA-TV 4.2 (720p) [Not 24/7]
+https://wapa.hostless.app/WAPA-TV-4-2.m3u8
+#EXTINF:-1 tvg-name="Win+ Futbol (1080p)" group-title="国际",Win+ Futbol (1080p)
+http://181.78.12.119:16123/play/ch19/index.m3u8
+#EXTINF:-1 tvg-name="World Poker Tour (1080p)" group-title="国际",World Poker Tour (1080p)
+https://d2e00kr7m9coe4.cloudfront.net/scheduler/scheduleMaster/406.m3u8
+#EXTINF:-1 tvg-name="北京卫视 4K 超高清" group-title="北京",北京卫视 4K 超高清
+rtsp://61.135.88.136/PLTV/88888892/224/3221226182/390398577.smil
+#EXTINF:-1 tvg-name="四川卫视 4K" group-title="卫视",四川卫视 4K
 rtsp://61.135.88.136/PLTV/88888892/224/3221226221/422332212.smil
-#EXTINF:-1 tvg-name="海南卫视高清" group-title="其他",海南卫视高清
-http://120.76.248.139/live/bfgd/4200000473.m3u8
-rtsp://61.135.88.136/PLTV/88888892/224/3221226227/422333129.smil
-#EXTINF:-1 tvg-name="陕西卫视高清" group-title="其他",陕西卫视高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226223/422332704.smil
-#EXTINF:-1 tvg-name="内蒙古卫视高清" group-title="其他",内蒙古卫视高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226225/422332751.smil
-http://play1-qk.nmtv.cn/live/1769652018126032.m3u8
-
-#EXTINF:-1 tvg-name="证券服务" group-title="体验",证券服务
-rtsp://61.135.88.136/PLTV/88888892/224/3221226210/406742223.smil
-
-#EXTINF:-1 tvg-name="广东卫视4K超高清" group-title="卫视超高清",广东卫视4K超高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226215/407059592.smil
-http://120.76.248.139/live/bfgd/4200000092.m3u8
-https://txmov2.a.kwimgs.com/upic/2023/01/26/09/BMjAyMzAxMjYwOTE3NDVfNzM5MzQzNzIyXzk0NjI1OTUwNTA3XzBfMw==_b_B81ddda927d33445d544befd008e60109.mp4
-#EXTINF:-1 tvg-name="深圳卫视4K超高清" group-title="卫视超高清",深圳卫视4K超高清
-rtsp://61.135.88.136/PLTV/88888892/224/3221226212/407058192.smil
-http://120.76.248.139/live/bfgd/4200000100.m3u8
-
-#EXTINF:-1 tvg-name="重温经典" group-title="轮播",重温经典
-rtsp://61.135.88.136/PLTV/88888892/224/3221226213/406750667.smil

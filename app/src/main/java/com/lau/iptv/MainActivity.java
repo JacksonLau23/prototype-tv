@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String YUE = "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u";
 
     private static final Source[] SOURCES = {
-            new Source("北京联通 IPTV（星火同源，本宽带内秒开）", new String[]{"asset://bjunicom.m3u"}),
+            new Source("Prototype 精选（全网抓取 1080P+ 已验证 · 联通秒开线）", new String[]{"asset://bjunicom.m3u"}),
             new Source("内置验证清单（已测速，推荐）", new String[]{"asset://verified.m3u"}),
             new Source("央视 + 卫视 + 各省台 + 体育（在线更新）", new String[]{
                     "https://gh-proxy.com/" + GUOVIN,
