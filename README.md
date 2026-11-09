@@ -36,7 +36,7 @@ Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐�
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.4](https://github.com/JacksonLau23/sony-tv-iptv/releases/tag/v1.4) 下载 `Prototype-TV-1.4.apk`（约 5MB，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.4](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.4) 下载 `Prototype-TV-1.4.apk`（约 5MB，纯 Java 无 native 库，全架构通用）
 
 SHA-256: `610888ed01b316a7cbd6669235ba996a273bf41dccc0416107be662c737009f8`
 
