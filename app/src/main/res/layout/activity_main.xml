@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <!-- 全屏播放器：始终铺满整个屏幕 -->
+    <!-- 全屏播放器：浏览界面是盖在上面的半透明浮层 -->
     <androidx.media3.ui.PlayerView
         android:id="@+id/player"
         android:layout_width="match_parent"
@@ -14,64 +14,173 @@
         app:show_buffering="always"
         app:use_controller="false" />
 
-    <!-- 频道列表浮层：Apple TV 风格毛玻璃侧栏，选台后自动收起 -->
+    <!-- 浏览浮层：Netflix / Disney+ 式结构，Apple tvOS 视觉 -->
     <LinearLayout
-        android:id="@+id/left_panel"
-        android:layout_width="404dp"
+        android:id="@+id/browse"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"
-        android:background="@drawable/glass_panel"
-        android:elevation="12dp"
+        android:background="@drawable/browse_scrim"
         android:orientation="vertical"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp">
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/title"
+        <!-- 顶栏：毛玻璃质感 -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="26dp"
-            android:paddingTop="20dp"
-            android:paddingEnd="22dp"
-            android:paddingBottom="2dp"
-            android:text="@string/app_name"
-            android:textColor="@color/text"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/top_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="28dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="28dp"
+            android:paddingBottom="16dp">
 
-        <TextView
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text"
+                    android:textSize="27sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/loading"
+                    android:textColor="@color/dim"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20:00"
+                android:textColor="@color/dim"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Hero 横幅：正在播放的频道 -->
+        <LinearLayout
+            android:id="@+id/hero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="26dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="22dp"
-            android:paddingBottom="12dp"
-            android:text="@string/hint_menu"
-            android:textColor="@color/dim"
-            android:textSize="11sp" />
+            android:layout_marginStart="56dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/hero_card"
+            android:gravity="center_vertical"
+            android:minHeight="176dp"
+            android:orientation="horizontal"
+            android:paddingStart="32dp"
+            android:paddingTop="26dp"
+            android:paddingEnd="32dp"
+            android:paddingBottom="26dp">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/hero_dot"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:background="@drawable/live_dot" />
+
+                    <TextView
+                        android:id="@+id/hero_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="正在播放"
+                        android:textColor="#FF453A"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/hero_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="准备就绪"
+                    android:textColor="@color/text"
+                    android:textSize="38sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/hero_meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="选择下方任意频道开始观看"
+                    android:textColor="@color/dim"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- 继续播放按钮 -->
+            <TextView
+                android:id="@+id/hero_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:background="@drawable/play_pill"
+                android:gravity="center"
+                android:paddingStart="34dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="34dp"
+                android:paddingBottom="14dp"
+                android:text="继续播放"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 分类横向卡片行 -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+            android:id="@+id/sections"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:clipChildren="false"
             android:clipToPadding="false"
-            android:paddingBottom="18dp"
+            android:paddingBottom="30dp"
             android:scrollbars="none" />
-
     </LinearLayout>
 
-    <!-- 底部状态条：半透明胶囊，浮在全屏画面上 -->
+    <!-- 底部状态胶囊 -->
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="26dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="34dp"
         android:background="@drawable/status_pill"
         android:paddingStart="18dp"
         android:paddingTop="9dp"

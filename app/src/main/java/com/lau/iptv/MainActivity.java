@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.PlaybackException;
 import androidx.media3.common.Player;
+import androidx.media3.datasource.DataSource;
+import androidx.media3.datasource.DataSpec;
 import androidx.media3.datasource.DefaultHttpDataSource;
 import androidx.media3.exoplayer.ExoPlayer;
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
+import androidx.media3.exoplayer.source.MediaSource;
+import androidx.media3.exoplayer.rtsp.RtspMediaSource;
+import androidx.media3.datasource.TransferListener;
 import androidx.media3.ui.PlayerView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +39,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String YUE = "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u";
 
     private static final Source[] SOURCES = {
+            new Source("北京联通 IPTV（星火同源，本宽带内秒开）", new String[]{"asset://bjunicom.m3u"}),
             new Source("内置验证清单（已测速，推荐）", new String[]{"asset://verified.m3u"}),
             new Source("央视 + 卫视 + 各省台 + 体育（在线更新）", new String[]{
                     "https://gh-proxy.com/" + GUOVIN,
@@ -100,29 +108,108 @@ public class MainActivity extends AppCompatActivity {
 
     private PlayerView playerView;
     private ExoPlayer player;
-    private RecyclerView listView;
-    private LinearLayout leftPanel;
+    private RtspMediaSource.Factory rtspFactory;
+    private SpeedMeter speedMeter;
+    private RecyclerView sectionList;
+    private View browseView;
     private TextView titleView;
+    private TextView subtitleView;
+    private TextView clockView;
     private TextView statusView;
-    private ChannelAdapter adapter;
+    private TextView heroName;
+    private TextView heroMeta;
+    private TextView heroPlay;
+    private View heroDot;
+    private TextView heroLabel;
+    private BrowseAdapter adapter;
 
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
     private SharedPreferences prefs;
 
+    private long speedTickAt;
+    private long speedTickBytes;
+
+    /** 轻量测速：统计 http 传输字节，供缓冲速度显示 */
+    private static final class SpeedMeter implements TransferListener {
+        volatile long totalBytes;
+        volatile long lastDataAt;
+
+        @Override
+        public void onTransferInitializing(DataSource source, DataSpec dataSpec, boolean isNetwork) {
+        }
+
+        @Override
+        public void onTransferStart(DataSource source, DataSpec dataSpec, boolean isNetwork) {
+        }
+
+        @Override
+        public void onBytesTransferred(DataSource source, DataSpec dataSpec, boolean isNetwork, int bytes) {
+            totalBytes += bytes;
+            lastDataAt = android.os.SystemClock.elapsedRealtime();
+        }
+
+        @Override
+        public void onTransferEnd(DataSource source, DataSpec dataSpec, boolean isNetwork) {
+        }
+    }
+
     private final List<Channel> allChannels = new ArrayList<>();
-    private int currentIndex = -1;   // 列表行位置
+    private int currentIndex = -1;   // 扁平频道序号
     private int lineIndex = 0;
     private int autoSwitch = 0;
     private int mode = MODE_TV;
     private boolean loading = false;
     private boolean listShown = true;
 
-    /** 换台后状态条自动淡出 */
+    /** 状态胶囊自动淡出 */
     private final Runnable hideStatus = new Runnable() {
         @Override
         public void run() {
             statusView.setVisibility(View.GONE);
+        }
+    };
+
+    /** 缓冲时刷新速度显示（http/hls 源有实时测速，RTSP 显示省略号） */
+    private final Runnable bufferTicker = new Runnable() {
+        @Override
+        public void run() {
+            if (player == null) return;
+            if (player.getPlaybackState() == Player.STATE_BUFFERING) {
+                long now = android.os.SystemClock.elapsedRealtime();
+                long dt = now - speedTickAt;
+                long db = speedMeter.totalBytes - speedTickBytes;
+                speedTickAt = now;
+                speedTickBytes = speedMeter.totalBytes;
+                boolean fresh = speedMeter.lastDataAt > 0 && now - speedMeter.lastDataAt < 2500;
+                double mbps = dt > 0 ? db * 8.0 / (dt / 1000.0) / 1000000.0 : 0;
+                String text = (fresh && mbps >= 0.05)
+                        ? String.format(java.util.Locale.CHINA, "缓冲中 · %.1f Mb/s", mbps)
+                        : "缓冲中…";
+                statusView.setText(text);
+                statusView.setVisibility(View.VISIBLE);
+                main.postDelayed(this, 600);
+            }
+        }
+    };
+
+    /** 缓冲看门狗：14 秒还没出画面就当失败，自动换线路 */
+    private final Runnable bufferingWatchdog = new Runnable() {
+        @Override
+        public void run() {
+            if (player != null && player.getPlaybackState() == Player.STATE_BUFFERING) {
+                onPlayFailed("缓冲超时");
+            }
+        }
+    };
+
+    /** 顶栏时钟 */
+    private final Runnable tickClock = new Runnable() {
+        @Override
+        public void run() {
+            clockView.setText(DateFormat.getTimeFormat(MainActivity.this)
+                    .format(new Date()));
+            main.postDelayed(this, 20000);
         }
     };
 
@@ -136,29 +223,69 @@ public class MainActivity extends AppCompatActivity {
         mode = prefs.getInt(KEY_MODE, MODE_ALL);
 
         titleView = findViewById(R.id.title);
+        subtitleView = findViewById(R.id.subtitle);
+        clockView = findViewById(R.id.clock);
         statusView = findViewById(R.id.status);
-        listView = findViewById(R.id.list);
+        sectionList = findViewById(R.id.sections);
+        browseView = findViewById(R.id.browse);
         playerView = findViewById(R.id.player);
-        leftPanel = findViewById(R.id.left_panel);
+        heroName = findViewById(R.id.hero_name);
+        heroMeta = findViewById(R.id.hero_meta);
+        heroPlay = findViewById(R.id.hero_play);
+        heroDot = findViewById(R.id.hero_dot);
+        heroLabel = findViewById(R.id.hero_label);
 
-        DefaultHttpDataSource.Factory ds = new DefaultHttpDataSource.Factory()
+        DefaultHttpDataSource.Factory http = new DefaultHttpDataSource.Factory()
                 .setUserAgent(UA)
                 .setConnectTimeoutMs(12000)
                 .setReadTimeoutMs(18000)
                 .setAllowCrossProtocolRedirects(true);
+        speedMeter = new SpeedMeter();
+        DataSource.Factory ds = () -> {
+            DataSource source = http.createDataSource();
+            source.addTransferListener(speedMeter);
+            return source;
+        };
         player = new ExoPlayer.Builder(this)
                 .setMediaSourceFactory(new DefaultMediaSourceFactory(ds))
                 .build();
         playerView.setPlayer(player);
 
-        adapter = new ChannelAdapter((position, channel) -> play(position));
-        listView.setLayoutManager(new LinearLayoutManager(this));
-        listView.setAdapter(adapter);
+        // RTSP 强制走 TCP 交织传输（UDP 在运营商 IPTV 网段收不到包）
+        rtspFactory = new RtspMediaSource.Factory()
+                .setForceUseRtpTcp(true)
+                .setTimeoutMs(15000)
+                .setUserAgent(UA);
+
+        adapter = new BrowseAdapter((flatIndex, channel) -> play(flatIndex));
+        sectionList.setLayoutManager(new LinearLayoutManager(this));
+        sectionList.setAdapter(adapter);
+
+        heroPlay.setOnClickListener(v -> hideList());
 
         player.addListener(new Player.Listener() {
             @Override
             public void onPlayerError(PlaybackException error) {
+                android.util.Log.w("IPTV", "onPlayerError: " + error);
+                main.removeCallbacks(bufferingWatchdog);
+                main.removeCallbacks(bufferTicker);
                 onPlayFailed(brief(error.getMessage()));
+            }
+
+            @Override
+            public void onPlaybackStateChanged(int state) {
+                android.util.Log.w("IPTV", "state=" + state);
+                if (state == Player.STATE_BUFFERING) {
+                    main.removeCallbacks(bufferingWatchdog);
+                    main.postDelayed(bufferingWatchdog, 14000);
+                    main.removeCallbacks(bufferTicker);
+                    main.post(bufferTicker);
+                } else if (state == Player.STATE_READY) {
+                    main.removeCallbacks(bufferingWatchdog);
+                    main.removeCallbacks(bufferTicker);
+                    main.removeCallbacks(hideStatus);
+                    main.postDelayed(hideStatus, 2600);
+                }
             }
 
             @Override
@@ -173,34 +300,54 @@ public class MainActivity extends AppCompatActivity {
         startUp();
     }
 
-    // ===================== 列表浮层 =====================
+    @Override
+    protected void onResume() {
+        super.onResume();
+        main.post(tickClock);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        main.removeCallbacks(tickClock);
+        if (player != null) player.pause();
+    }
+
+    // ===================== 浏览浮层 =====================
 
     private void showList() {
         listShown = true;
-        leftPanel.setVisibility(View.VISIBLE);
-        leftPanel.requestFocus();
-        listView.requestFocus();
+        browseView.setAlpha(0f);
+        browseView.setVisibility(View.VISIBLE);
+        browseView.animate().alpha(1f).setDuration(200).start();
+        sectionList.requestFocus();
     }
 
     private void hideList() {
         listShown = false;
-        leftPanel.setVisibility(View.GONE);
+        browseView.animate().alpha(0f).setDuration(200)
+                .withEndAction(() -> browseView.setVisibility(View.GONE)).start();
         playerView.requestFocus();
     }
 
     // ===================== 加载 =====================
 
     private void startUp() {
-        String builtin = readAsset("verified.m3u");
-        if (builtin != null && builtin.contains("#EXTINF")) {
-            allChannels.clear();
-            allChannels.addAll(M3uParser.parse(builtin));
-            render(false);
-            showList();
-            play(0);
-        } else {
-            loadSource(prefs.getInt(KEY_SOURCE, 1), true);
+        // 默认直接用北京联通内置表（asset，秒开）；选过其他源则走网络加载
+        int saved = prefs.getInt(KEY_SOURCE, 0);
+        if (saved == 0) {
+            String bj = readAsset("bjunicom.m3u");
+            if (bj != null && bj.contains("#EXTINF")) {
+                allChannels.clear();
+                allChannels.addAll(M3uParser.parse(bj));
+                render(false);
+                showList();
+                updateHero(null);
+                play(0);
+                return;
+            }
         }
+        loadSource(saved, true);
     }
 
     private String readAsset(String name) {
@@ -293,9 +440,8 @@ public class MainActivity extends AppCompatActivity {
             Channel c = adapter.channelAt(i);
             if (c != null && key.equals(Catalog.key(c.name))) {
                 currentIndex = i;
-                adapter.setPlayingRow(i);
-                listView.scrollToPosition(i);
-                titleView.setText(getTitleText());
+                adapter.setPlaying(c);
+                updateHero(c);
                 return true;
             }
         }
@@ -305,16 +451,10 @@ public class MainActivity extends AppCompatActivity {
     private String getTitleText() {
         String label = mode == MODE_SPORT ? " · 体育赛事"
                 : (mode == MODE_ALL ? " · 全部" : "");
-        return getString(R.string.channel_count, totalOf(adapter)) + label;
+        return adapter.size() + " 个频道" + label;
     }
 
-    private int totalOf(ChannelAdapter a) {
-        int n = 0;
-        for (int i = 0; i < a.size(); i++) if (a.channelAt(i) != null) n++;
-        return n;
-    }
-
-    /** 按当前显示模式填充列表（列表内部按国家/地区分组） */
+    /** 按当前显示模式填充卡片（分组交给 BrowseAdapter） */
     private void render(boolean keepPlayState) {
         List<Channel> shown = new ArrayList<>();
         for (Channel c : allChannels) {
@@ -330,23 +470,19 @@ public class MainActivity extends AppCompatActivity {
             shown.add(c);
         }
         adapter.submit(shown);
-        titleView.setText(getTitleText());
+        subtitleView.setText(getTitleText());
         if (!keepPlayState) {
             currentIndex = -1;
-            listView.scrollToPosition(0);
+            sectionList.scrollToPosition(0);
         }
     }
 
     // ===================== 播放 =====================
 
-    private void play(int row) {
-        Channel c = adapter.channelAt(row);
-        if (c == null) {
-            row = adapter.nextChannelRow(row - 1, 1);
-            c = adapter.channelAt(row);
-            if (c == null) return;
-        }
-        currentIndex = row;
+    private void play(int flatIndex) {
+        Channel c = adapter.channelAt(flatIndex);
+        if (c == null) return;
+        currentIndex = flatIndex;
         lineIndex = 0;
         autoSwitch = 0;
         playCurrent();
@@ -361,15 +497,22 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (lineIndex >= c.urls.size()) lineIndex = 0;
+        main.removeCallbacks(bufferingWatchdog);
+        main.removeCallbacks(bufferTicker);
         try {
             MediaItem item = new MediaItem.Builder()
                     .setUri(c.urls.get(lineIndex))
                     .setMediaId(String.valueOf(currentIndex))
                     .build();
-            player.setMediaItem(item);
+            if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {
+                player.setMediaSource(rtspFactory.createMediaSource(item));
+            } else {
+                player.setMediaItem(item);
+            }
             player.prepare();
             player.play();
-            adapter.setPlayingRow(currentIndex);
+            adapter.setPlaying(c);
+            updateHero(c);
             String meta = c.region + " · " + c.name;
             if (c.lineCount() > 1) {
                 meta += " · 线路 " + (lineIndex + 1) + "/" + c.lineCount();
@@ -377,10 +520,30 @@ public class MainActivity extends AppCompatActivity {
             setStatus(meta);
             main.removeCallbacks(hideStatus);
             main.postDelayed(hideStatus, 2600);
-            listView.smoothScrollToPosition(currentIndex);
         } catch (Exception e) {
             setStatus("无法播放：" + brief(e.getMessage()));
         }
+    }
+
+    /** Hero 横幅内容随当前频道更新 */
+    private void updateHero(Channel c) {
+        if (c == null) {
+            heroLabel.setText("LIVE TV");
+            heroDot.setVisibility(View.INVISIBLE);
+            heroName.setText("准备就绪");
+            heroMeta.setText("选择下方任意频道开始观看");
+            heroPlay.setText("开始观看");
+            return;
+        }
+        heroLabel.setText("正在播放");
+        heroDot.setVisibility(View.VISIBLE);
+        heroName.setText(c.name);
+        String g = Catalog.groupLabel(c.group, c.name);
+        String meta = (g.isEmpty() ? c.region : g) + " · 频道 " + (currentIndex + 1)
+                + "/" + adapter.size();
+        if (c.lineCount() > 1) meta += " · " + c.lineCount() + " 条线路";
+        heroMeta.setText(meta);
+        heroPlay.setText("继续播放");
     }
 
     private void onPlayFailed(String reason) {
@@ -394,6 +557,9 @@ public class MainActivity extends AppCompatActivity {
             playCurrent();
             return;
         }
+        main.removeCallbacks(bufferTicker);
+        main.removeCallbacks(bufferingWatchdog);
+        if (player != null) player.stop();   // 停掉卡住的缓冲圈
         setStatus("这个台暂时放不出来 · CH+ 换台 / 菜单换源");
     }
 
@@ -414,7 +580,7 @@ public class MainActivity extends AppCompatActivity {
                             showModeDialog();
                             break;
                         case 2:
-                            loadSource(prefs.getInt(KEY_SOURCE, 1), false);
+                            loadSource(prefs.getInt(KEY_SOURCE, 0), false);
                             break;
                         default:
                             showUrlDialog();
@@ -509,22 +675,22 @@ public class MainActivity extends AppCompatActivity {
         }
         // 全屏观看时，上下键直接换台（和电视机一样）
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && !listShown) {
-            int prev = adapter.nextChannelRow(currentIndex, -1);
+            int prev = adapter.nextChannelIndex(currentIndex, -1);
             if (prev >= 0) play(prev);
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN && !listShown) {
-            int next = adapter.nextChannelRow(currentIndex, 1);
+            int next = adapter.nextChannelIndex(currentIndex, 1);
             if (next >= 0) play(next);
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_CHANNEL_UP || keyCode == KeyEvent.KEYCODE_MEDIA_NEXT) {
-            int next = adapter.nextChannelRow(currentIndex, 1);
+            int next = adapter.nextChannelIndex(currentIndex, 1);
             if (next >= 0) play(next);
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_CHANNEL_DOWN || keyCode == KeyEvent.KEYCODE_MEDIA_PREVIOUS) {
-            int prev = adapter.nextChannelRow(currentIndex, -1);
+            int prev = adapter.nextChannelIndex(currentIndex, -1);
             if (prev >= 0) play(prev);
             return true;
         }
@@ -537,10 +703,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && !listShown) {
             showList();
-            return true;
-        }
-        if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT && listShown) {
-            hideList();
             return true;
         }
         if (keyCode == KeyEvent.KEYCODE_BACK && listShown) {
@@ -590,12 +752,6 @@ public class MainActivity extends AppCompatActivity {
     private static String brief(String s) {
         if (s == null) return "未知错误";
         return s.length() > 36 ? s.substring(0, 36) + "…" : s;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (player != null) player.pause();
     }
 
     @Override

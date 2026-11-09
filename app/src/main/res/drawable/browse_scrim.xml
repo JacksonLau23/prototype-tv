@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 浏览层底：Disney+ 深海军蓝到纯黑的渐变，压暗后面的视频 -->
+    <gradient
+        android:angle="270"
+        android:startColor="#F20B1626"
+        android:centerColor="#E8040A14"
+        android:endColor="#FA000000" />
+</shape>
