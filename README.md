@@ -31,8 +31,21 @@ Apple TV 风格的 Android TV 直播应用。内置每日实测可用的 IPTV �
 
 ## 安装
 
+**方式一：直接下载 APK（无需自行构建）**
+
+[apk/Sony-TV-1.3.apk](apk/Sony-TV-1.3.apk)（v1.3，约 5MB，纯 Java 无 native 库，全架构通用）
+
+SHA-256: `3906bf76c3ec0dd480fbf1db81d541585ce86d32d57f35e5ecbfc97ee1aa2b26`
+
 ```bash
 adb connect <电视IP>:5555
+adb install -r Sony-TV-1.3.apk
+```
+
+**方式二：自行构建**
+
+```bash
+./build.sh
 adb install -r app/build/outputs/apk/release/app-release.apk
 ```
 
