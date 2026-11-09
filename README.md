@@ -56,3 +56,7 @@ adb install -r app/build/outputs/apk/release/app-release.apk
 ## License
 
 MIT
+
+---
+
+来自北京朝阳刘嘉尔
