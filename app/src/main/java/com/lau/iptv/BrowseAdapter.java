@@ -3,6 +3,7 @@ package com.lau.iptv;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -224,6 +225,17 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
 
             h.num.setText(String.valueOf(flatIdx + 1));
             h.name.setText(c.name);
+            // 台标：有 logo 显示图片；没有则频道名大字兜底
+            if (c.logo != null && !c.logo.isEmpty()) {
+                h.fallback.setVisibility(View.GONE);
+                h.name.setVisibility(View.VISIBLE);
+                LogoLoader.into(h.logo, c.logo);
+            } else {
+                h.logo.setVisibility(View.GONE);
+                h.fallback.setText(c.name);
+                h.fallback.setVisibility(View.VISIBLE);
+                h.name.setVisibility(View.GONE);
+            }
             String g = Catalog.groupLabel(c.group, c.name);
             if (c.lineCount() > 1) {
                 g = (g.isEmpty() ? "" : g + " · ") + c.lineCount() + " 线路";
@@ -265,6 +277,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             h.name.setTextColor(focused ? 0xFF000000 : 0xFFFFFFFF);
             h.group.setTextColor(focused ? 0x993C3C43 : 0xFF8E8E93);
             h.num.setTextColor(focused ? 0x993C3C43 : 0xFF8E8E93);
+            h.fallback.setTextColor(focused ? 0xFF000000 : 0xFFFFFFFF);
         }
 
         @Override
@@ -277,6 +290,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
         final TextView num;
         final TextView name;
         final TextView group;
+        final TextView fallback;
+        final ImageView logo;
         final View live;
 
         CardVH(View v) {
@@ -284,6 +299,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             num = v.findViewById(R.id.num);
             name = v.findViewById(R.id.name);
             group = v.findViewById(R.id.group);
+            fallback = v.findViewById(R.id.logo_name_fallback);
+            logo = v.findViewById(R.id.logo);
             live = v.findViewById(R.id.live_badge);
         }
     }

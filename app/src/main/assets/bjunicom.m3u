@@ -1,313 +1,261 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="CCTV-2" group-title="央视",CCTV-2
+#EXTINF:-1 tvg-name="CCTV-2" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV2.png",CCTV-2
 rtsp://61.135.88.136/PLTV/88888892/224/3221226036/10000100000000060000000000285832_0.smil
-#EXTINF:-1 tvg-name="CCTV-2" group-title="央视",CCTV-2
+#EXTINF:-1 tvg-name="CCTV-2" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV2.png",CCTV-2
 http://198.204.228.26/live/cctv2hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-2" group-title="央视",CCTV-2
+#EXTINF:-1 tvg-name="CCTV-2" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV2.png",CCTV-2
 http://204.12.221.218:8181/3m1080p/cctv2.m3u8
-#EXTINF:-1 tvg-name="CCTV-5" group-title="体育",CCTV-5
-http://221.230.141.252/live-cnc-cdn.ysp.cctv.cn/001/2000205103.m3u8
-#EXTINF:-1 tvg-name="CCTV-5" group-title="体育",CCTV-5
-http://39.134.65.162/PLTV/88888888/224/3221225491/index.m3u8
-#EXTINF:-1 tvg-name="劲爆体育" group-title="体育",劲爆体育
-http://liveplay-kk.rtxapp.com/live/program/live/jbtyhd/2300000/mnf.m3u8
-#EXTINF:-1 tvg-name="劲爆体育" group-title="体育",劲爆体育
-https://live.v1.mk/api/ghyx.php?id=JinBaoTiYuHD_6000
-#EXTINF:-1 tvg-name="劲爆体育" group-title="体育",劲爆体育
-http://t.061899.xyz/tl/tl.php?id=jbty
-#EXTINF:-1 tvg-name="五星体育" group-title="体育",五星体育
-http://liveplay-kk.rtxapp.com/live/program/live/ssty/2300000/mnf.m3u8
-#EXTINF:-1 tvg-name="五星体育" group-title="体育",五星体育
-http://222.71.90.218:8888/newlive/live/hls/56/live.m3u8
-#EXTINF:-1 tvg-name="魅力足球" group-title="体育",魅力足球
-http://liveplay-kk.rtxapp.com/live/program/live/mlyyhd/2300000/mnf.m3u8
-#EXTINF:-1 tvg-name="NBA TV" group-title="体育",NBA TV
-https://cdn1.ayitistream.com/NBATV/index.m3u8
-#EXTINF:-1 tvg-name="NBA TV" group-title="体育",NBA TV
-http://fl2.moveonjoy.com/NBA_TV/index.m3u8
-#EXTINF:-1 tvg-name="NBA TV" group-title="体育",NBA TV
+#EXTINF:-1 tvg-name="NBA TV" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/960px-NBA_TV.svg.png",NBA TV
 http://23.237.104.106:8080/USA_NBA/index.m3u8
-#EXTINF:-1 tvg-name="NFL Network" group-title="体育",NFL Network
-http://23.237.104.106:8080/USA_NFL_NETWORK/index.m3u8
-#EXTINF:-1 tvg-name="NFL Network" group-title="体育",NFL Network
-http://fl2.moveonjoy.com/NFL_NETWORK/index.m3u8
-#EXTINF:-1 tvg-name="超级体育" group-title="体育",超级体育
-http://111.13.111.242/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226232/1.m3u8
-#EXTINF:-1 tvg-name="咪咕体育" group-title="体育",咪咕体育
-http://39.134.66.66/PLTV/88888888/224/3221225651/index.m3u8
-#EXTINF:-1 tvg-name="奥林匹克频道" group-title="体育",奥林匹克频道
-https://ocshls-2-olympicchannel.akamaized.net/ocshls/OCTV_1.m3u8
-#EXTINF:-1 tvg-name="Fox Sports 1" group-title="体育",Fox Sports 1
+#EXTINF:-1 tvg-name="Fox Sports 1" group-title="体育" tvg-logo="https://i.imgur.com/k0h15MS.png",Fox Sports 1
 http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8
-#EXTINF:-1 tvg-name="体育赛事" group-title="体育",体育赛事
-http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221226803/index.m3u8
-#EXTINF:-1 tvg-name="CCTV-1" group-title="央视",CCTV-1
+#EXTINF:-1 tvg-name="CCTV-1" tvg-logo="https://live.fanmingming.com/tv/CCTV1.png" group-title="央视",CCTV-1
+http://38.75.136.137:98/gslb/dsdqbv/cctv1hd.m3u8?auth=test20251009
+#EXTINF:-1 tvg-name="CCTV-1" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV1.png",CCTV-1
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv1hd
-#EXTINF:-1 tvg-name="CCTV-1" group-title="央视",CCTV-1
+#EXTINF:-1 tvg-name="CCTV-1" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV1.png",CCTV-1
 http://204.12.221.218:8181/3m1080p/cctv1.m3u8
-#EXTINF:-1 tvg-name="CCTV-3" group-title="央视",CCTV-3
+#EXTINF:-1 tvg-name="CCTV-3" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV3.png",CCTV-3
 rtsp://61.135.88.136/PLTV/88888892/224/3221226100/10000100000000060000000000831268_0.smil
-#EXTINF:-1 tvg-name="CCTV-3" group-title="央视",CCTV-3
+#EXTINF:-1 tvg-name="CCTV-3" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV3.png",CCTV-3
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv3hd
-#EXTINF:-1 tvg-name="CCTV-3" group-title="央视",CCTV-3
+#EXTINF:-1 tvg-name="CCTV-3" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV3.png",CCTV-3
 http://107.150.60.122/live/cctv3hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-4" group-title="央视",CCTV-4
+#EXTINF:-1 tvg-name="CCTV-4" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV4.png",CCTV-4
 http://38.75.136.137:98/gslb/dsdqpub/cctv4k.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CCTV-4" group-title="央视",CCTV-4
+#EXTINF:-1 tvg-name="CCTV-4" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV4.png",CCTV-4
 http://173.208.212.130:8181/1080p/cctv4.m3u8
-#EXTINF:-1 tvg-name="CCTV-6" group-title="央视",CCTV-6
+#EXTINF:-1 tvg-name="CCTV-6" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV6.png",CCTV-6
 http://74.91.26.218:82/live/cctv6hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-6" group-title="央视",CCTV-6
+#EXTINF:-1 tvg-name="CCTV-6" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV6.png",CCTV-6
 http://198.204.228.26/live/cctv6hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-7" group-title="央视",CCTV-7
+#EXTINF:-1 tvg-name="CCTV-7" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV7.png",CCTV-7
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv7hd
-#EXTINF:-1 tvg-name="CCTV-7" group-title="央视",CCTV-7
+#EXTINF:-1 tvg-name="CCTV-7" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV7.png",CCTV-7
 http://74.91.26.218:82/live/cctv7hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-8" group-title="央视",CCTV-8
+#EXTINF:-1 tvg-name="CCTV-8" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV8.png",CCTV-8
 http://74.91.26.218:82/live/cctv8hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-8" group-title="央视",CCTV-8
+#EXTINF:-1 tvg-name="CCTV-8" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV8.png",CCTV-8
 http://bztv.tvbus.cc:8081/cdnlive/cctv8.m3u8
-#EXTINF:-1 tvg-name="CCTV-9" group-title="央视",CCTV-9
+#EXTINF:-1 tvg-name="CCTV-9" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV9.png",CCTV-9
 rtsp://61.135.88.136/PLTV/88888892/224/3221226038/10000100000000060000000000285834_0.smil
-#EXTINF:-1 tvg-name="CCTV-9" group-title="央视",CCTV-9
+#EXTINF:-1 tvg-name="CCTV-9" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV9.png",CCTV-9
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv9hd
-#EXTINF:-1 tvg-name="CCTV-9" group-title="央视",CCTV-9
+#EXTINF:-1 tvg-name="CCTV-9" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV9.png",CCTV-9
 http://107.150.60.122/live/cctv9hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-10" group-title="央视",CCTV-10
+#EXTINF:-1 tvg-name="CCTV-10" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV10.png",CCTV-10
 http://38.75.136.137:98/gslb/dsdqbv/cctv10hd.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="CCTV-10" group-title="央视",CCTV-10
-http://204.12.221.218:8181/3m1080p/cctv10.m3u8
-#EXTINF:-1 tvg-name="CCTV-11" group-title="央视",CCTV-11
+#EXTINF:-1 tvg-name="CCTV-11" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV11.png",CCTV-11
 rtsp://61.135.88.136/PLTV/88888892/224/3221226086/10000100000000060000000000753288_0.smil
-#EXTINF:-1 tvg-name="CCTV-11" group-title="央视",CCTV-11
+#EXTINF:-1 tvg-name="CCTV-11" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV11.png",CCTV-11
 http://74.91.26.218:82/live/cctv11hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-12" group-title="央视",CCTV-12
+#EXTINF:-1 tvg-name="CCTV-12" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV12.png",CCTV-12
 http://107.150.60.122/live/cctv12hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-13" group-title="央视",CCTV-13
+#EXTINF:-1 tvg-name="CCTV-13" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV13.png",CCTV-13
 http://38.75.136.137:98/gslb/dsdqbv/cctv13hd.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="CCTV-13" group-title="央视",CCTV-13
+#EXTINF:-1 tvg-name="CCTV-13" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV13.png",CCTV-13
 http://ali-m-l.cztv.com/channels/lantian/channel21/1080p.m3u8
-#EXTINF:-1 tvg-name="CCTV-14" group-title="央视",CCTV-14
+#EXTINF:-1 tvg-name="CCTV-14" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV14.png",CCTV-14
 rtsp://61.135.88.136/PLTV/88888892/224/3221226035/10000100000000060000000000285837_0.smil
-#EXTINF:-1 tvg-name="CCTV-14" group-title="央视",CCTV-14
+#EXTINF:-1 tvg-name="CCTV-14" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV14.png",CCTV-14
 http://198.204.228.26/live/cctv14hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-14" group-title="央视",CCTV-14
+#EXTINF:-1 tvg-name="CCTV-14" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV14.png",CCTV-14
 http://204.12.221.218:8181/3m1080p/cctv14.m3u8
-#EXTINF:-1 tvg-name="CCTV-15" group-title="央视",CCTV-15
+#EXTINF:-1 tvg-name="CCTV-15" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV15.png",CCTV-15
 rtsp://61.135.88.136/PLTV/88888892/224/3221226099/10000100000000060000000000753287_0.smil
-#EXTINF:-1 tvg-name="CCTV-15" group-title="央视",CCTV-15
+#EXTINF:-1 tvg-name="CCTV-15" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV15.png",CCTV-15
 http://38.75.136.137:98/gslb/dsdqbv/cctv15hd.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="CCTV-15" group-title="央视",CCTV-15
+#EXTINF:-1 tvg-name="CCTV-15" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV15.png",CCTV-15
 http://204.12.221.218:8181/3m1080p/cctv15.m3u8
-#EXTINF:-1 tvg-name="CCTV-16" group-title="央视",CCTV-16
+#EXTINF:-1 tvg-name="CCTV-16" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV16.png",CCTV-16
 rtsp://61.135.88.136/PLTV/88888892/224/3221226148/10000100000000060000000001234273_0.smil
-#EXTINF:-1 tvg-name="CCTV-16" group-title="央视",CCTV-16
+#EXTINF:-1 tvg-name="CCTV-16" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV16.png",CCTV-16
 http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="CCTV-16" group-title="央视",CCTV-16
+#EXTINF:-1 tvg-name="CCTV-16" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV16.png",CCTV-16
 http://38.75.136.137:98/gslb/dsdqpub/cctv16hd.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CCTV-17" group-title="央视",CCTV-17
+#EXTINF:-1 tvg-name="CCTV-17" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV17.png",CCTV-17
 rtsp://61.135.88.136/PLTV/88888892/224/3221226095/10000100000000060000000000705941_0.smil
-#EXTINF:-1 tvg-name="CCTV-17" group-title="央视",CCTV-17
+#EXTINF:-1 tvg-name="CCTV-17" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV17.png",CCTV-17
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv17hd
-#EXTINF:-1 tvg-name="CCTV-17" group-title="央视",CCTV-17
+#EXTINF:-1 tvg-name="CCTV-17" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CCTV17.png",CCTV-17
 http://74.91.26.218:82/live/cctv17hd.m3u8
-#EXTINF:-1 tvg-name="CGTN" group-title="央视",CGTN
+#EXTINF:-1 tvg-name="CGTN" group-title="央视" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/CGTN.svg/960px-CGTN.svg.png",CGTN
 http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-#EXTINF:-1 tvg-name="CGTN法语" group-title="央视",CGTN法语
+#EXTINF:-1 tvg-name="CGTN法语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E6%B3%95%E8%AF%AD.png",CGTN法语
 rtsp://61.135.88.136/PLTV/88888892/224/3221226142/10000100000000060000000001154852_0.smil
-#EXTINF:-1 tvg-name="CGTN法语" group-title="央视",CGTN法语
+#EXTINF:-1 tvg-name="CGTN法语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E6%B3%95%E8%AF%AD.png",CGTN法语
 http://espanol-liveali.cgtn.com/hls/LSveOGBaBw41Ea7ukkVAUdKQ220802LSTexu6xAuFH8VZNBLE1ZNEa220802cd.m3u8
-#EXTINF:-1 tvg-name="CGTN阿语" group-title="央视",CGTN阿语
+#EXTINF:-1 tvg-name="CGTN阿语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E9%98%BF%E8%AF%AD.png",CGTN阿语
 rtsp://61.135.88.136/PLTV/88888892/224/3221226155/10000100000000060000000001154853_0.smil
-#EXTINF:-1 tvg-name="CGTN阿语" group-title="央视",CGTN阿语
+#EXTINF:-1 tvg-name="CGTN阿语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E9%98%BF%E8%AF%AD.png",CGTN阿语
 https://0472.org/hls/cgtna.m3u8
-#EXTINF:-1 tvg-name="CGTN西语" group-title="央视",CGTN西语
+#EXTINF:-1 tvg-name="CGTN西语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E8%A5%BF%E8%AF%AD.png",CGTN西语
 rtsp://61.135.88.136/PLTV/88888892/224/3221226140/10000100000000060000000001154848_0.smil
-#EXTINF:-1 tvg-name="CGTN西语" group-title="央视",CGTN西语
+#EXTINF:-1 tvg-name="CGTN西语" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E8%A5%BF%E8%AF%AD.png",CGTN西语
 https://0472.org/hls/cgtnx.m3u8
-#EXTINF:-1 tvg-name="CGTN纪录" group-title="央视",CGTN纪录
+#EXTINF:-1 tvg-name="CGTN纪录" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E7%BA%AA%E5%BD%95.png",CGTN纪录
 rtsp://61.135.88.136/PLTV/88888892/224/3221226153/10000100000000060000000001154845_0.smil
-#EXTINF:-1 tvg-name="CGTN纪录" group-title="央视",CGTN纪录
+#EXTINF:-1 tvg-name="CGTN纪录" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/CGTN%E7%BA%AA%E5%BD%95.png",CGTN纪录
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
-#EXTINF:-1 tvg-name="CCTV-Storm Football" group-title="央视",风云足球
+#EXTINF:-1 tvg-name="CCTV-Storm Football" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png",风云足球
 http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CCTV-Golf & Tennis" group-title="央视",高尔夫网球
+#EXTINF:-1 tvg-name="CCTV-Golf & Tennis" group-title="央视" tvg-logo="https://live.fanmingming.com/tv/%E9%AB%98%E5%B0%94%E5%A4%AB%E7%BD%91%E7%90%83.png",高尔夫网球
 http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="东南卫视" group-title="卫视",东南卫视
+#EXTINF:-1 tvg-name="东南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%9C%E5%8D%97%E5%8D%AB%E8%A7%86.png",东南卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226101/10000100000000060000000000793946_0.smil
-#EXTINF:-1 tvg-name="东南卫视" group-title="卫视",东南卫视
+#EXTINF:-1 tvg-name="东南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%9C%E5%8D%97%E5%8D%AB%E8%A7%86.png",东南卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=dnwshd
-#EXTINF:-1 tvg-name="东南卫视" group-title="卫视",东南卫视
+#EXTINF:-1 tvg-name="东南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%9C%E5%8D%97%E5%8D%AB%E8%A7%86.png",东南卫视
 http://107.150.60.122/live/dnwshd.m3u8
-#EXTINF:-1 tvg-name="东方卫视" group-title="卫视",东方卫视
+#EXTINF:-1 tvg-name="东方卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%9C%E6%96%B9%E5%8D%AB%E8%A7%86.png",东方卫视
 http://38.75.136.137:98/gslb/dsdqpub/dfwshd.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="东方卫视" group-title="卫视",东方卫视
+#EXTINF:-1 tvg-name="东方卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%9C%E6%96%B9%E5%8D%AB%E8%A7%86.png",东方卫视
 http://38.75.136.137:98/gslb/dsdqbv/dfwshd.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="云南卫视" group-title="卫视",云南卫视
+#EXTINF:-1 tvg-name="云南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%BA%91%E5%8D%97%E5%8D%AB%E8%A7%86.png",云南卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ynwshd
-#EXTINF:-1 tvg-name="云南卫视" group-title="卫视",云南卫视
+#EXTINF:-1 tvg-name="云南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%BA%91%E5%8D%97%E5%8D%AB%E8%A7%86.png",云南卫视
 http://192.151.150.154/live/ynwshd.m3u8
-#EXTINF:-1 tvg-name="人间卫视" group-title="卫视",人间卫视
+#EXTINF:-1 tvg-name="人间卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E4%BA%BA%E9%97%B4%E5%8D%AB%E8%A7%86.png",人间卫视
 https://5ddce30eb4b55.streamlock.net/bltvhd/bltv1/chunklist_w511254805.m3u8
-#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视",内蒙古卫视
+#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%86%85%E8%92%99%E5%8F%A4%E5%8D%AB%E8%A7%86.png",内蒙古卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226225/422332751.smil
-#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视",内蒙古卫视
-https://ali-m-l.cztv.com/channels/lantian/channel007/1080p.m3u8$LR•IPV4『线路27』
-#EXTINF:-1 tvg-name="内蒙古卫视" group-title="卫视",内蒙古卫视
-https://live.264788.xyz/channel/neimengguweishi?streamid=81a015dbecf3031d7d847b7a9b059f67&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="北京卫视" group-title="卫视",北京卫视
+#EXTINF:-1 tvg-name="北京卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%8C%97%E4%BA%AC%E5%8D%AB%E8%A7%86.png",北京卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=bjwshd
-#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
+#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%90%89%E6%9E%97%E5%8D%AB%E8%A7%86.png",吉林卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226161/10000100000000060000000001233339_0.smil
-#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
+#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%90%89%E6%9E%97%E5%8D%AB%E8%A7%86.png",吉林卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jlwshd
-#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视",吉林卫视
+#EXTINF:-1 tvg-name="吉林卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%90%89%E6%9E%97%E5%8D%AB%E8%A7%86.png",吉林卫视
 http://107.150.60.122/live/jlwshd.m3u8
-#EXTINF:-1 tvg-name="四川卫视" group-title="卫视",四川卫视
+#EXTINF:-1 tvg-name="四川卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%9B%9B%E5%B7%9D%E5%8D%AB%E8%A7%86.png",四川卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226221/422332212.smil
-#EXTINF:-1 tvg-name="四川卫视" group-title="卫视",四川卫视
-https://live.264788.xyz/channel/sichuanweishi4k?streamid=21be5901ee81559c827dc84e46f26452&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="四川卫视" group-title="卫视",四川卫视
-https://live.264788.xyz/channel/sichuanweishi4k?streamid=401bf692a1a8b91298f26077d53316d6&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视",大湾区卫视
+#EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%A7%E6%B9%BE%E5%8C%BA%E5%8D%AB%E8%A7%86.png",大湾区卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nfws
-#EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视",大湾区卫视
+#EXTINF:-1 tvg-name="大湾区卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%A7%E6%B9%BE%E5%8C%BA%E5%8D%AB%E8%A7%86.png",大湾区卫视
 http://198.204.228.26/live/nfws.m3u8
-#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%A9%E6%B4%A5%E5%8D%AB%E8%A7%86.png",天津卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221225984/10000100000000060000000000176931_0.smil
-#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%A9%E6%B4%A5%E5%8D%AB%E8%A7%86.png",天津卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=tjwshd
-#EXTINF:-1 tvg-name="天津卫视" group-title="卫视",天津卫视
+#EXTINF:-1 tvg-name="天津卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%A9%E6%B4%A5%E5%8D%AB%E8%A7%86.png",天津卫视
 http://107.150.60.122/live/tjwshd.m3u8
-#EXTINF:-1 tvg-name="宁夏卫视" group-title="卫视",宁夏卫视
-https://live.264788.xyz/channel/ningxiaweishi?streamid=e1236348f815c36a0429357e5b5c5f10&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="宁夏卫视" group-title="卫视",宁夏卫视
-https://live.264788.xyz/channel/ningxiaweishi?streamid=551474d02bee1c160e1692e22c45ddba&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
+#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%AE%89%E5%BE%BD%E5%8D%AB%E8%A7%86.png",安徽卫视
 http://107.150.60.122/live/ahwshd.m3u8
-#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视",安徽卫视
+#EXTINF:-1 tvg-name="安徽卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%AE%89%E5%BE%BD%E5%8D%AB%E8%A7%86.png",安徽卫视
 http://204.12.221.218:8181/3m1080p/ahws.m3u8
-#EXTINF:-1 tvg-name="山东卫视" group-title="卫视",山东卫视
+#EXTINF:-1 tvg-name="山东卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B1%B1%E4%B8%9C%E5%8D%AB%E8%A7%86.png",山东卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd
-#EXTINF:-1 tvg-name="山东卫视" group-title="卫视",山东卫视
+#EXTINF:-1 tvg-name="山东卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B1%B1%E4%B8%9C%E5%8D%AB%E8%A7%86.png",山东卫视
 http://107.150.60.122/live/sdwshd.m3u8
-#EXTINF:-1 tvg-name="山西卫视" group-title="卫视",山西卫视
+#EXTINF:-1 tvg-name="山西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B1%B1%E8%A5%BF%E5%8D%AB%E8%A7%86.png",山西卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd
-#EXTINF:-1 tvg-name="山西卫视" group-title="卫视",山西卫视
+#EXTINF:-1 tvg-name="山西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B1%B1%E8%A5%BF%E5%8D%AB%E8%A7%86.png",山西卫视
 http://204.12.221.218:8181/3m1080p/sxws.m3u8
-#EXTINF:-1 tvg-name="广东卫视" group-title="卫视",广东卫视
+#EXTINF:-1 tvg-name="广东卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E4%B8%9C%E5%8D%AB%E8%A7%86.png",广东卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd
-#EXTINF:-1 tvg-name="广东卫视" group-title="卫视",广东卫视
+#EXTINF:-1 tvg-name="广东卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E4%B8%9C%E5%8D%AB%E8%A7%86.png",广东卫视
 http://107.150.60.122/live/gdwshd.m3u8
-#EXTINF:-1 tvg-name="广西卫视" group-title="卫视",广西卫视
+#EXTINF:-1 tvg-name="广西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E8%A5%BF%E5%8D%AB%E8%A7%86.png",广西卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gxwshd
-#EXTINF:-1 tvg-name="广西卫视" group-title="卫视",广西卫视
+#EXTINF:-1 tvg-name="广西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E8%A5%BF%E5%8D%AB%E8%A7%86.png",广西卫视
 http://107.150.60.122/live/gxwshd.m3u8
-#EXTINF:-1 tvg-name="延边卫视" group-title="卫视",延边卫视
+#EXTINF:-1 tvg-name="延边卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%BB%B6%E8%BE%B9%E5%8D%AB%E8%A7%86.png",延边卫视
 http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8#
-#EXTINF:-1 tvg-name="延边卫视" group-title="卫视",延边卫视
+#EXTINF:-1 tvg-name="延边卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E5%BB%B6%E8%BE%B9%E5%8D%AB%E8%A7%86.png",延边卫视
 http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8
-#EXTINF:-1 tvg-name="新疆卫视" group-title="卫视",新疆卫视
+#EXTINF:-1 tvg-name="新疆卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%96%B0%E7%96%86%E5%8D%AB%E8%A7%86.png",新疆卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xjws
-#EXTINF:-1 tvg-name="新疆卫视" group-title="卫视",新疆卫视
-https://live.264788.xyz/channel/xinjiangweishi?streamid=4f481f56ae39ce5d24203471de9df635&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="江苏卫视" group-title="卫视",江苏卫视
+#EXTINF:-1 tvg-name="江苏卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B1%9F%E8%8B%8F%E5%8D%AB%E8%A7%86.png",江苏卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jswshd
-#EXTINF:-1 tvg-name="江苏卫视" group-title="卫视",江苏卫视
+#EXTINF:-1 tvg-name="江苏卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B1%9F%E8%8B%8F%E5%8D%AB%E8%A7%86.png",江苏卫视
 http://107.150.60.122/live/jswshd.m3u8
-#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
+#EXTINF:-1 tvg-name="江西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B1%9F%E8%A5%BF%E5%8D%AB%E8%A7%86.png",江西卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226136/10000100000000060000000001103865_0.smil
-#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
+#EXTINF:-1 tvg-name="江西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B1%9F%E8%A5%BF%E5%8D%AB%E8%A7%86.png",江西卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd
-#EXTINF:-1 tvg-name="江西卫视" group-title="卫视",江西卫视
+#EXTINF:-1 tvg-name="江西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B1%9F%E8%A5%BF%E5%8D%AB%E8%A7%86.png",江西卫视
 http://107.150.60.122/live/jxwshd.m3u8
-#EXTINF:-1 tvg-name="河北卫视" group-title="卫视",河北卫视
+#EXTINF:-1 tvg-name="河北卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B2%B3%E5%8C%97%E5%8D%AB%E8%A7%86.png",河北卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hewshd
-#EXTINF:-1 tvg-name="河南卫视" group-title="卫视",河南卫视
+#EXTINF:-1 tvg-name="河南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B2%B3%E5%8D%97%E5%8D%AB%E8%A7%86.png",河南卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226156/10000100000000060000000001276309_0.smil
-#EXTINF:-1 tvg-name="河南卫视" group-title="卫视",河南卫视
+#EXTINF:-1 tvg-name="河南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B2%B3%E5%8D%97%E5%8D%AB%E8%A7%86.png",河南卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hawshd
-#EXTINF:-1 tvg-name="河南卫视" group-title="卫视",河南卫视
+#EXTINF:-1 tvg-name="河南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B2%B3%E5%8D%97%E5%8D%AB%E8%A7%86.png",河南卫视
 http://107.150.60.122/live/hawshd.m3u8
-#EXTINF:-1 tvg-name="浙江卫视" group-title="卫视",浙江卫视
+#EXTINF:-1 tvg-name="浙江卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B5%99%E6%B1%9F%E5%8D%AB%E8%A7%86.png",浙江卫视
 http://ali-m-l.cztv.com/channels/lantian/channel01/1080p.m3u8
-#EXTINF:-1 tvg-name="浙江卫视" group-title="卫视",浙江卫视
+#EXTINF:-1 tvg-name="浙江卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B5%99%E6%B1%9F%E5%8D%AB%E8%A7%86.png",浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8
-#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视",深圳卫视
+#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B7%B1%E5%9C%B3%E5%8D%AB%E8%A7%86.png",深圳卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=szwshd
-#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视",深圳卫视
+#EXTINF:-1 tvg-name="深圳卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B7%B1%E5%9C%B3%E5%8D%AB%E8%A7%86.png",深圳卫视
 http://107.150.60.122/live/szwshd.m3u8
-#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视",湖北卫视
+#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B9%96%E5%8C%97%E5%8D%AB%E8%A7%86.png",湖北卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hbwshd
-#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视",湖北卫视
+#EXTINF:-1 tvg-name="湖北卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B9%96%E5%8C%97%E5%8D%AB%E8%A7%86.png",湖北卫视
 http://107.150.60.122/live/hbwshd.m3u8
-#EXTINF:-1 tvg-name="湖南卫视" group-title="卫视",湖南卫视
+#EXTINF:-1 tvg-name="湖南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B9%96%E5%8D%97%E5%8D%AB%E8%A7%86.png",湖南卫视
 http://107.150.60.122/live/hnwshd.m3u8
-#EXTINF:-1 tvg-name="湖南卫视" group-title="卫视",湖南卫视
+#EXTINF:-1 tvg-name="湖南卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E6%B9%96%E5%8D%97%E5%8D%AB%E8%A7%86.png",湖南卫视
 http://74.91.26.218:82/live/hnwshd.m3u8
-#EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视",甘肃卫视
+#EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E7%94%98%E8%82%83%E5%8D%AB%E8%A7%86.png",甘肃卫视
 http://38.75.136.137:98/gslb/dsdqpub/gswshd.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视",甘肃卫视
+#EXTINF:-1 tvg-name="甘肃卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E7%94%98%E8%82%83%E5%8D%AB%E8%A7%86.png",甘肃卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd
-#EXTINF:-1 tvg-name="西藏卫视" group-title="卫视",西藏卫视
+#EXTINF:-1 tvg-name="西藏卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E8%A5%BF%E8%97%8F%E5%8D%AB%E8%A7%86.png",西藏卫视
 http://107.150.60.122/live/xzws.m3u8
-#EXTINF:-1 tvg-name="西藏卫视" group-title="卫视",西藏卫视
-https://live.264788.xyz/channel/xizangweishi?streamid=4b4e8ea919f1cfd5e43deed1d1675251&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视",贵州卫视
+#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E8%B4%B5%E5%B7%9E%E5%8D%AB%E8%A7%86.png",贵州卫视
 http://107.150.60.122/live/gzwshd.m3u8
-#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视",贵州卫视
+#EXTINF:-1 tvg-name="贵州卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E8%B4%B5%E5%B7%9E%E5%8D%AB%E8%A7%86.png",贵州卫视
 http://204.12.221.218:8181/3m1080p/gzws.m3u8
-#EXTINF:-1 tvg-name="辽宁卫视" group-title="卫视",辽宁卫视
+#EXTINF:-1 tvg-name="辽宁卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E8%BE%BD%E5%AE%81%E5%8D%AB%E8%A7%86.png",辽宁卫视
 http://204.12.221.218:8181/3m1080p/lnws.m3u8
-#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%87%8D%E5%BA%86%E5%8D%AB%E8%A7%86.png",重庆卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226147/10000100000000060000000001103866_0.smil
-#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%87%8D%E5%BA%86%E5%8D%AB%E8%A7%86.png",重庆卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cqwshd
-#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视",重庆卫视
+#EXTINF:-1 tvg-name="重庆卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%87%8D%E5%BA%86%E5%8D%AB%E8%A7%86.png",重庆卫视
 http://107.150.60.122/live/cqwshd.m3u8
-#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视",陕西卫视
+#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%99%95%E8%A5%BF%E5%8D%AB%E8%A7%86.png",陕西卫视
 rtsp://61.135.88.136/PLTV/88888892/224/3221226223/422332704.smil
-#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视",陕西卫视
+#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%99%95%E8%A5%BF%E5%8D%AB%E8%A7%86.png",陕西卫视
 http://107.150.60.122/live/snwshd.m3u8
-#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视",陕西卫视
+#EXTINF:-1 tvg-name="陕西卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%99%95%E8%A5%BF%E5%8D%AB%E8%A7%86.png",陕西卫视
 http://192.151.150.154/live/snwshd.m3u8
-#EXTINF:-1 tvg-name="青海卫视" group-title="卫视",青海卫视
+#EXTINF:-1 tvg-name="青海卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%9D%92%E6%B5%B7%E5%8D%AB%E8%A7%86.png",青海卫视
 http://107.150.60.122/live/qhws.m3u8
-#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视",黑龙江卫视
+#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%BB%91%E9%BE%99%E6%B1%9F%E5%8D%AB%E8%A7%86.png",黑龙江卫视
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd
-#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视",黑龙江卫视
+#EXTINF:-1 tvg-name="黑龙江卫视" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/%E9%BB%91%E9%BE%99%E6%B1%9F%E5%8D%AB%E8%A7%86.png",黑龙江卫视
 http://107.150.60.122/live/hljwshd.m3u8
-#EXTINF:-1 tvg-name="CCTV-5+" group-title="体育",CCTV-5+
+#EXTINF:-1 tvg-name="CCTV-5+" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/CCTV5%2B.png",CCTV-5+
 http://38.75.136.137:98/gslb/dsdqbv/cctv5p.m3u8?auth=test20251009
-#EXTINF:-1 tvg-name="央视台球" group-title="体育",央视台球
+#EXTINF:-1 tvg-name="央视台球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ystq
-#EXTINF:-1 tvg-name="央视台球" group-title="体育",央视台球
+#EXTINF:-1 tvg-name="央视台球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
 http://107.150.60.122/live/ystq.m3u8
-#EXTINF:-1 tvg-name="风云足球" group-title="体育",风云足球
+#EXTINF:-1 tvg-name="风云足球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png",风云足球
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=fyzq
-#EXTINF:-1 tvg-name="广东体育" group-title="体育",广东体育
+#EXTINF:-1 tvg-name="广东体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E4%B8%9C%E4%BD%93%E8%82%B2.png",广东体育
 http://38.75.136.137:98/gslb/dsdqpub/gdty.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="天津体育" group-title="体育",天津体育
+#EXTINF:-1 tvg-name="天津体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/天津卫视.png",天津体育
 http://38.75.136.137:98/gslb/dsdqpub/tjtv5.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="天津体育" group-title="体育",天津体育
+#EXTINF:-1 tvg-name="天津体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/天津卫视.png",天津体育
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=tjtv5
-#EXTINF:-1 tvg-name="CCTV-Billiards" group-title="体育",央视台球
+#EXTINF:-1 tvg-name="CCTV-Billiards" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
 http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports" tvg-logo="https://i.imgur.com/RJrJGbW.png",Arena Sport 1
 http://88.212.15.50/live/test_arenasport/playlist.m3u8
-#EXTINF:-1 tvg-name="Al Iraqia Sport (720p)" group-title="体育",Al Iraqia Sport (720p)
+#EXTINF:-1 tvg-name="Al Iraqia Sport (720p)" group-title="体育" tvg-logo="https://i.imgur.com/DrrlxTO.png",Al Iraqia Sport (720p)
 https://imn-live.esite-lab.com/hls/iraqia-sports-1.m3u8
-#EXTINF:-1 tvg-name="ACI Sport TV SD (1080p)" group-title="体育",ACI Sport TV SD (1080p)
-https://webstream.multistream.it/memfs/e2cb3629-c1a2-495b-b43a-9eb386f04ed8.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 2" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 2
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 2" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports" tvg-logo="https://i.imgur.com/aqlECBj.png",Arena Sport 2
 http://88.212.15.50/live/test_arenasport_dva/playlist.m3u8
-#EXTINF:-1 tvg-name="Canal Showsport (720p)" group-title="体育",Canal Showsport (720p)
-https://livestream.lumpentv.com.ar/hls/lumpen.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 2" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 2
 http://57.129.96.133:888/stream/94/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 3" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 3
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 3" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/QZwPFa8.png",Canal+ Sport 3
 http://57.129.96.133:888/stream/93/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 4" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 4
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport 4" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/BNAPYAx.png",Canal+ Sport 4
 http://57.129.96.133:888/stream/95/index.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport (Poland)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Canal+ Sport (Poland)
 http://57.129.96.133:888/stream/92/index.m3u8
@@ -319,19 +267,19 @@ http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport7/live_fullhd?o
 http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport4/live_fullhd?offsetSeconds=0
 #EXTINF:-1 tvg-name="Canal+ Sport SK" group-title="体育",Canal+ Sport SK
 http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-sk-canal-plus-sport/live_fullhd?offsetSeconds=0
-#EXTINF:-1 tvg-name="CT Sport (720p)" group-title="体育",CT Sport (720p)
+#EXTINF:-1 tvg-name="CT Sport (720p)" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/%C4%8CT_sport_logo.png/960px-%C4%8CT_sport_logo.png",CT Sport (720p)
 http://88.212.15.50/live/test_ctsport_25p/playlist.m3u8
-#EXTINF:-1 tvg-name="DiviSport (1080p)" group-title="体育",DiviSport (1080p)
+#EXTINF:-1 tvg-name="DiviSport (1080p)" group-title="体育" tvg-logo="https://i.logos-download.com/114030/29915-s5120-904df224e4c030fefcc45adda448b6e8.png/DiviSport_Logo_2023-s5120.png",DiviSport (1080p)
 http://stream.mcquack.net/457/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Dynamo Kyiv TV (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Dynamo Kyiv TV (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Dynamo Kyiv TV (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/ymxmyyG.png",Dynamo Kyiv TV (1080p)
 http://stream.mcquack.net/396/index.m3u8
-#EXTINF:-1 tvg-name="Eleven Sports 1" group-title="体育",Eleven Sports 1
+#EXTINF:-1 tvg-name="Eleven Sports 1" group-title="体育" tvg-logo="https://i.imgur.com/AOu4FXH.png",Eleven Sports 1
 http://92.114.85.87:8002/play/a00e/index.m3u8
-#EXTINF:-1 tvg-name="Eleven Sports 3 (1080p)" group-title="体育",Eleven Sports 3 (1080p)
+#EXTINF:-1 tvg-name="Eleven Sports 3 (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/bWjGol4.png",Eleven Sports 3 (1080p)
 http://92.114.85.87:8002/play/a00g/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Equalympic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Equalympic (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Equalympic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/ixSj4H7.png",Equalympic (1080p)
 http://stream.mcquack.net/485/index.m3u8
-#EXTINF:-1 tvg-name="Eleven Sports 2 (1080p)" group-title="体育",Eleven Sports 2 (1080p)
+#EXTINF:-1 tvg-name="Eleven Sports 2 (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/bTIRgqG.png",Eleven Sports 2 (1080p)
 http://92.114.85.87:8002/play/a00f/index.m3u8
 #EXTINF:-1 tvg-name="ESPN 2 (United States) HD (720p)" group-title="体育",ESPN 2 (United States) HD (720p)
 http://85.237.89.160:9590/usa-s/ESPN-2-HD/index.m3u8
@@ -361,241 +309,149 @@ http://46.244.99.71:8181/stream/74/index.m3u8
 http://185.228.163.146:8000/play/a048/index.m3u8
 #EXTINF:-1 tvg-name="Eurosport 2 Romania" group-title="体育",Eurosport 2 Romania
 http://89.44.231.73:7000/eurosport2
-#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Eurosport 4K Czechia" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Eurosport 4K Czechia
+#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Eurosport 4K Czechia" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/0o3zjC7.png",Eurosport 4K Czechia
 http://88.212.15.50/live/esp_4k_atk/playlist.m3u8
 #EXTINF:-1 tvg-name="Eurosport 2 Spain (1080p)" group-title="体育",Eurosport 2 Spain (1080p)
 http://45.134.141.161:2200/ARG/Eurosport_2_HD/index.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport (France)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Eurosport (France)
 http://103.253.74.210:7070/stream/122/index.m3u8
-#EXTINF:-1 tvg-name="Eurosport (India) HD (1080p)" group-title="体育",Eurosport (India) HD (1080p)
-https://livetv.shamon-cable.net:8443/Eurosport-HD/index.m3u8
-#EXTINF:-1 tvg-name="Fox Sports News (1080p)" group-title="体育",Fox Sports News (1080p)
-https://skynewsau-live-premium.akamaized.net/hls/live/2105307/foxsportsnews/live_1080p.m3u8
-#EXTINF:-1 tvg-name="Fox Sports 1 (720p)" group-title="体育",Fox Sports 1 (720p)
+#EXTINF:-1 tvg-name="Fox Sports 1 (720p)" group-title="体育" tvg-logo="https://i.imgur.com/k0h15MS.png",Fox Sports 1 (720p)
 http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8
 #EXTINF:-1 tvg-name="Fox Sports HD" group-title="体育",Fox Sports HD
 http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/1552.m3u8
-#EXTINF:-1 tvg-name="Fox Sports (1080p)" group-title="体育",Fox Sports (1080p)
+#EXTINF:-1 tvg-name="Fox Sports (1080p)" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/FOX_Sports_logo.svg/960px-FOX_Sports_logo.svg.png",Fox Sports (1080p)
 http://138.59.227.20:8000/play/a085/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Go3 Sport 1 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Go3 Sport 1 (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Go3 Sport 1 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/0eZa0qh.png",Go3 Sport 1 (1080p)
 http://stream.mcquack.net/416/index.m3u8
-#EXTINF:-1 tvg-name="HBCU-GO Sports (720p)" group-title="体育",HBCU-GO Sports (720p)
-https://a-cdn.klowdtv.com/live3/hbcugo_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="Maincast Cybersport (1080p)" group-title="体育",Maincast Cybersport (1080p)
+#EXTINF:-1 tvg-name="Maincast Cybersport (1080p)" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/57/Maincast_%28HD_Logo%29_2024.png",Maincast Cybersport (1080p)
 http://stream.mcquack.net/487/index.m3u8
-#EXTINF:-1 tvg-name="Maincast Sport (1080p)" group-title="体育",Maincast Sport (1080p)
+#EXTINF:-1 tvg-name="Maincast Sport (1080p)" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/5/57/Maincast_%28HD_Logo%29_2024.png",Maincast Sport (1080p)
 http://stream.mcquack.net/490/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Max Sport 3 (720p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Max Sport 3 (720p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Max Sport 3 (720p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/eGiGgZ2.png",Max Sport 3 (720p)
 http://213.91.179.28:8000/play/a0ar
-#EXTINF:-1 tvg-name="MNB Sport (1080p)" group-title="体育",MNB Sport (1080p)
-https://live.mnb.mn/hls/mnb_sport.stream.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Real Madrid TV (1080p)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Real Madrid TV (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports",Real Madrid TV (1080p)" group-title="体育",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/5pMo7dL.png",Real Madrid TV (1080p)
 http://90.163.85.113:8093/stream/26/index.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 2 Eurasia (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 2 Eurasia (1080p)
 http://stream.mcquack.net/235/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 1 Eurasia (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 1 Eurasia (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Setanta Sports 1 Eurasia (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/zlJK7ca.png",Setanta Sports 1 Eurasia (1080p)
 http://stream.mcquack.net/234/index.m3u8
-#EXTINF:-1 tvg-name="Sky Sports 1 (1080p)" group-title="体育",Sky Sports 1 (1080p)
+#EXTINF:-1 tvg-name="Sky Sports 1 (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/9onSfMi.png",Sky Sports 1 (1080p)
 http://45.228.234.9:8000/play/a06b/index.m3u8
-#EXTINF:-1 tvg-name="Sky Sports 2 (1080p)" group-title="体育",Sky Sports 2 (1080p)
+#EXTINF:-1 tvg-name="Sky Sports 2 (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/VM0a8Ny.png",Sky Sports 2 (1080p)
 http://200.115.120.1:8000/play/ca82266/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport1" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport1
+#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport1" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/X5X3tKC.png",Sport1
 http://88.212.15.50/live/test_sport1_25p/playlist.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport2" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport2
+#EXTINF:-1 tvg-name="like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports",Sport2" group-title="体育",like Gecko) Chrome/124.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/UxflVoU.png",Sport2
 http://88.212.15.50/live/test_sport_2/playlist.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 1 Baltic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 1 Baltic (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 1 Baltic (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/aBY7QK4.png",Sport 1 Baltic (1080p)
 http://stream.mcquack.net/461/index.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 2 (Ukraine) (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 2 (Ukraine) (1080p)
 http://stream.mcquack.net/392/index.m3u8
 #EXTINF:-1 tvg-name="Sport (Slovakia) (1080p)" group-title="体育",Sport (Slovakia) (1080p)
 http://88.212.15.50/live/test_rtvs_sport_hevc/playlist.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 3 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 3 (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Sport 3 (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/aV9zioW.png",Sport 3 (1080p)
 http://stream.mcquack.net/393/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Sport 5 (1080p)" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Sport 5 (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports",Sport 5 (1080p)" group-title="体育",like Gecko) Chrome/130.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/ti6SYvm.png",Sport 5 (1080p)
 http://stream.mcquack.net/212/index.m3u8
-#EXTINF:-1 tvg-name="Sport (Uzbekistan)" group-title="体育",Sport (Uzbekistan)
-https://stream8.cinerama.uz/1004/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-name="Sport Total FM (576i)" group-title="体育",Sport Total FM (576i)
-https://livesptfm.com/SPTFM/Live/playlist.m3u8
 #EXTINF:-1 tvg-name="Sports Television (720p) [Not 24/7]" group-title="体育",Sports Television (720p) [Not 24/7]
 https://live.koryocdn.org/sports/index.m3u8
-#EXTINF:-1 tvg-name="SportsMax News (1080p)" group-title="体育",SportsMax News (1080p)
+#EXTINF:-1 tvg-name="SportsMax News (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/IjN1Nhm.png",SportsMax News (1080p)
 http://181.79.86.130:8000/play/a081/index.m3u8
-#EXTINF:-1 tvg-name="Sporty TV" group-title="体育",Sporty TV
+#EXTINF:-1 tvg-name="Sporty TV" group-title="体育" tvg-logo="https://i.imgur.com/Wz5bQKx.jpeg",Sporty TV
 https://dash2.antik.sk/live/sporty_tv/index.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Suspilne. Sport (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Suspilne. Sport (1080p)
+#EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports",Suspilne. Sport (1080p)" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.36" group-title="Sports" tvg-logo="https://i.imgur.com/16IhU0M.png",Suspilne. Sport (1080p)
 http://stream.mcquack.net/444/index.m3u8
-#EXTINF:-1 tvg-name="Swerve Sports (720p)" group-title="体育",Swerve Sports (720p)
-https://a-cdn.klowdtv.com/live3/swervewomenssports_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="like Geck0) Chrome/102.0.0.0 Safari/537.37" group-title="Sports",Tigo Sports+ (1280p)" group-title="体育",like Geck0) Chrome/102.0.0.0 Safari/537.37" group-title="Sports",Tigo Sports+ (1280p)
-https://stmv7.voxtvhd.com.br/xxvideo/xxvideo/playlist.m3u8
 #EXTINF:-1 tvg-name="TNT Sports (Argentina)" group-title="体育",TNT Sports (Argentina)
 http://45.184.109.10/live/69393EAE6ADBC65A68F942022362A202/86.m3u8
 #EXTINF:-1 tvg-name="TNT Sports Premium ArgentinaHD (1080p)" group-title="体育",TNT Sports Premium ArgentinaHD (1080p)
 http://181.78.79.131:8000/play/a0q9
-#EXTINF:-1 tvg-name="Trace Sport Stars Russia (720p)" group-title="体育",Trace Sport Stars Russia (720p)
-https://stream8.cinerama.uz/1274/tracks-v1a1/mono.m3u8
 #EXTINF:-1 tvg-name="viju+ Sport HD (1080p)" group-title="体育",viju+ Sport HD (1080p)
 http://46.53.200.153:7777/play/a01l/index.m3u8
-#EXTINF:-1 tvg-name="Voyo Sport 1 (1080i)" group-title="体育",Voyo Sport 1 (1080i)
-https://vip-acasatv.online:25463/lrZuGxAuP3/6782859900/16677.m3u8
-#EXTINF:-1 tvg-name="Win Sports (1080p)" group-title="体育",Win Sports (1080p)
+#EXTINF:-1 tvg-name="Win Sports (1080p)" group-title="体育" tvg-logo="https://i.imgur.com/DuSSrHV.png",Win Sports (1080p)
 http://138.121.15.230:9002/WIN-SPORT/index.m3u8
-#EXTINF:-1 tvg-name="风云剧场" group-title="影视",风云剧场
+#EXTINF:-1 tvg-name="风云剧场" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E5%89%A7%E5%9C%BA.png",风云剧场
 http://173.208.212.130:8181/720p/fyjc.m3u8
-#EXTINF:-1 tvg-name="风云剧场" group-title="影视",风云剧场
-https://live.264788.xyz/channel/fengyunjuchang?streamid=31e7b5b7032d25dd215a4069cdee1a48&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="怀旧剧场" group-title="影视",怀旧剧场
+#EXTINF:-1 tvg-name="怀旧剧场" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E6%80%80%E6%97%A7%E5%89%A7%E5%9C%BA.png",怀旧剧场
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hjjc
-#EXTINF:-1 tvg-name="怀旧剧场" group-title="影视",怀旧剧场
-https://live.264788.xyz/channel/huaijiujuchang?streamid=7e5d1abdddde08f588234f3f640f75ff&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="第一剧场" group-title="影视",第一剧场
-https://live.264788.xyz/channel/diyijuchang?streamid=d81e188b59ece96b7e8f1ce34aea3ef8&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="第一剧场" group-title="影视",第一剧场
-https://live.264788.xyz/channel/diyijuchang?streamid=e9b0fb1ca135a4aeae12944494883794&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视",浙江教科影视
+#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E6%B5%99%E6%B1%9F%E6%95%99%E7%A7%91%E5%BD%B1%E8%A7%86.png",浙江教科影视
 http://ali-m-l.cztv.com/channels/lantian/channel04/1080p.m3u8
-#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视",浙江教科影视
+#EXTINF:-1 tvg-name="浙江教科影视" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E6%B5%99%E6%B1%9F%E6%95%99%E7%A7%91%E5%BD%B1%E8%A7%86.png",浙江教科影视
 https://ali-m-l.cztv.com/channels/lantian/channel004/1080p.m3u8
-#EXTINF:-1 tvg-name="欢笑剧场" group-title="影视",欢笑剧场
+#EXTINF:-1 tvg-name="欢笑剧场" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E6%AC%A2%E7%AC%91%E5%89%A7%E5%9C%BA.png",欢笑剧场
 http://38.75.136.137:98/gslb/dsdqpub/hxjchd.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="都市剧场" group-title="影视",都市剧场
+#EXTINF:-1 tvg-name="都市剧场" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E9%83%BD%E5%B8%82%E5%89%A7%E5%9C%BA.png",都市剧场
 http://38.75.136.137:98/gslb/dsdqpub/dsjchd.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="南宁影视娱乐" group-title="影视",南宁影视娱乐
+#EXTINF:-1 tvg-name="南宁影视娱乐" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/%E5%8D%97%E5%AE%81%E5%BD%B1%E8%A7%86%E5%A8%B1%E4%B9%90.png",南宁影视娱乐
 http://hls.nntv.cn/nnlive/YSYL_244.m3u8
-#EXTINF:-1 tvg-name="湖南电影" group-title="影视",湖南电影
-http://php.jdshipin.com:8880/iptv.php
-#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视",CHC家庭影院
+#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/CHC%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2.png",CHC家庭影院
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=chcjt
-#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视",CHC家庭影院
+#EXTINF:-1 tvg-name="CHC家庭影院" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/CHC%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2.png",CHC家庭影院
 http://192.151.150.154/live/chcjt.m3u8
-#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视",CHC动作电影
+#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/CHC%E5%8A%A8%E4%BD%9C%E7%94%B5%E5%BD%B1.png",CHC动作电影
 http://107.150.60.122/live/chcdz.m3u8
-#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视",CHC动作电影
+#EXTINF:-1 tvg-name="CHC动作电影" group-title="影视" tvg-logo="https://live.fanmingming.com/tv/CHC%E5%8A%A8%E4%BD%9C%E7%94%B5%E5%BD%B1.png",CHC动作电影
 http://198.204.228.26/live/chcdz.m3u8
-#EXTINF:-1 tvg-name="天映经典" group-title="影视",天映经典
-http://mag.trexlive.me:80/play/live.php?extension=ts&mac=00:1A:79:7E:2F:ED&stream=1919463
-#EXTINF:-1 tvg-name="三国演义" group-title="影视",三国演义
-https://live.metshop.top/huya/11602081
-#EXTINF:-1 tvg-name="CHC电影" group-title="影视",CHC电影
-http://183.237.95.108:9901/tsfile/live/1008_1.m3u8?key=txiptv&playlive=0&authid=0
 #EXTINF:-1 tvg-name="倩女幽魂妖魔道" group-title="影视",倩女幽魂妖魔道
 http://jsmov2.a.yximgs.com/bs3/video-hls/5232901391302199073_hlsb.m3u8
 #EXTINF:-1 tvg-name="倩女幽魂人间道" group-title="影视",倩女幽魂人间道
 http://jsmov2.a.yximgs.com/bs3/video-hls/5250634317044855747_hlsb.m3u8
 #EXTINF:-1 tvg-name="倩女幽魂道道道" group-title="影视",倩女幽魂道道道
 http://jsmov2.a.yximgs.com/bs3/video-hls/5216294367991385255_hlsb.m3u8
-#EXTINF:-1 tvg-name="功夫电影" group-title="影视",功夫电影
-https://live.metshop.top/huya/11352941
-#EXTINF:-1 tvg-name="古天乐电影" group-title="影视",古天乐电影
-https://live.metshop.top/huya/29982675
-#EXTINF:-1 tvg-name="CCTV怀旧剧场" group-title="影视",怀旧剧场
-https://live.264788.xyz/channel/huaijiujuchang?streamid=7e5d1abdddde08f588234f3f640f75ff&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
-#EXTINF:-1 tvg-name="CCTV第一剧场" group-title="影视",第一剧场
-https://live.264788.xyz/channel/diyijuchang?streamid=e9b0fb1ca135a4aeae12944494883794&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
 #EXTINF:-1 tvg-name="周星驰电影" group-title="影视",周星驰电影
 https://live.metshop.top/huya/11342412
-#EXTINF:-1 tvg-name="怪兽电影" group-title="影视",怪兽电影
-https://live.metshop.top/huya/21059577
-#EXTINF:-1 tvg-name="强森电影" group-title="影视",强森电影
-https://live.metshop.top/huya/21059581
 #EXTINF:-1 tvg-name="成龙电影" group-title="影视",成龙电影
 https://live.metshop.top/huya/11342386
-#EXTINF:-1 tvg-name="李连杰电影" group-title="影视",李连杰电影
-https://live.metshop.top/huya/11342390
-#EXTINF:-1 tvg-name="枪战电影" group-title="影视",枪战电影
-https://live.metshop.top/huya/21059579
 #EXTINF:-1 tvg-name="林正英电影" group-title="影视",林正英电影
 https://live.metshop.top/huya/11342421
-#EXTINF:-1 tvg-name="人在囧途之泰囧" group-title="影视",人在囧途之泰囧
-https://vip.ffzy-play.com/20221018/1951_47e1adc8/index.m3u8
-#EXTINF:-1 tvg-name="人在囧途之港囧" group-title="影视",人在囧途之港囧
-https://vip.ffzy-play7.com/20230112/11082_fde1a94d/index.m3u8
-#EXTINF:-1 tvg-name="人在囧途" group-title="影视",人在囧途
-https://vip.ffzy-play.com/20221018/1953_2d6ba500/index.m3u8
-#EXTINF:-1 tvg-name="沈腾电影" group-title="影视",沈腾电影
-https://live.metshop.top/huya/11601968
-#EXTINF:-1 tvg-name="武侠电影" group-title="影视",武侠电影
-https://live.metshop.top/huya/11342427
-#EXTINF:-1 tvg-name="狄仁杰电影" group-title="影视",狄仁杰电影
-https://live.metshop.top/huya/30080229
-#EXTINF:-1 tvg-name="王晶电影" group-title="影视",王晶电影
-https://live.metshop.top/huya/11602058
-#EXTINF:-1 tvg-name="甄子丹电影" group-title="影视",甄子丹电影
-https://live.metshop.top/huya/11352935
-#EXTINF:-1 tvg-name="罪犯电影" group-title="影视",罪犯电影
-https://live.metshop.top/huya/11352962
-#EXTINF:-1 tvg-name="贺岁电影" group-title="影视",贺岁电影
-https://live.metshop.top/huya/11601986
-#EXTINF:-1 tvg-name="谍战电影" group-title="影视",谍战电影
-https://live.metshop.top/huya/21059585
-#EXTINF:-1 tvg-name="黄渤电影" group-title="影视",黄渤电影
-https://live.metshop.top/huya/11352876
-#EXTINF:-1 tvg-name="韩国电影2" group-title="影视",韩国电影2
-https://stream.ads.ottera.tv/playlist.m3u8?network_id=743
-#EXTINF:-1 tvg-name="韩国电影1" group-title="影视",韩国电影1
-https://stream.ads.ottera.tv/playlist.m3u8?network_id=595
-#EXTINF:-1 tvg-name="30A Georgia Hollywood Review (720p)" group-title="美国",30A Georgia Hollywood Review (720p)
+#EXTINF:-1 tvg-name="30A Georgia Hollywood Review (720p)" group-title="美国" tvg-logo="https://images.axios.com/JiG3RuYBwpU_WZFeU6HHjt03FAU=/111x0:1191x1080/320x320/2023/11/09/1699558891265.jpg",30A Georgia Hollywood Review (720p)
 https://30a-tv.com/gh.m3u8
-#EXTINF:-1 tvg-name="30A Investment Pitch (720p)" group-title="美国",30A Investment Pitch (720p)
+#EXTINF:-1 tvg-name="30A Investment Pitch (720p)" group-title="美国" tvg-logo="https://i.imgur.com/CKCtZo7.png",30A Investment Pitch (720p)
 https://30a-tv.com/feeds/xodglobal/30atv.m3u8
-#EXTINF:-1 tvg-name="30A Luxe Life Discovered (720p)" group-title="美国",30A Luxe Life Discovered (720p)
+#EXTINF:-1 tvg-name="30A Luxe Life Discovered (720p)" group-title="美国" tvg-logo="https://m.media-amazon.com/images/I/51FJ5A0mEyL.jpg",30A Luxe Life Discovered (720p)
 https://30a-tv.com/feeds/vidaa/luxelife.m3u8
-#EXTINF:-1 tvg-name="30A Ridiculous TV (720p)" group-title="美国",30A Ridiculous TV (720p)
+#EXTINF:-1 tvg-name="30A Ridiculous TV (720p)" group-title="美国" tvg-logo="https://30a.media/wp-content/uploads/2023/08/pzaz-30atv-2-230x366-ridiculous.jpg",30A Ridiculous TV (720p)
 https://30a-tv.com/feeds/720p/63.m3u8
-#EXTINF:-1 tvg-name="30A Sidewalks (720p)" group-title="美国",30A Sidewalks (720p)
+#EXTINF:-1 tvg-name="30A Sidewalks (720p)" group-title="美国" tvg-logo="https://i.imgur.com/HSdwqZN.png",30A Sidewalks (720p)
 https://30a-tv.com/sidewalks.m3u8
-#EXTINF:-1 tvg-name="30A Television Channel (720p)" group-title="美国",30A Television Channel (720p)
+#EXTINF:-1 tvg-name="30A Television Channel (720p)" group-title="美国" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTHiYfIB01K44LIBG81aEGAmDuIWw8MA0f2w&s",30A Television Channel (720p)
 https://30a-tv.com/feeds/masters/30atv.m3u8
-#EXTINF:-1 tvg-name="30A The Beach Show (720p)" group-title="美国",30A The Beach Show (720p)
+#EXTINF:-1 tvg-name="30A The Beach Show (720p)" group-title="美国" tvg-logo="https://i.imgur.com/0j5Aget.png",30A The Beach Show (720p)
 https://30a-tv.com/beachy.m3u8
 #EXTINF:-1 tvg-name="30A TV Classic Movies (720p)" group-title="美国",30A TV Classic Movies (720p)
 https://30a-tv.com/feeds/pzaz/30atvmovies.m3u8
-#EXTINF:-1 tvg-name="30A We Love Cars (720p)" group-title="美国",30A We Love Cars (720p)
+#EXTINF:-1 tvg-name="30A We Love Cars (720p)" group-title="美国" tvg-logo="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxroqfE_hvEApKMQx03sSYXPeEh4ClaF5QSa8XfRwJW_So3vfSN0CjqzxN30H-qEBswqU&usqp=CAU",30A We Love Cars (720p)
 https://30a-tv.com/feeds/vidaa/cars.m3u8
 #EXTINF:-1 tvg-name="Anand TV (United Kingdom) (720p) [Not 24/7]" group-title="英国",Anand TV (United Kingdom) (720p) [Not 24/7]
 https://live-anandtv.anandmedia.net/anandtvapp/anandtv/index.m3u8
 #EXTINF:-1 tvg-name="Alb UK TV (1080p) [Not 24/7]" group-title="英国",Alb UK TV (1080p) [Not 24/7]
 http://albuk.dyndns.tv:1935/albuk/albuk.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Ahlulbayt TV (1080p)" group-title="英国",Ahlulbayt TV (1080p)
-https://cd198.anystream.uk:8082/hls/abtv3ng/index.m3u8
 #EXTINF:-1 tvg-name="QVC (Japan) (1080p)" group-title="日本",QVC (Japan) (1080p)
 https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8
-#EXTINF:-1 tvg-name="GSTV (720p)" group-title="日本",GSTV (720p)
-https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)
-#EXTINF:-1 tvg-name="Shop Channel (1080p) [Not 24/7]" group-title="日本",Shop Channel (1080p) [Not 24/7]
-https://stream3.shopch.jp/HLS/master.m3u8
-#EXTINF:-1 tvg-name="ABN (720p)" group-title="韩国",ABN (720p)
-https://vod2.abn.co.kr/IPHONE/abn.m3u8
 #EXTINF:-1 tvg-name="BBS TV (South Korea) (1080p)" group-title="韩国",BBS TV (South Korea) (1080p)
 http://bbstv.clouducs.com:1935/bbstv-live/livestream/playlist.m3u8
 #EXTINF:-1 tvg-name="BTN TV (South Korea) (1080p)" group-title="韩国",BTN TV (South Korea) (1080p)
 https://btn.nowcdn.co.kr/btn/btnlive2m/playlist.m3u8
-#EXTINF:-1 tvg-name="GCN (720p)" group-title="韩国",GCN (720p)
+#EXTINF:-1 tvg-name="GCN (720p)" group-title="韩国" tvg-logo="https://i.imgur.com/yzwtMOC.png",GCN (720p)
 http://liveko24-manminglobal3.ktcdn.co.kr/liveko24/gcnko_1300k.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="Gugbang TV (1080p) [Not 24/7]" group-title="韩国",Gugbang TV (1080p) [Not 24/7]
 http://mediaworks.dema.mil.kr:1935/live_edge/cudo.sdp/playlist.m3u8
 #EXTINF:-1 tvg-name="HLAM-DTV (720p) [Not 24/7]" group-title="韩国",HLAM-DTV (720p) [Not 24/7]
 http://vod.mpmbc.co.kr:1935/live/encoder-tv/playlist.m3u8
-#EXTINF:-1 tvg-name="GS My Shop (1080p)" group-title="韩国",GS My Shop (1080p)
+#EXTINF:-1 tvg-name="GS My Shop (1080p)" group-title="韩国" tvg-logo="https://i.imgur.com/ETPQwui.png",GS My Shop (1080p)
 https://gstv-myshop.gsshop.com/myshop_hd/myshop_hd.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Gugak TV (1080p)" group-title="韩国",Gugak TV (1080p)
-https://mgugaklive.nowcdn.co.kr/gugakvideo/gugakvideo.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="GS Shop (1080p)" group-title="韩国",GS Shop (1080p)
+#EXTINF:-1 tvg-name="GS Shop (1080p)" group-title="韩国" tvg-logo="https://i.imgur.com/F7QDbEy.png",GS Shop (1080p)
 https://gstv-gsshop.gsshop.com/gsshop_hd/gsshop_hd.stream/playlist.m3u8
 #EXTINF:-1 tvg-name="HLAO-DTV (720p) [Not 24/7]" group-title="韩国",HLAO-DTV (720p) [Not 24/7]
 http://211.33.246.4:32954/cj_live/myStream.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Gongyoung Home Shopping (720p)" group-title="韩国",Gongyoung Home Shopping (720p)
+#EXTINF:-1 tvg-name="Gongyoung Home Shopping (720p)" group-title="韩国" tvg-logo="https://i.imgur.com/YL3rpd7.png",Gongyoung Home Shopping (720p)
 https://etv.publichs.com/live5.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="HLAN-DTV (480p) [Not 24/7]" group-title="韩国",HLAN-DTV (480p) [Not 24/7]
-https://stream.chmbc.co.kr/TV/myStream/playlist.m3u8
 #EXTINF:-1 tvg-name="HLAT-DTV (1080p) [Not 24/7]" group-title="韩国",HLAT-DTV (1080p) [Not 24/7]
 https://5c3639aa99149.streamlock.net/live_TV/tv/playlist.m3u8
 #EXTINF:-1 tvg-name="FGTV (South Korea) (720p)" group-title="韩国",FGTV (South Korea) (720p)
 https://fgtvlive.fgtv.com/smil:fgtv.smil/playlist.m3u8
-#EXTINF:-1 tvg-name="Adria Music Television" group-title="德国",Adria Music Television
+#EXTINF:-1 tvg-name="Adria Music Television" group-title="德国" tvg-logo="https://i.imgur.com/QoDpnKg.png",Adria Music Television
 https://adriaapp.b-cdn.net/1080p/index.m3u8
-#EXTINF:-1 tvg-name="3sat" group-title="德国",3sat
+#EXTINF:-1 tvg-name="3sat" group-title="德国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/3sat_2019.svg/960px-3sat_2019.svg.png",3sat
 https://dash4.antik.sk/live/test_drei_sat_tizen/playlist.m3u8
 #EXTINF:-1 tvg-name="arte (Germany) HD" group-title="德国",arte (Germany) HD
 https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8
@@ -603,33 +459,29 @@ https://dash4.antik.sk/live/test_arte_avc_25p/playlist.m3u8
 http://46.244.99.71:8181/stream/50/index.m3u8
 #EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Movies",AXN Black (Germany)" group-title="德国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Movies",AXN Black (Germany)
 http://46.244.99.71:8181/stream/35/index.m3u8
-#EXTINF:-1 tvg-name="Bibel TV Impuls (720p)" group-title="德国",Bibel TV Impuls (720p)
+#EXTINF:-1 tvg-name="Bibel TV Impuls (720p)" group-title="德国" tvg-logo="https://i.imgur.com/k4tbW3W.png",Bibel TV Impuls (720p)
 https://bibeltv02.iptv-playoutcenter.de/bibeltv02/bibeltv02.stream_1/playlist.m3u8
-#EXTINF:-1 tvg-name="Bibel TV Musik (720p)" group-title="德国",Bibel TV Musik (720p)
+#EXTINF:-1 tvg-name="Bibel TV Musik (720p)" group-title="德国" tvg-logo="https://i.imgur.com/yIqOcP5.png",Bibel TV Musik (720p)
 https://bibeltv03.iptv-playoutcenter.de/bibeltv03/bibeltv03.stream_1/playlist.m3u8
-#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment",13eme Rue" group-title="法国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment",13eme Rue
+#EXTINF:-1 tvg-name="like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment",13eme Rue" group-title="法国",like Gecko) Chrome/156.0.0.0 Safari/537.36" group-title="Entertainment" tvg-logo="https://i.imgur.com/k0DCMTL.png",13eme Rue
 http://192.99.186.30/stream/251/index.m3u8
-#EXTINF:-1 tvg-name="Africa 24 English (1080p)" group-title="法国",Africa 24 English (1080p)
+#EXTINF:-1 tvg-name="Africa 24 English (1080p)" group-title="法国" tvg-logo="https://africa24tv.com/wp-content/uploads/2023/12/logo-Africa24TVEnglish.png",Africa 24 English (1080p)
 https://edge20.vedge.infomaniak.com/livecast/ik:africa24english/manifest.m3u8
-#EXTINF:-1 tvg-name="Africa 24 Sport (1080p)" group-title="法国",Africa 24 Sport (1080p)
+#EXTINF:-1 tvg-name="Africa 24 Sport (1080p)" group-title="法国" tvg-logo="https://i0.wp.com/africa24tv.com/wp-content/uploads/2023/12/LOGO-AFRICASPORT-4-HD-sans-fond.png?fit=512%2C107&ssl=1",Africa 24 Sport (1080p)
 https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8
 #EXTINF:-1 tvg-name="Alpe d'Huez TV (720p) [Not 24/7]" group-title="法国",Alpe d'Huez TV (720p) [Not 24/7]
 https://edge13.vedge.infomaniak.com/livecast/ik:adhtv/manifest.m3u8
-#EXTINF:-1 tvg-name="Brionnais TV (720p)" group-title="法国",Brionnais TV (720p)
-https://stream2.mandarine.media/brionnaistv/brionnaistv/playlist.m3u8
-#EXTINF:-1 tvg-name="1HD Music Television (1080p)" group-title="俄罗斯",1HD Music Television (1080p)
+#EXTINF:-1 tvg-name="1HD Music Television (1080p)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/4Ww7CsR.png",1HD Music Television (1080p)
 http://176.118.197.101/1HD/index.m3u8
-#EXTINF:-1 tvg-name="86 (1080p) [Not 24/7]" group-title="俄罗斯",86 (1080p) [Not 24/7]
-https://sitv.ru/hls/s86.m3u8
-#EXTINF:-1 tvg-name=".black (576p)" group-title="俄罗斯",.black (576p)
+#EXTINF:-1 tvg-name=".black (576p)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/Q4A6ci4.png",.black (576p)
 http://stream.mcquack.net/263/index.m3u8
-#EXTINF:-1 tvg-name="5 minut tishiny (1080p)" group-title="俄罗斯",5 minut tishiny (1080p)
+#EXTINF:-1 tvg-name="5 minut tishiny (1080p)" group-title="俄罗斯" tvg-logo="https://cdn2-static.ntv.ru/home/promo/24740/5minut_live.jpg",5 minut tishiny (1080p)
 https://cdn-dvr.ntv.ru/5_minut_tishiny/index.m3u8
-#EXTINF:-1 tvg-name=".sci-fi (576p)" group-title="俄罗斯",.sci-fi (576p)
+#EXTINF:-1 tvg-name=".sci-fi (576p)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/nSSUHcg.png",.sci-fi (576p)
 http://stream.mcquack.net/180/index.m3u8
-#EXTINF:-1 tvg-name="AIST TV (1080p)" group-title="俄罗斯",AIST TV (1080p)
+#EXTINF:-1 tvg-name="AIST TV (1080p)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/bcw0s4V.png",AIST TV (1080p)
 http://live2-aisttv.cdnvideo.ru/aisttv2/aisttv.sdp/playlist.m3u8
-#EXTINF:-1 tvg-name="Amedia Hit (1080p)" group-title="俄罗斯",Amedia Hit (1080p)
+#EXTINF:-1 tvg-name="Amedia Hit (1080p)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/a8ZBGBw.png",Amedia Hit (1080p)
 http://stream.mcquack.net/162/index.m3u8
 #EXTINF:-1 tvg-name=".red HD (1080p)" group-title="俄罗斯",.red HD (1080p)
 http://178.134.1.158:8081/red/index.m3u8
@@ -637,177 +489,127 @@ http://178.134.1.158:8081/red/index.m3u8
 http://stream.mcquack.net/114/index.m3u8
 #EXTINF:-1 tvg-name="Aris 24 (720p) [Not 24/7]" group-title="俄罗斯",Aris 24 (720p) [Not 24/7]
 http://serv25.vintera.tv:8081/test/aris/playlist.m3u8
-#EXTINF:-1 tvg-name="Arsenal (576p)" group-title="俄罗斯",Arsenal (576p)
-https://stream8.cinerama.uz/1414/tracks-v1a1/mono.m3u8
-#EXTINF:-1 tvg-name="AntenaPlay Events (576i) [Not 24/7]" group-title="国际",AntenaPlay Events (576i) [Not 24/7]
-https://live77cdn2.antenaplay.ro/live2_sport07/live2_sport07_3500k.m3u8
 #EXTINF:-1 tvg-name="Bicolor+ Premium [Geo-blocked]" group-title="国际",Bicolor+ Premium [Geo-blocked]
 https://live-evg10.tv360.bitel.com.pe/bitel/bicolorpremium_abr/bitel/bicolorpremium_720p/chunks.m3u8
-#EXTINF:-1 tvg-name="CazeTV (1080p)" group-title="国际",CazeTV (1080p)
+#EXTINF:-1 tvg-name="CazeTV (1080p)" group-title="国际" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/6/64/Caz%C3%A9TV_logo.svg/1280px-Caz%C3%A9TV_logo.svg.png",CazeTV (1080p)
 http://138.204.86.4:8080/CAZE_TV/playlist.m3u8
-#EXTINF:-1 tvg-name="CCTV-Storm Football (1080p)" group-title="国际",风云足球 HD
+#EXTINF:-1 tvg-name="CCTV-Storm Football (1080p)" group-title="国际" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png",风云足球 HD
 http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CCTV-Golf & Tennis (1080p)" group-title="国际",高尔夫网球 HD
+#EXTINF:-1 tvg-name="CCTV-Golf & Tennis (1080p)" group-title="国际" tvg-logo="https://live.fanmingming.com/tv/%E9%AB%98%E5%B0%94%E5%A4%AB%E7%BD%91%E7%90%83.png",高尔夫网球 HD
 http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CCTV-Billiards (1080p)" group-title="国际",央视台球 HD
+#EXTINF:-1 tvg-name="CCTV-Billiards (1080p)" group-title="国际" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球 HD
 http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
-#EXTINF:-1 tvg-name="CRTV (Chile) (720p)" group-title="国际",CRTV (Chile) (720p)
-https://stmv2.voxtvhd.com.br/crtvchile/crtvchile/playlist.m3u8
 #EXTINF:-1 tvg-name="CDN Deportes (720p) [Not 24/7]" group-title="国际",CDN Deportes (720p) [Not 24/7]
 https://hls.tvabierta.net/hls/036.m3u8
 #EXTINF:-1 tvg-name="DAZN 3 Portugal (720p)" group-title="国际",DAZN 3 Portugal (720p)
 http://23.237.104.106:8080/DAZN_3/index.m3u8
-#EXTINF:-1 tvg-name="Fast&FunBox" group-title="国际",Fast&FunBox
+#EXTINF:-1 tvg-name="Fast&FunBox" group-title="国际" tvg-logo="https://i.imgur.com/a9ZtP17.png",Fast&FunBox
 https://dash3.antik.sk/live/test_fast_and_funbox_medium_atk/playlist.m3u8
-#EXTINF:-1 tvg-name="FB TV" group-title="国际",FB TV
+#EXTINF:-1 tvg-name="FB TV" group-title="国际" tvg-logo="https://i.imgur.com/2Lge7vA.jpeg",FB TV
 http://1hskrdto.rocketcdn.com/fenerbahcetv.smil/playlist.m3u8
-#EXTINF:-1 tvg-name="FightBox HD" group-title="国际",FightBox HD
-https://nosignal1.antenaplay.ro/hls/fightbox-hd/index.m3u8
-#EXTINF:-1 tvg-name="Futbol (1080p)" group-title="国际",Futbol (1080p)
+#EXTINF:-1 tvg-name="Futbol (1080p)" group-title="国际" tvg-logo="https://i.imgur.com/RngmCDn.png",Futbol (1080p)
 http://185.121.1.163:8083/FootballHD/index.m3u8
-#EXTINF:-1 tvg-name="FUTV (1080p)" group-title="国际",FUTV (1080p)
+#EXTINF:-1 tvg-name="FUTV (1080p)" group-title="国际" tvg-logo="https://premium.futvcr.com/assets/img/logo-premium.png",FUTV (1080p)
 http://45.228.234.9:8000/play/a06o/index.m3u8
-#EXTINF:-1 tvg-name="Game+ (720p)" group-title="国际",Game+ (720p)
-https://a-cdn.klowdtv.com/live2/fntsy_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="FTV (Bolivia) (720p)" group-title="国际",FTV (Bolivia) (720p)
-https://master.tucableip.com/ftvhd/index.m3u8
 #EXTINF:-1 tvg-name="Golf + (1080p) [Geo-blocked]" group-title="国际",Golf + (1080p) [Geo-blocked]
 http://tv.streambox.fr/live/testlivestream/testlivestream/49.m3u8
-#EXTINF:-1 tvg-name="Golf Channel Latin America (1080p)" group-title="国际",Golf Channel Latin America (1080p)
-http://15.204.246.24:8080/GolfChannelHD/index.m3u8
 #EXTINF:-1 tvg-name="Golf Channel (Czech Republic)" group-title="国际",Golf Channel (Czech Republic)
 https://dash4.antik.sk/live/test_golf_channel/playlist.m3u8
-#EXTINF:-1 tvg-name="Horse TV (720p)" group-title="国际",Horse TV (720p)
-https://a-cdn.klowdtv.com/live2/horsetv_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="L1 Max (1080p)" group-title="国际",L1 Max (1080p)
+#EXTINF:-1 tvg-name="L1 Max (1080p)" group-title="国际" tvg-logo="https://i.imgur.com/2fziU2B.png",L1 Max (1080p)
 http://190.93.224.42/LIGA-1-MAX/index.m3u8
-#EXTINF:-1 tvg-name="LRT Plius (1080p)" group-title="国际",LRT Plius (1080p)
+#EXTINF:-1 tvg-name="LRT Plius (1080p)" group-title="国际" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/LRT_Plius_Logo_2022.svg/960px-LRT_Plius_Logo_2022.svg.png",LRT Plius (1080p)
 http://stream.mcquack.net/353/index.m3u8
-#EXTINF:-1 tvg-name="Lacrosse TV (720p)" group-title="国际",Lacrosse TV (720p)
-https://a-cdn.klowdtv.com/live2/lsn_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="Match4 (1080p)" group-title="国际",Match4 (1080p)
+#EXTINF:-1 tvg-name="Match4 (1080p)" group-title="国际" tvg-logo="https://i.imgur.com/hzexBLX.png",Match4 (1080p)
 http://141.94.193.53/Match4_HD/index.m3u8
-#EXTINF:-1 tvg-name="Match! Boets (576p)" group-title="国际",Match! Boets (576p)
+#EXTINF:-1 tvg-name="Match! Boets (576p)" group-title="国际" tvg-logo="https://i.imgur.com/DogOkA4.png",Match! Boets (576p)
 http://stream.mcquack.net/112/index.m3u8
-#EXTINF:-1 tvg-name="MadeinBO TV (1080p)" group-title="国际",MadeinBO TV (1080p)
-https://srvx1.selftv.video/dmchannel/live/playlist.m3u8
-#EXTINF:-1 tvg-name="Match! Ultra (1080p)" group-title="国际",Match! Ultra (1080p)
+#EXTINF:-1 tvg-name="Match! Ultra (1080p)" group-title="国际" tvg-logo="https://www.kartina.tv/media/news/images/News/SEO/kanal-match-ultra.jpg",Match! Ultra (1080p)
 http://31.148.5.241/kanal_3/index.m3u8
-#EXTINF:-1 tvg-name="Milan TV (720p)" group-title="国际",Milan TV (720p)
+#EXTINF:-1 tvg-name="Milan TV (720p)" group-title="国际" tvg-logo="https://i.imgur.com/gAMQfUw.png",Milan TV (720p)
 http://team-tv.co:81/milan/index.m3u8
-#EXTINF:-1 tvg-name="Monterrico TV" group-title="国际",Monterrico TV
+#EXTINF:-1 tvg-name="Monterrico TV" group-title="国际" tvg-logo="https://i.imgur.com/SuVO9T7.png",Monterrico TV
 https://h.jcp.live.opencaster.com/play_src/index.m3u8
-#EXTINF:-1 tvg-name="NBA TV (720p)" group-title="国际",NBA TV (720p)
+#EXTINF:-1 tvg-name="NBA TV (720p)" group-title="国际" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/960px-NBA_TV.svg.png",NBA TV (720p)
 http://23.237.104.106:8080/USA_NBA/index.m3u8
-#EXTINF:-1 tvg-name="Nautical Channel (720p)" group-title="国际",Nautical Channel (720p)
-https://a-cdn.klowdtv.com/live2/nautical_720p/playlist.m3u8
 #EXTINF:-1 tvg-name="Ovacion TV (720p) [Not 24/7]" group-title="国际",Ovacion TV (720p) [Not 24/7]
 http://cdn2.ujjina.com:1935/iptvovacion1/liveovacion1tv/playlist.m3u8
 #EXTINF:-1 tvg-name="Persiana Fight" group-title="国际",Persiana Fight
 https://fighthls.persiana.live/hls/stream.m3u8
 #EXTINF:-1 tvg-name="Prime (Syria) (1080p)" group-title="国际",Prime (Syria) (1080p)
 https://cdn.bestream.io/prime/prime.m3u8
-#EXTINF:-1 tvg-name="Real Madrid TV English" group-title="国际",Real Madrid TV English
+#EXTINF:-1 tvg-name="Real Madrid TV English" group-title="国际" tvg-logo="https://i.imgur.com/5pMo7dL.png",Real Madrid TV English
 http://88.212.15.50/live/real_madrid_tv/index.m3u8
-#EXTINF:-1 tvg-name="Right Now TV (720p)" group-title="国际",Right Now TV (720p)
-https://a-cdn.klowdtv.com/live2/rightnowtv_720p/playlist.m3u8
-#EXTINF:-1 tvg-name="Russian Extreme Ultra (1440p)" group-title="国际",Russian Extreme Ultra (1440p)
+#EXTINF:-1 tvg-name="Russian Extreme Ultra (1440p)" group-title="国际" tvg-logo="https://i.imgur.com/Dk8VbAc.png",Russian Extreme Ultra (1440p)
 http://46.53.200.153:7777/play/test_krask1/index.m3u8
-#EXTINF:-1 tvg-name="Sky Racing 1 (720p)" group-title="国际",Sky Racing 1 (720p)
+#EXTINF:-1 tvg-name="Sky Racing 1 (720p)" group-title="国际" tvg-logo="https://i.imgur.com/Hf0EiaW.png",Sky Racing 1 (720p)
 https://636ffd31f0e12.streamlock.net/RacingStream1/RacingStream1/playlist.m3u8
-#EXTINF:-1 tvg-name="SOS Kanal Plus (720p)" group-title="国际",SOS Kanal Plus (720p)
+#EXTINF:-1 tvg-name="SOS Kanal Plus (720p)" group-title="国际" tvg-logo="https://i.imgur.com/9SD40uH.png",SOS Kanal Plus (720p)
 https://53be5ef2d13aa.streamlock.net/soskanalplus/soskanalplus.stream/playlist.m3u8
-#EXTINF:-1 tvg-name="Tennis Channel 2 (1080p)" group-title="国际",Tennis Channel 2 (1080p)
-https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
 #EXTINF:-1 tvg-name="Tour Spot TV (1280p) [Not 24/7]" group-title="国际",Tour Spot TV (1280p) [Not 24/7]
 https://fox.hostlagarto.com:8081/toursporttv/playlist.m3u8
 #EXTINF:-1 tvg-name="Voyo Events (576i) [Not 24/7]" group-title="国际",Voyo Events (576i) [Not 24/7]
 http://rpprod.hbbtv.cdn.cra.cz:8080/hbbTV/cme-ro-protv-plus5/live_fullhd?offsetSeconds=0
-#EXTINF:-1 tvg-name="WAPA-TV 4.2 (720p) [Not 24/7]" group-title="国际",WAPA-TV 4.2 (720p) [Not 24/7]
-https://wapa.hostless.app/WAPA-TV-4-2.m3u8
-#EXTINF:-1 tvg-name="Win+ Futbol (1080p)" group-title="国际",Win+ Futbol (1080p)
+#EXTINF:-1 tvg-name="Win+ Futbol (1080p)" group-title="国际" tvg-logo="https://i.imgur.com/0UN87vB.png",Win+ Futbol (1080p)
 http://181.78.12.119:16123/play/ch19/index.m3u8
-#EXTINF:-1 tvg-name="World Poker Tour (1080p)" group-title="国际",World Poker Tour (1080p)
+#EXTINF:-1 tvg-name="World Poker Tour (1080p)" group-title="国际" tvg-logo="https://i.imgur.com/98kLMjj.png",World Poker Tour (1080p)
 https://d2e00kr7m9coe4.cloudfront.net/scheduler/scheduleMaster/406.m3u8
-#EXTINF:-1 tvg-name="北京卫视 4K 超高清" group-title="北京",北京卫视 4K 超高清
+#EXTINF:-1 tvg-name="北京卫视 4K 超高清" group-title="北京" tvg-logo="https://live.fanmingming.com/tv/北京卫视.png",北京卫视 4K 超高清
 rtsp://61.135.88.136/PLTV/88888892/224/3221226182/390398577.smil
-#EXTINF:-1 tvg-name="四川卫视 4K" group-title="卫视",四川卫视 4K
+#EXTINF:-1 tvg-name="四川卫视 4K" group-title="卫视" tvg-logo="https://live.fanmingming.com/tv/四川卫视.png",四川卫视 4K
 rtsp://61.135.88.136/PLTV/88888892/224/3221226221/422332212.smil
-#EXTINF:-1 tvg-name="翡翠台" group-title="港澳台",翡翠台
-http://103.172.187.30:12000/stream/mytv/null-1/master.m3u8
-#EXTINF:-1 tvg-name="翡翠台" group-title="港澳台",翡翠台
+#EXTINF:-1 tvg-name="翡翠台" group-title="港澳台" tvg-logo="https://live.fanmingming.com/tv/%E7%BF%A1%E7%BF%A0%E5%8F%B0.png",翡翠台
 http://103.172.187.30:12000/stream/mytv/null-12/master.m3u8
-#EXTINF:-1 tvg-name="翡翠台" group-title="港澳台",翡翠台
-http://r.jdshipin.com/GeWKr
-#EXTINF:-1 tvg-name="无线新闻" group-title="港澳台",无线新闻
-http://php.jdshipin.com/TVOD/iptv.php?id=wxxw
-#EXTINF:-1 tvg-name="凤凰资讯" group-title="港澳台",凤凰资讯
-http://r.jdshipin.com/0Rp07
-#EXTINF:-1 tvg-name="凤凰资讯" group-title="港澳台",凤凰资讯
-http://php.jdshipin.com/TVOD/iptv.php?id=fhzx
-#EXTINF:-1 tvg-name="凤凰香港" group-title="港澳台",凤凰香港
-http://php.jdshipin.com/TVOD/iptv.php?id=fhhk
-#EXTINF:-1 tvg-name="凤凰香港" group-title="港澳台",凤凰香港
-http://r.jdshipin.com/yDoTN
-#EXTINF:-1 tvg-name="TVBS亚洲" group-title="港澳台",TVBS亚洲
+#EXTINF:-1 tvg-name="TVBS亚洲" group-title="港澳台" tvg-logo="https://live.fanmingming.com/tv/TVBS%E4%BA%9A%E6%B4%B2.png",TVBS亚洲
 http://38.64.72.148/hls/modn/list/4005/playlist.m3u8
 #EXTINF:-1 tvg-name="东森超视" group-title="港澳台",东森超视
 http://38.64.72.148/hls/modn/list/2013/chunklist1.m3u8
-#EXTINF:-1 tvg-name="台视新闻" group-title="港澳台",台视新闻
-https://live.wcetv.com/hls/master-ttvnews.m3u8
-#EXTINF:-1 tvg-name="BBC News" group-title="海外新闻",BBC News
+#EXTINF:-1 tvg-name="BBC News" group-title="海外新闻" tvg-logo="https://ltsk-cdn.s3.eu-west-1.amazonaws.com/jumpstart/Temp_Live/cdn/HLS/Channel/transparentImages/BBC-logo_2000_X_1125_Transparent.png",BBC News
 http://23.237.104.106:8080/USA_BBC_NEWS/index.m3u8
 #EXTINF:-1 tvg-name="半岛电视台英语" group-title="海外新闻",半岛电视台英语
 https://live-hls-apps-aja-fa.getaj.net/AJA/01.m3u8
 #EXTINF:-1 tvg-name="半岛电视台英语" group-title="海外新闻",半岛电视台英语
 http://stream.mcquack.net/131/index.m3u8
-#EXTINF:-1 tvg-name="Al Arabiya English" group-title="海外新闻",Al Arabiya English
+#EXTINF:-1 tvg-name="Al Arabiya English" group-title="海外新闻" tvg-logo="https://i.ibb.co/fVfP7Yvy/en-night-logo.png",Al Arabiya English
 https://live.alarabiya.net/alarabiapublish/english/playlist_dvr.m3u8
-#EXTINF:-1 tvg-name="TRT World" group-title="海外新闻",TRT World
+#EXTINF:-1 tvg-name="TRT World" group-title="海外新闻" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/TRT_World.svg/960px-TRT_World.svg.png",TRT World
 https://dash2.antik.sk/live/test_trt_world_atktv/playlist.m3u8
-#EXTINF:-1 tvg-name="TRT World" group-title="海外新闻",TRT World
-https://mumbai-edge.smartplaytv.in/TRTWorld/index.m3u8
-#EXTINF:-1 tvg-name="欧洲新闻台英语" group-title="海外新闻",欧洲新闻台英语
+#EXTINF:-1 tvg-name="欧洲新闻台英语" group-title="海外新闻" tvg-logo="https://provider-static.plex.tv/epg/cms/production/f0a48729-6f08-43e4-9cc4-44ba472281de/Marc_Faron_-_Wurl_Plex_assets_Channel-logo-white3x2_ENrdx.png",欧洲新闻台英语
 https://dash4.antik.sk/live/test_euronews/playlist.m3u8
-#EXTINF:-1 tvg-name="France 24 西语" group-title="海外新闻",France 24 西语
-https://live.france24.com/hls/live/2037220-b/F24_ES_HI_HLS/master_5000
-#EXTINF:-1 tvg-name="France 24 阿语" group-title="海外新闻",France 24 阿语
-https://live.france24.com/hls/live/2037222-b/F24_AR_HI_HLS/master_5000
-#EXTINF:-1 tvg-name="CNN Prima News" group-title="海外新闻",CNN Prima News
+#EXTINF:-1 tvg-name="CNN Prima News" group-title="海外新闻" tvg-logo="https://i.imgur.com/elZyUjX.png",CNN Prima News
 http://88.212.15.50/live/test_cnn_pirma_news/playlist.m3u8
 #EXTINF:-1 tvg-name="CNN Türk" group-title="海外新闻",CNN Türk
 http://85.117.61.84/cnnturk/index.m3u8
-#EXTINF:-1 tvg-name="CCTV-4欧洲" group-title="联通IPTV",CCTV-4欧洲
+#EXTINF:-1 tvg-name="CCTV-4欧洲" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CCTV4.png",CCTV-4欧洲
 rtsp://61.135.88.136/PLTV/88888892/224/3221226138/10000100000000060000000001154838_0.smil
-#EXTINF:-1 tvg-name="CCTV-4美洲" group-title="联通IPTV",CCTV-4美洲
+#EXTINF:-1 tvg-name="CCTV-4美洲" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CCTV4.png",CCTV-4美洲
 rtsp://61.135.88.136/PLTV/88888892/224/3221226149/10000100000000060000000001154841_0.smil
-#EXTINF:-1 tvg-name="北京新闻" group-title="联通IPTV",北京新闻
+#EXTINF:-1 tvg-name="北京新闻" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E5%8C%97%E4%BA%AC%E6%96%B0%E9%97%BB.png",北京新闻
 rtsp://61.135.88.136/PLTV/88888892/224/3221226092/10000100000000060000000000804251_0.smil
-#EXTINF:-1 tvg-name="北京财经" group-title="联通IPTV",北京财经
+#EXTINF:-1 tvg-name="北京财经" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E5%8C%97%E4%BA%AC%E8%B4%A2%E7%BB%8F.png",北京财经
 rtsp://61.135.88.136/PLTV/88888892/224/3221226134/10000100000000060000000001010593_0.smil
-#EXTINF:-1 tvg-name="北京生活" group-title="联通IPTV",北京生活
+#EXTINF:-1 tvg-name="北京生活" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E5%8C%97%E4%BA%AC%E7%94%9F%E6%B4%BB.png",北京生活
 rtsp://61.135.88.136/PLTV/88888892/224/3221226141/10000100000000060000000001010592_0.smil
 #EXTINF:-1 tvg-name="北京国际" group-title="联通IPTV",北京国际
 rtsp://61.135.88.136/PLTV/88888892/224/3221225804/10000100000000060000000000025033_0.smil
 #EXTINF:-1 tvg-name="纪实科教" group-title="联通IPTV",纪实科教
 rtsp://61.135.88.136/PLTV/88888892/224/3221226143/10000100000000060000000001010594_0.smil
-#EXTINF:-1 tvg-name="CGTN英语" group-title="联通IPTV",CGTN英语
+#EXTINF:-1 tvg-name="CGTN英语" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CGTN.png",CGTN英语
 rtsp://61.135.88.136/PLTV/88888892/224/3221226151/10000100000000060000000001154843_0.smil
-#EXTINF:-1 tvg-name="中国教育" group-title="联通IPTV",中国教育
+#EXTINF:-1 tvg-name="中国教育" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CETV1.png",中国教育
 rtsp://61.135.88.136/PLTV/88888892/224/3221226065/10000100000000060000000000384776_0.smil
-#EXTINF:-1 tvg-name="中国交通" group-title="联通IPTV",中国交通
+#EXTINF:-1 tvg-name="中国交通" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E4%B8%AD%E5%9B%BD%E4%BA%A4%E9%80%9A.png",中国交通
 rtsp://61.135.88.136/PLTV/88888892/224/3221226173/10000100000000060000000001341044_0.smil
-#EXTINF:-1 tvg-name="CGTN俄语" group-title="联通IPTV",CGTN俄语
+#EXTINF:-1 tvg-name="CGTN俄语" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CGTN%E4%BF%84%E8%AF%AD.png",CGTN俄语
 rtsp://61.135.88.136/PLTV/88888892/224/3221226144/10000100000000060000000001154854_0.smil
-#EXTINF:-1 tvg-name="金鹰纪实" group-title="联通IPTV",金鹰纪实
+#EXTINF:-1 tvg-name="金鹰纪实" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E9%87%91%E9%B9%B0%E7%BA%AA%E5%AE%9E.png",金鹰纪实
 rtsp://61.135.88.136/PLTV/88888892/224/3221226050/10000100000000060000000000384062_0.smil
-#EXTINF:-1 tvg-name="睛彩篮球" group-title="联通IPTV",睛彩篮球
+#EXTINF:-1 tvg-name="睛彩篮球" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E7%9D%9B%E5%BD%A9%E7%AF%AE%E7%90%83.png",睛彩篮球
 rtsp://61.135.88.136/PLTV/88888892/224/3221226162/10000100000000060000000001464344_0.smil
-#EXTINF:-1 tvg-name="睛彩竞技" group-title="联通IPTV",睛彩竞技
+#EXTINF:-1 tvg-name="睛彩竞技" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E7%9D%9B%E5%BD%A9%E7%AB%9E%E6%8A%80.png",睛彩竞技
 rtsp://61.135.88.136/PLTV/88888892/224/3221226160/10000100000000060000000001464323_0.smil
-#EXTINF:-1 tvg-name="睛彩青少" group-title="联通IPTV",睛彩青少
+#EXTINF:-1 tvg-name="睛彩青少" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E7%9D%9B%E5%BD%A9%E9%9D%92%E5%B0%91.png",睛彩青少
 rtsp://61.135.88.136/PLTV/88888892/224/3221226175/10000100000000060000000001464349_0.smil
-#EXTINF:-1 tvg-name="睛彩广场舞" group-title="联通IPTV",睛彩广场舞
+#EXTINF:-1 tvg-name="睛彩广场舞" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E7%9D%9B%E5%BD%A9%E5%B9%BF%E5%9C%BA%E8%88%9E.png",睛彩广场舞
 rtsp://61.135.88.136/PLTV/88888892/224/3221226164/10000100000000060000000001464351_0.smil
 #EXTINF:-1 tvg-name="城市剧场" group-title="联通IPTV",城市剧场
 rtsp://61.135.88.136/PLTV/88888892/224/3221226037/10000100000000060000000000285839_0.smil
@@ -815,7 +617,7 @@ rtsp://61.135.88.136/PLTV/88888892/224/3221226037/100001000000000600000000002858
 rtsp://61.135.88.136/PLTV/88888892/224/3221226007/10000100000000060000000000285639_0.smil
 #EXTINF:-1 tvg-name="古装剧场" group-title="联通IPTV",古装剧场
 rtsp://61.135.88.136/PLTV/88888892/224/3221226012/10000100000000060000000000285640_0.smil
-#EXTINF:-1 tvg-name="精选" group-title="联通IPTV",精选
+#EXTINF:-1 tvg-name="精选" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E7%B2%BE%E9%80%89.png",精选
 rtsp://61.135.88.136/PLTV/88888892/224/3221226018/10000100000000060000000000285646_0.smil
 #EXTINF:-1 tvg-name="武侠剧场" group-title="联通IPTV",武侠剧场
 rtsp://61.135.88.136/PLTV/88888892/224/3221226041/10000100000000060000000000286228_0.smil
@@ -839,13 +641,13 @@ rtsp://61.135.88.136/PLTV/88888892/224/3221225850/100001000000000600000000000250
 rtsp://61.135.88.136/PLTV/88888892/224/3221225859/10000100000000060000000000025083_0.smil
 #EXTINF:-1 tvg-name="动画" group-title="联通IPTV",动画
 rtsp://61.135.88.136/PLTV/88888892/224/3221226024/10000100000000060000000000285652_0.smil
-#EXTINF:-1 tvg-name="证券服务" group-title="联通IPTV",证券服务
+#EXTINF:-1 tvg-name="证券服务" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E8%AF%81%E5%88%B8%E6%9C%8D%E5%8A%A1.png",证券服务
 rtsp://61.135.88.136/PLTV/88888892/224/3221226210/406742223.smil
-#EXTINF:-1 tvg-name="广东卫视4K超" group-title="联通IPTV",广东卫视4K超
+#EXTINF:-1 tvg-name="广东卫视4K超" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E4%B8%9C%E5%8D%AB%E8%A7%864K.png",广东卫视4K超
 rtsp://61.135.88.136/PLTV/88888892/224/3221226215/407059592.smil
-#EXTINF:-1 tvg-name="北京卫视4K超" group-title="联通IPTV",北京卫视4K超
+#EXTINF:-1 tvg-name="北京卫视4K超" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E5%8C%97%E4%BA%AC%E5%8D%AB%E8%A7%864K.png",北京卫视4K超
 rtsp://61.135.88.136/PLTV/88888892/224/3221226182/390398577.smil
-#EXTINF:-1 tvg-name="深圳卫视4K超" group-title="联通IPTV",深圳卫视4K超
+#EXTINF:-1 tvg-name="深圳卫视4K超" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/%E6%B7%B1%E5%9C%B3%E5%8D%AB%E8%A7%864K.png",深圳卫视4K超
 rtsp://61.135.88.136/PLTV/88888892/224/3221226212/407058192.smil
-#EXTINF:-1 tvg-name="CCTV4K超" group-title="联通IPTV",CCTV4K超
+#EXTINF:-1 tvg-name="CCTV4K超" group-title="联通IPTV" tvg-logo="https://live.fanmingming.com/tv/CCTV4K.png",CCTV4K超
 rtsp://61.135.88.136/PLTV/88888892/224/3221226172/10000100000000060000000001785134_0.smil

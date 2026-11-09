@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView clockView;
     private TextView statusView;
     private TextView heroName;
+    private android.widget.ImageView heroLogo;
     private TextView heroMeta;
     private TextView heroPlay;
     private View heroDot;
@@ -146,107 +147,6 @@ public class MainActivity extends AppCompatActivity {
 
     private long speedTickAt;
     private long speedTickBytes;
-
-    /**
-     * 信任所有证书的 http/https 数据源。
-     * IPTV 直播源大量使用自签名证书 + http→https 跨协议重定向，
-     * DefaultHttpDataSource 严格校验会直接失败，这里统一放行。
-     */
-    private static final class TrustAllDataSource extends BaseDataSource {
-        private HttpURLConnection conn;
-        private InputStream in;
-        private DataSpec spec;
-        private Uri uri;
-        private boolean opened, ended;
-
-        TrustAllDataSource() { super(/* isNetwork= */ true); }
-
-        private static void trustAll(HttpsURLConnection c) throws Exception {
-            TrustManager[] tm = new TrustManager[]{new X509TrustManager() {
-                @Override public void checkClientTrusted(X509Certificate[] ch, String a) { }
-                @Override public void checkServerTrusted(X509Certificate[] ch, String a) { }
-                @Override public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
-            }};
-            SSLContext sc = SSLContext.getInstance("TLS");
-            sc.init(null, tm, new java.security.SecureRandom());
-            c.setSSLSocketFactory(sc.getSocketFactory());
-            c.setHostnameVerifier((hostname, session) -> true);
-        }
-
-        @Override
-        public long open(DataSpec dataSpec) throws IOException {
-            transferInitializing(dataSpec);
-            spec = dataSpec;
-            try {
-                URL url = new URL(dataSpec.uri.toString());
-                int code = 0;
-                for (int i = 0; i < 6; i++) {
-                    conn = (HttpURLConnection) url.openConnection();
-                    if (conn instanceof HttpsURLConnection) trustAll((HttpsURLConnection) conn);
-                    conn.setConnectTimeout(12000);
-                    conn.setReadTimeout(18000);
-                    conn.setRequestProperty("User-Agent", UA);
-                    conn.setInstanceFollowRedirects(false);
-                    if (dataSpec.position > 0) {
-                        conn.setRequestProperty("Range", "bytes=" + dataSpec.position + "-");
-                    }
-                    code = conn.getResponseCode();
-                    if (code >= 300 && code < 400) {
-                        String loc = conn.getHeaderField("Location");
-                        conn.disconnect(); conn = null;
-                        if (loc == null) break;
-                        url = new URL(url, loc);
-                        continue;
-                    }
-                    break;
-                }
-                if (code >= 400) {
-                    throw new IOException("HTTP " + code + " " + url);
-                }
-                in = conn.getInputStream();
-                uri = Uri.parse(url.toString());
-                transferStarted(dataSpec);
-                opened = true;
-                return dataSpec.length != C.LENGTH_UNSET ? dataSpec.length : C.LENGTH_UNSET;
-            } catch (Exception e) {
-                if (e instanceof IOException) {
-                    android.util.Log.w("IPTV", "open failed: " + dataSpec.uri + " -> " + e.getMessage());
-                    throw (IOException) e;
-                }
-                throw new IOException("open failed " + dataSpec.uri + ": " + e.getMessage());
-            }
-        }
-
-        @Override
-        public int read(byte[] buffer, int offset, int length) throws IOException {
-            if (length == 0) return 0;
-            if (ended) return C.RESULT_END_OF_INPUT;
-            int n = in.read(buffer, offset, length);
-            if (n == -1) {
-                ended = true;
-                close();
-                return C.RESULT_END_OF_INPUT;
-            }
-            bytesTransferred(n);
-            return n;
-        }
-
-        @Override
-        public Uri getUri() { return uri; }
-
-        @Override
-        public Map<String, List<String>> getResponseHeaders() { return Collections.emptyMap(); }
-
-        @Override
-        public void close() throws IOException {
-            if (!opened) { ended = false; return; }
-            opened = false; ended = false;
-            try { if (in != null) in.close(); } catch (IOException ignored) { }
-            if (conn != null) conn.disconnect();
-            in = null; conn = null;
-            transferEnded();
-        }
-    }
 
     /** 轻量测速：统计 http 传输字节，供缓冲速度显示 */
     private static final class SpeedMeter implements TransferListener {
@@ -369,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bypassVpn();
+        LogoLoader.init(this);
 
         prefs = getSharedPreferences(PREF, MODE_PRIVATE);
         mode = prefs.getInt(KEY_MODE, MODE_ALL);
@@ -381,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
         browseView = findViewById(R.id.browse);
         playerView = findViewById(R.id.player);
         heroName = findViewById(R.id.hero_name);
+        heroLogo = findViewById(R.id.hero_logo);
         heroMeta = findViewById(R.id.hero_meta);
         heroPlay = findViewById(R.id.hero_play);
         heroDot = findViewById(R.id.hero_dot);
@@ -388,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
         speedMeter = new SpeedMeter();
         DataSource.Factory ds = () -> {
-            DataSource source = new TrustAllDataSource();
+            DataSource source = new TrustAllDataSource(UA, 12000, 18000);
             source.addTransferListener(speedMeter);
             return source;
         };
@@ -685,11 +587,20 @@ public class MainActivity extends AppCompatActivity {
             heroName.setText("准备就绪");
             heroMeta.setText("选择下方任意频道开始观看");
             heroPlay.setText("开始观看");
+            heroLogo.setImageDrawable(null);
+            heroLogo.setVisibility(View.GONE);
             return;
         }
         heroLabel.setText("正在播放");
         heroDot.setVisibility(View.VISIBLE);
         heroName.setText(c.name);
+        if (c.logo != null && !c.logo.isEmpty()) {
+            heroLogo.setVisibility(View.VISIBLE);
+            LogoLoader.into(heroLogo, c.logo);
+        } else {
+            heroLogo.setImageDrawable(null);
+            heroLogo.setVisibility(View.GONE);
+        }
         String g = Catalog.groupLabel(c.group, c.name);
         String meta = (g.isEmpty() ? c.region : g) + " · 频道 " + (currentIndex + 1)
                 + "/" + adapter.size();
