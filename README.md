@@ -4,15 +4,17 @@ Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐�
 
 ## 特性
 
-- 📺 内置 425 条频道线路（央视 / 卫视 / 体育 / 影视 / 港澳台 / 海外新闻 / 国际 + 美·韩·俄·德·法·英·日分国家分区 / 联通IPTV 秒开线），全部 1080P+ 且经真实播放验证
+- 📺 内置 325 条频道线路 / 239 个频道（央视 / 卫视 / 体育 / 影视 / 港澳台 / 海外新闻 / 国际 + 美·韩·俄·德·法·英·日分国家分区 / 联通IPTV 秒开线），全部经电视端实测验证
 - 🛡️ 六源抓取（Guovin / YanG / vbsky / YueChan / wwb521 / iptv-org）→ 并发 ffprobe 过滤 1080P → 逐频道抽帧目检，剔除盗版告警、电视购物、测试卡等假流
-- 🤝 **与 VPN 共存**（v1.5 新增）：应用自动绑定物理网卡（`bindProcessToNetwork` 绕过 tun0），Clash / Zion 等 tun 代理开着也能直连运营商线路秒开，不会被代理出口 IP 触发假流注入
+- 🏷️ **频道台标**（v1.6 新增）：卡片大 logo + Hero 大台标，210 个台标离线打包进 APK，零网络依赖
+- 🤝 **与 VPN 共存**（v1.5）：应用自动绑定物理网卡（`bindProcessToNetwork` 绕过 tun0），Clash / Zion 等 tun 代理开着也能直连运营商线路秒开，不会被代理出口 IP 触发假流注入
 - 🔓 信任所有证书的自定义 Http 数据源：IPTV 圈大量自签名 https 和跨协议重定向不再翻车
 - 🍎 tvOS 设计语言：纯黑底、12dp 圆角卡片、聚焦微放大、军绿强调色（#8A9B62）
 - 🖼️ 顶栏时钟 + Hero 大卡（军绿渐变）+ 纵向分区横向卡片流
 - ⚡ RTSP 强制 TCP 交织传输（运营商 IPTV 修复），北京联通 RTSP 秒开线（59 频道）优先
 - 📶 缓冲时右下角实时显示网速（Mb/s）
 - 🔁 每频道多线路自动切换：14 秒缓冲看门狗，超时自动换下一条（RTSP → 国内 CDN → 海外源 依次降级）
+- 🔬 **线路全量实测**（v1.6）：内置 ProbeReceiver 以播放器同网络栈逐一探测，剔除全部死链
 - 🎮 纯遥控器操作：↑/↓ 换台、OK 呼出频道列表、CH+/CH- 换台、菜单键换源
 - 🌐 支持内置精选源 + 在线源 + 自定义 m3u 链接
 
@@ -33,6 +35,7 @@ Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐�
 - AGP 8.5.2 / Gradle 8.7，minSdk 21
 - 内置清单：`app/src/main/assets/bjunicom.m3u`
 - 自研 TransferListener 测速（缓冲状态实时显示）
+- 自研 ProbeReceiver 线路实测通道（诊断/维护用）
 - 自研 TrustAllDataSource（自签名证书 + 跨协议重定向）
 - ConnectivityManager 物理网络绑定（VPN 共存）
 
@@ -40,13 +43,13 @@ Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐�
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.5](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.5) 下载 `Prototype-TV-1.5.apk`（约 5.4MB，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.6](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.6) 下载 `Prototype-TV-1.6.apk`（约 12MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
-SHA-256: `fd74fe71bf29d2153d7a7501a7d733aa0cefc4be7678fafa1141e47f2f94bf2b`
+SHA-256: `263a8635e58d75cf97d471822bbb9167cbf571ac19f1c09f7cd0f79f187a7c1b`
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.5.apk
+adb install -r Prototype-TV-1.6.apk
 ```
 
 **方式二：自行构建**
