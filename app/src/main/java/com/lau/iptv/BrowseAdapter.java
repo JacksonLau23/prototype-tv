@@ -3,7 +3,6 @@ package com.lau.iptv;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -233,12 +232,12 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             h.group.setVisibility(g.isEmpty() ? View.GONE : View.VISIBLE);
             h.live.setVisibility(c == playing ? View.VISIBLE : View.GONE);
 
-            // Apple tvOS 聚焦：卡片放大 + 白底黑字
+            // Apple tvOS 聚焦：卡片轻微放大 + 白底黑字
             h.itemView.setOnFocusChangeListener((v, has) -> {
-                v.animate().scaleX(has ? 1.13f : 1f)
-                        .scaleY(has ? 1.13f : 1f)
-                        .setDuration(140).start();
-                h.itemView.setTranslationZ(has ? 12f : 0f);
+                v.animate().scaleX(has ? 1.08f : 1f)
+                        .scaleY(has ? 1.08f : 1f)
+                        .setDuration(150).start();
+                h.itemView.setTranslationZ(has ? 10f : 0f);
                 applyCardColors(h, has);
                 if (has) {
                     // 聚焦时让所在行滚到该卡片
@@ -278,7 +277,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
         final TextView num;
         final TextView name;
         final TextView group;
-        final LinearLayout live;
+        final View live;
 
         CardVH(View v) {
             super(v);

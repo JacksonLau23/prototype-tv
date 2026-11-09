@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 顶栏：半透明深色圆角条，模拟毛玻璃 -->
-    <solid android:color="#C80D1120" />
-    <corners android:radius="20dp" />
+    <!-- 顶栏：Apple TV 浮动半透明玻璃条（弱化，接近无框） -->
+    <solid android:color="#660F0F13" />
+    <corners android:radius="18dp" />
 </shape>

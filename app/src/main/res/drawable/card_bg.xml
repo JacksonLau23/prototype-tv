@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 频道卡片：常态深色 / 聚焦 Apple 白卡 -->
+    <!-- 频道卡片：常态深灰 / 聚焦 Apple 白卡（tvOS 焦点材质） -->
     <item android:state_focused="true">
         <shape>
             <solid android:color="#FFF5F5F7" />
-            <corners android:radius="16dp" />
+            <corners android:radius="12dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="#FF1B1C22" />
-            <corners android:radius="16dp" />
+            <solid android:color="#FF232327" />
+            <corners android:radius="12dp" />
         </shape>
     </item>
 </selector>

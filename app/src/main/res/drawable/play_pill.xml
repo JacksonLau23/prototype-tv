@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Hero 播放按钮胶囊：常态白 / 聚焦略亮 + 描边 -->
+    <!-- Hero 播放按钮胶囊：常态白 / 聚焦军绿描边 -->
     <item android:state_focused="true">
         <shape>
             <solid android:color="#FFFFFFFF" />
             <corners android:radius="26dp" />
             <stroke
                 android:width="3dp"
-                android:color="#FF0A84FF" />
+                android:color="#8A9B62" />
         </shape>
     </item>
     <item>
