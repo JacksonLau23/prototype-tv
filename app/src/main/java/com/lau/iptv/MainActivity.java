@@ -1,7 +1,13 @@
 package com.lau.iptv;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,9 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.media3.common.C;
 import androidx.media3.common.MediaItem;
 import androidx.media3.common.PlaybackException;
 import androidx.media3.common.Player;
+import androidx.media3.datasource.BaseDataSource;
 import androidx.media3.datasource.DataSource;
 import androidx.media3.datasource.DataSpec;
 import androidx.media3.datasource.DefaultHttpDataSource;
@@ -36,12 +44,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
@@ -130,6 +147,107 @@ public class MainActivity extends AppCompatActivity {
     private long speedTickAt;
     private long speedTickBytes;
 
+    /**
+     * 信任所有证书的 http/https 数据源。
+     * IPTV 直播源大量使用自签名证书 + http→https 跨协议重定向，
+     * DefaultHttpDataSource 严格校验会直接失败，这里统一放行。
+     */
+    private static final class TrustAllDataSource extends BaseDataSource {
+        private HttpURLConnection conn;
+        private InputStream in;
+        private DataSpec spec;
+        private Uri uri;
+        private boolean opened, ended;
+
+        TrustAllDataSource() { super(/* isNetwork= */ true); }
+
+        private static void trustAll(HttpsURLConnection c) throws Exception {
+            TrustManager[] tm = new TrustManager[]{new X509TrustManager() {
+                @Override public void checkClientTrusted(X509Certificate[] ch, String a) { }
+                @Override public void checkServerTrusted(X509Certificate[] ch, String a) { }
+                @Override public X509Certificate[] getAcceptedIssuers() { return new X509Certificate[0]; }
+            }};
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, tm, new java.security.SecureRandom());
+            c.setSSLSocketFactory(sc.getSocketFactory());
+            c.setHostnameVerifier((hostname, session) -> true);
+        }
+
+        @Override
+        public long open(DataSpec dataSpec) throws IOException {
+            transferInitializing(dataSpec);
+            spec = dataSpec;
+            try {
+                URL url = new URL(dataSpec.uri.toString());
+                int code = 0;
+                for (int i = 0; i < 6; i++) {
+                    conn = (HttpURLConnection) url.openConnection();
+                    if (conn instanceof HttpsURLConnection) trustAll((HttpsURLConnection) conn);
+                    conn.setConnectTimeout(12000);
+                    conn.setReadTimeout(18000);
+                    conn.setRequestProperty("User-Agent", UA);
+                    conn.setInstanceFollowRedirects(false);
+                    if (dataSpec.position > 0) {
+                        conn.setRequestProperty("Range", "bytes=" + dataSpec.position + "-");
+                    }
+                    code = conn.getResponseCode();
+                    if (code >= 300 && code < 400) {
+                        String loc = conn.getHeaderField("Location");
+                        conn.disconnect(); conn = null;
+                        if (loc == null) break;
+                        url = new URL(url, loc);
+                        continue;
+                    }
+                    break;
+                }
+                if (code >= 400) {
+                    throw new IOException("HTTP " + code + " " + url);
+                }
+                in = conn.getInputStream();
+                uri = Uri.parse(url.toString());
+                transferStarted(dataSpec);
+                opened = true;
+                return dataSpec.length != C.LENGTH_UNSET ? dataSpec.length : C.LENGTH_UNSET;
+            } catch (Exception e) {
+                if (e instanceof IOException) {
+                    android.util.Log.w("IPTV", "open failed: " + dataSpec.uri + " -> " + e.getMessage());
+                    throw (IOException) e;
+                }
+                throw new IOException("open failed " + dataSpec.uri + ": " + e.getMessage());
+            }
+        }
+
+        @Override
+        public int read(byte[] buffer, int offset, int length) throws IOException {
+            if (length == 0) return 0;
+            if (ended) return C.RESULT_END_OF_INPUT;
+            int n = in.read(buffer, offset, length);
+            if (n == -1) {
+                ended = true;
+                close();
+                return C.RESULT_END_OF_INPUT;
+            }
+            bytesTransferred(n);
+            return n;
+        }
+
+        @Override
+        public Uri getUri() { return uri; }
+
+        @Override
+        public Map<String, List<String>> getResponseHeaders() { return Collections.emptyMap(); }
+
+        @Override
+        public void close() throws IOException {
+            if (!opened) { ended = false; return; }
+            opened = false; ended = false;
+            try { if (in != null) in.close(); } catch (IOException ignored) { }
+            if (conn != null) conn.disconnect();
+            in = null; conn = null;
+            transferEnded();
+        }
+    }
+
     /** 轻量测速：统计 http 传输字节，供缓冲速度显示 */
     private static final class SpeedMeter implements TransferListener {
         volatile long totalBytes;
@@ -213,11 +331,44 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * VPN 共存（Clash / Zion 等 tun 代理）：
+     * 把整个进程绑定到物理网络（Wi-Fi/以太网，NET_CAPABILITY_NOT_VPN），
+     * 播放流量直连运营商网络，不进 tun0 隧道。
+     * 无 VPN 时绑定到当前默认物理网络同样安全。
+     */
+    private void bypassVpn() {
+        try {
+            ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            if (cm == null) return;
+            NetworkRequest req = new NetworkRequest.Builder()
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                    .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
+                    .build();
+            cm.registerNetworkCallback(req, new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(Network network) {
+                    boolean ok = cm.bindProcessToNetwork(network);
+                    android.util.Log.i("IPTV", "bindProcessToNetwork(physical) " + (ok ? "ok " + network : "FAILED(allowBypass denied)"));
+                }
+                @Override
+                public void onLost(Network network) {
+                    cm.bindProcessToNetwork(null);
+                    android.util.Log.i("IPTV", "physical network lost, unbound");
+                }
+            });
+        } catch (Exception e) {
+            android.util.Log.w("IPTV", "bypassVpn failed", e);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
+
+        bypassVpn();
 
         prefs = getSharedPreferences(PREF, MODE_PRIVATE);
         mode = prefs.getInt(KEY_MODE, MODE_ALL);
@@ -235,14 +386,9 @@ public class MainActivity extends AppCompatActivity {
         heroDot = findViewById(R.id.hero_dot);
         heroLabel = findViewById(R.id.hero_label);
 
-        DefaultHttpDataSource.Factory http = new DefaultHttpDataSource.Factory()
-                .setUserAgent(UA)
-                .setConnectTimeoutMs(12000)
-                .setReadTimeoutMs(18000)
-                .setAllowCrossProtocolRedirects(true);
         speedMeter = new SpeedMeter();
         DataSource.Factory ds = () -> {
-            DataSource source = http.createDataSource();
+            DataSource source = new TrustAllDataSource();
             source.addTransferListener(speedMeter);
             return source;
         };
@@ -343,7 +489,12 @@ public class MainActivity extends AppCompatActivity {
                 render(false);
                 showList();
                 updateHero(null);
-                play(0);
+                // 默认台固定 CCTV-1；找不到再回退到第一个频道
+                int idx = 0;
+                for (int i = 0; i < allChannels.size(); i++) {
+                    if (allChannels.get(i).name.startsWith("CCTV-1")) { idx = i; break; }
+                }
+                play(idx);
                 return;
             }
         }
@@ -497,6 +648,7 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (lineIndex >= c.urls.size()) lineIndex = 0;
+        android.util.Log.i("IPTV", "PLAY[" + c.name + "] line " + (lineIndex + 1) + "/" + c.urls.size() + " " + c.urls.get(lineIndex));
         main.removeCallbacks(bufferingWatchdog);
         main.removeCallbacks(bufferTicker);
         try {
