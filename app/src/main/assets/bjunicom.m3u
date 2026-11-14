@@ -767,3 +767,93 @@ https://s6.hopslan.com/rtl2q/index.m3u8
 https://dash4.antik.sk/live/test_rtl_ger_tizen/playlist.m3u8
 https://s6.hopslan.com/superX/index.m3u8
 https://dash4.antik.sk/live/test_rtl_zwei_tizen/playlist.m3u8
+
+#EXTINF:-1 tvg-id="ViuTV.hk" tvg-name="ViuTV" group-title="港澳台",ViuTV
+http://php.jdshipin.com/TVOD/iptv.php?id=viutv2
+http://r.jdshipin.com/vSJvl
+http://r.jdshipin.com/TcKr2
+http://php.jdshipin.com/TVOD/iptv.php?id=viutv
+#EXTINF:-1 tvg-id="CTS.tw" tvg-name="华视" group-title="港澳台",华视
+https://hlspackager.akamaized.net/live/DB/AMAZING_FACTS/HLS/AMAZING_FACTS.m3u8
+#EXTINF:-1 tvg-id="FTV.tw" tvg-name="民视" group-title="港澳台" tvg-logo="https://i.imgur.com/q8ahtbT.png",民视
+https://livestream.telvue.com/accframingham1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="VideolandSports.tw" tvg-name="纬来体育" group-title="港澳台",纬来体育
+https://epg.pw/stream/8855a9936e37e608a0ec8a014cce1673dee9c5d68d560da376cc92e5edef2b25.m3u8
+https://epg.pw/stream/4f18dfe0593db5c686eb64ae8edaf2a9202d4d46bdc9bbde2cee27708e12ea01.m3u8
+https://epg.pw/stream/ab6df63b64d0cc44a1f4f029ed847a26fa54a7aebd455578fb05a63f02c22f4b.m3u8
+#EXTINF:-1 tvg-id="NHKGeneral.jp" tvg-name="NHK综合" group-title="日本" tvg-logo="https://i.imgur.com/fAZ2BEZ.png",NHK综合
+https://tv-stream-test.daydreamer-json.cc/fe8bf835820fb530467f75a9cb761504/master.m3u8
+#EXTINF:-1 tvg-id="TBS.jp" tvg-name="TBS电视台" group-title="日本" tvg-logo="https://i.imgur.com/iOnWS6V.png",TBS电视台
+https://cdntv.tbs.seoul.kr/tbs/tbs_tv_web.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="TVTokyo.jp" tvg-name="东京电视台" group-title="日本" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/TV_Tokyo_%28Japanese%29_2023.svg/960px-TV_Tokyo_%28Japanese%29_2023.svg.png",东京电视台
+https://cdn-atxn-01.vos360.video/Content/HLS/Live/channel(616d6f49-eaec-6f7e-7186-2bbaf66c69c0)/index.m3u8
+https://aegis-cloudfront-1.tubi.video/e739361e-fa12-4cac-92f3-e0dbf332cd88/playlist.m3u8
+https://cdn-atxn-01.vos360.video/Content/HLS/Live/channel(f97b5ddc-b7e4-dff8-9f10-8c16d0833639)/index.m3u8
+#EXTINF:-1 tvg-id="FujiTV.jp" tvg-name="富士电视台" group-title="日本" tvg-logo="https://i.imgur.com/1hHW3IK.png",富士电视台
+https://6305c8676ce84.streamlock.net/live/live/playlist.m3u8
+http://reflect-ccx.cablecast.tv/live-9/live/stream-1/live.m3u8
+#EXTINF:-1 tvg-id="NipponTV.jp" tvg-name="日本电视台" group-title="日本" tvg-logo="https://i.imgur.com/5LNZeVq.png",日本电视台
+https://d3e05csss9c272.cloudfront.net/out/v1/f0bf71c57581470fb9379f603e8f5d83/CGNWebLiveCN.m3u8
+https://ontv4u-orka.b-cdn.net/ONTV4U-ORKA/index.m3u8
+https://d368vp0qqzvkid.cloudfront.net/11603/88889711/hls/master.m3u8?ads.xumo_channelId=88889711a&ads.xumo_ifaType=&ads.xumo_providerId=3822&ads.xumo_providerName=NBCNBA
+#EXTINF:-1 tvg-id="TVAsahi.jp" tvg-name="朝日电视台" group-title="日本" tvg-logo="https://i.imgur.com/TIe5T9Z.png",朝日电视台
+https://livestream.liveone.com/lc1/p1.m3u8
+http://livestreamcdn.net:1935/ExtremaTV/ExtremaTV/playlist.m3u8
+https://cdn3.wowza.com/5/M0lyamVmM2JWcjhQ/lfucg/G0264_005/playlist.m3u8
+https://qvcuk-live.akamaized.net/hls/live/2097112/qex/master.m3u8
+#EXTINF:-1 tvg-id="YomiuriTV.jp" tvg-name="读卖电视台" group-title="日本" tvg-logo="https://i.imgur.com/4BDJ5FT.png",读卖电视台
+https://cdn3.wowza.com/5/bGZUOHp2TnhudnM2/santamonica/G0039_002/playlist.m3u8
+https://cdn3.wowza.com/5/dk84U1p2UUdoMGxT/sandiego/G1826_005/playlist.m3u8
+#EXTINF:-1 tvg-id="AMC.us" tvg-name="AMC" group-title="美国",AMC
+https://amc-amcpresents-1-us.xumo.wurl.tv/playlist.m3u8
+https://AMChls.wns.live/hls/stream.m3u8
+#EXTINF:-1 tvg-id="BigTenNetwork.us" tvg-name="Big Ten Network" group-title="美国" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/3/39/Big_Ten_Network_Logo.svg/960px-Big_Ten_Network_Logo.svg.png",Big Ten Network
+http://23.237.104.106:8080/USA_BTN/index.m3u8
+#EXTINF:-1 tvg-id="CBSNews.us" tvg-name="CBS News" group-title="美国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/CBS_News_247_logo.svg/960px-CBS_News_247_logo.svg.png",CBS News
+https://cbsn-sf.cbsnstream.cbsnews.com/out/v1/dac63c1abb3f4a2dac9f508f44bb072a/master.m3u8
+https://cbsn-bos.cbsnstream.cbsnews.com/out/v1/589d66ec6eb8434c96c28de0370d1326/master.m3u8
+https://jmp2.uk/plu-6350fdd266e9ea0007bedec5.m3u8
+https://lineup.cbsivideo.com/playout/8877a7d5-b094-4ac8-bc72-75a5fed68e5b/index.m3u8
+#EXTINF:-1 tvg-id="DisneyChannel.us" tvg-name="Disney Channel" group-title="美国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/2024_Disney_Channel_text_logo.svg/960px-2024_Disney_Channel_text_logo.svg.png",Disney Channel
+http://4.30.180.36:8420/disneychannel/index.m3u8?token=test
+#EXTINF:-1 tvg-id="FoodNetwork.us" tvg-name="Food Network" group-title="美国",Food Network
+http://23.237.104.106:8080/USA_FOOD_NETWORK/index.m3u8
+#EXTINF:-1 tvg-id="ION.us" tvg-name="ION" group-title="美国" tvg-logo="https://i.imgur.com/jaIdkbz.png",ION
+https://jmp2.uk/plu-62ac50e92c48f900071444c9.m3u8
+https://aasthaott.akamaized.net/110923/smil:aasthausa.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="NBCNews.us" tvg-name="NBC News" group-title="美国" tvg-logo="https://i.imgur.com/JZt2qh5.png",NBC News
+https://d1si3n1st4nkgb.cloudfront.net/10502/88896001/hls/master.m3u8?ads.xumo_channelId=88896001
+#EXTINF:-1 tvg-id="NHLNetwork.us" tvg-name="NHL Network" group-title="美国" tvg-logo="https://i.imgur.com/UNZ8bef.png",NHL Network
+https://nhl-firetv.amagi.tv/playlist.m3u8
+#EXTINF:-1 tvg-id="Nickelodeon.us" tvg-name="Nickelodeon" group-title="美国" tvg-logo="https://i.imgur.com/E84jnP8.png",Nickelodeon
+https://jmp2.uk/plu-5d8d08395f39465da6fb3ec4.m3u8
+https://jmp2.uk/plu-5ca6748a37b88b269472dad9.m3u8
+#EXTINF:-1 tvg-id="PBS.us" tvg-name="PBS" group-title="美国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/PBS_America_2022.svg/960px-PBS_America_2022.svg.png",PBS
+http://185.19.191.2:8090/PBS/index.m3u8
+https://ketsdt.lls.pbs.org/out/v1/03c094dbd7874a4a8c3fe9fb10081bdb/index.m3u8
+https://khetdt.lls.pbs.org/out/v1/7ec7903413294b72bb64f83963d8ea9b/index.m3u8
+#EXTINF:-1 tvg-id="ParamountNetwork.us" tvg-name="Paramount Network" group-title="美国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Paramount_Network.svg/960px-Paramount_Network.svg.png",Paramount Network
+http://23.237.104.106:8080/USA_PARAMOUNT_NETWORK/index.m3u8
+#EXTINF:-1 tvg-id="SECNetwork.us" tvg-name="SEC Network" group-title="美国",SEC Network
+http://23.237.104.106:8080/USA_SEC_NETWORK/index.m3u8
+#EXTINF:-1 tvg-id="Showtime.us" tvg-name="Showtime" group-title="美国" tvg-logo="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Showtime_Family_Zone.svg/960px-Showtime_Family_Zone.svg.png",Showtime
+http://23.237.104.106:8080/USA_SHOWTIME_FAMILY/index.m3u8
+#EXTINF:-1 tvg-id="Starz.us" tvg-name="Starz" group-title="美国" tvg-logo="https://i.imgur.com/N7oSm4d.png",Starz
+http://23.237.104.106:8080/USA_STARZ_WEST/index.m3u8
+http://23.237.104.106:8080/USA_STARZ_COMEDY/index.m3u8
+#EXTINF:-1 tvg-id="Syfy.us" tvg-name="Syfy" group-title="美国" tvg-logo="https://i.imgur.com/4fMWhUE.png",Syfy
+http://23.237.104.106:8080/USA_SYFY/index.m3u8
+#EXTINF:-1 tvg-id="Tastemade.us" tvg-name="Tastemade" group-title="美国" tvg-logo="https://i.imgur.com/xP7Ehn8.png",Tastemade
+https://tastemade-tdint-rakuten.amagi.tv/playlist.m3u8
+https://d6ef3usc6d9cl.cloudfront.net/Tastemade_Travel.m3u8
+https://rakutenaa-tm-intl-aus-rakuten-eu-n1gtg.amagi.tv/playlist/rakutenAA-tm-intl-aus-rakuten-eu/playlist.m3u8
+#EXTINF:-1 tvg-id="TennisChannel.us" tvg-name="Tennis Channel" group-title="美国" tvg-logo="https://image-resizer-cloud-cdn.api.cms.amdvids.com/image/7382296F-97F6-4450-B77B-8FE331FC04F6/3-1x1.png",Tennis Channel
+https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg01444-tennischannelth-tennischannelnl-samsungnl/playlist.m3u8
+https://mumbai-edge.smartplaytv.in/Tennis2/index.m3u8
+https://jmp2.uk/plu-681109b688b9d85d0938c6ba.m3u8
+#EXTINF:-1 tvg-id="Channel4.uk" tvg-name="Channel 4" group-title="英国" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1621.png",Channel 4
+https://livestream.telvue.com/madrivervalleytv1/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8
+https://tv2.fastcast4u.com:3943/stream/play.m3u8
+https://livestream.telvue.com/madrivervalleytv2/f7b44cfafd5c52223d5498196c8a2e7b.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="S4C.uk" tvg-name="S4C" group-title="英国" tvg-logo="https://i.imgur.com/vrcbnBv.png",S4C
+https://v2.uk.live.s4c-cdn.co.uk/out/v1/S4C/UK_TX/uk_live/uk-tx-dvb.mpd

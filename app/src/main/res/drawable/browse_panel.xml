@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- YouTube TV 式底部面板：顶部略透渐入，向下接近纯黑（保证卡片文字对比度） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:startColor="#B3000000"
+        android:centerColor="#F2000000"
+        android:endColor="#FF0F0F0F" />
+</shape>

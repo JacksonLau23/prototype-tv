@@ -113,16 +113,13 @@ public class MainActivity extends AppCompatActivity {
                     "https://gh-proxy.com/" + SPORTS, SPORTS}),
     };
 
-    private static final int MODE_TV = 0;
-    private static final int MODE_SPORT = 1;
-    private static final int MODE_ALL = 2;
-
     private static final String PREF = "iptv_pref";
     private static final String KEY_SOURCE = "source_index";
-    private static final String KEY_MODE = "show_mode_v2";
+    private static final String KEY_CHIP = "chip_filter_v2";
     private static final String KEY_ASSET_VER = "asset_ver";
-    /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部频道 */
-    private static final int ASSET_VER = 2;
+    /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
+    private static final int ASSET_VER = 3;
+    private static final String CHIP_ALL = "全部";
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
 
@@ -136,14 +133,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView subtitleView;
     private TextView clockView;
     private TextView statusView;
-    private TextView heroName;
-    private android.widget.ImageView heroLogo;
-    private TextView heroMeta;
-    private TextView heroPlay;
-    private View heroDot;
-    private TextView heroLabel;
+    private TextView nowText;
+    private View nowDot;
+    private View nowPill;
+    private android.widget.LinearLayout chipsRow;
+    private android.widget.HorizontalScrollView chipsScroll;
     private android.widget.ImageView playingLogo;
     private BrowseAdapter adapter;
+    /** 当前分类过滤（null = 全部） */
+    private String chipFilter;
+    /** 当前正在播放的频道（可能被过滤掉不在列表里） */
+    private Channel playingChannel;
 
     private final ExecutorService io = Executors.newSingleThreadExecutor();
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -180,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
     private int currentIndex = -1;   // 扁平频道序号
     private int lineIndex = 0;
     private int autoSwitch = 0;
-    private int mode = MODE_TV;
     private boolean loading = false;
     private boolean listShown = true;
 
@@ -276,14 +275,14 @@ public class MainActivity extends AppCompatActivity {
         LogoLoader.init(this);
 
         prefs = getSharedPreferences(PREF, MODE_PRIVATE);
-        // 内置频道表升级：重置到内置源 + 全部频道，让新频道直接可见
+        // 内置频道表升级：重置到内置源 + 全部分类，让新频道直接可见
         if (prefs.getInt(KEY_ASSET_VER, 0) < ASSET_VER) {
             prefs.edit().putInt(KEY_ASSET_VER, ASSET_VER)
                     .putInt(KEY_SOURCE, 0)
-                    .putInt(KEY_MODE, MODE_ALL)
+                    .putString(KEY_CHIP, "")
                     .apply();
         }
-        mode = prefs.getInt(KEY_MODE, MODE_ALL);
+        chipFilter = emptyToNull(prefs.getString(KEY_CHIP, ""));
 
         titleView = findViewById(R.id.title);
         subtitleView = findViewById(R.id.subtitle);
@@ -292,12 +291,11 @@ public class MainActivity extends AppCompatActivity {
         sectionList = findViewById(R.id.sections);
         browseView = findViewById(R.id.browse);
         playerView = findViewById(R.id.player);
-        heroName = findViewById(R.id.hero_name);
-        heroLogo = findViewById(R.id.hero_logo);
-        heroMeta = findViewById(R.id.hero_meta);
-        heroPlay = findViewById(R.id.hero_play);
-        heroDot = findViewById(R.id.hero_dot);
-        heroLabel = findViewById(R.id.hero_label);
+        nowText = findViewById(R.id.now_text);
+        nowDot = findViewById(R.id.now_dot);
+        nowPill = findViewById(R.id.now_playing);
+        chipsRow = findViewById(R.id.chips);
+        chipsScroll = findViewById(R.id.chips_scroll);
         playingLogo = findViewById(R.id.playing_logo);
 
         speedMeter = new SpeedMeter();
@@ -321,7 +319,8 @@ public class MainActivity extends AppCompatActivity {
         sectionList.setLayoutManager(new LinearLayoutManager(this));
         sectionList.setAdapter(adapter);
 
-        heroPlay.setOnClickListener(v -> hideList());
+        // 点顶栏「正在播放」胶囊 → 回到全屏画面
+        nowPill.setOnClickListener(v -> hideList());
 
         player.addListener(new Player.Listener() {
             @Override
@@ -384,7 +383,15 @@ public class MainActivity extends AppCompatActivity {
         browseView.setVisibility(View.VISIBLE);
         browseView.animate().alpha(1f).setDuration(200).start();
         playingLogo.setVisibility(View.GONE);
-        sectionList.requestFocus();
+        // 浏览时关掉播放器缓冲圈（避免透过面板显示），缓冲状态由右下胶囊提示
+        playerView.setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER);
+        // 焦点落在第一张卡片上（若无内容则落 chips）
+        sectionList.postDelayed(() -> {
+            if (adapter.getItemCount() > 0 && adapter.focusFirst()) return;
+            if (chipsRow != null && chipsRow.getChildCount() > 0) {
+                chipsRow.getChildAt(0).requestFocus();
+            }
+        }, 180);
     }
 
     private void hideList() {
@@ -392,11 +399,12 @@ public class MainActivity extends AppCompatActivity {
         browseView.animate().alpha(0f).setDuration(200)
                 .withEndAction(() -> browseView.setVisibility(View.GONE)).start();
         // 退回全屏：恢复左上角播放台标（有台标且源不自带水印时）
-        Channel c = adapter.channelAt(currentIndex);
+        Channel c = playingChannel;
         if (c != null && c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
             playingLogo.setVisibility(View.VISIBLE);
         }
         playerView.requestFocus();
+        playerView.setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS);
     }
 
     // ===================== 加载 =====================
@@ -410,12 +418,17 @@ public class MainActivity extends AppCompatActivity {
                 allChannels.clear();
                 allChannels.addAll(M3uParser.parse(bj));
                 render(false);
+                buildChips();
                 showList();
-                updateHero(null);
-                // 默认台固定 CCTV-1；找不到再回退到第一个频道
+                updateNowPlaying(null);
+                // 默认台固定 CCTV-1（在过滤后的列表里找，避免索引错位）；找不到再回退第一个
                 int idx = 0;
-                for (int i = 0; i < allChannels.size(); i++) {
-                    if (allChannels.get(i).name.startsWith("CCTV-1")) { idx = i; break; }
+                for (int i = 0; i < adapter.size(); i++) {
+                    Channel c = adapter.channelAt(i);
+                    if (c != null && "CCTV1".equals(Catalog.key(c.name))) {
+                        idx = i;
+                        break;
+                    }
                 }
                 play(idx);
                 return;
@@ -497,6 +510,7 @@ public class MainActivity extends AppCompatActivity {
                 allChannels.clear();
                 allChannels.addAll(list);
                 render(true);
+                buildChips();
                 if (!restorePlaying(playingKey) || autoPlay) play(0);
                 else setStatus(src.name + " · 加载完成");
             });
@@ -515,7 +529,7 @@ public class MainActivity extends AppCompatActivity {
             if (c != null && key.equals(Catalog.key(c.name))) {
                 currentIndex = i;
                 adapter.setPlaying(c);
-                updateHero(c);
+                updateNowPlaying(c);
                 return true;
             }
         }
@@ -523,24 +537,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getTitleText() {
-        String label = mode == MODE_SPORT ? " · 体育赛事"
-                : (mode == MODE_ALL ? " · 全部" : "");
+        String label = chipFilter == null ? " · 全部" : " · " + chipFilter;
         return adapter.size() + " 个频道" + label;
     }
 
-    /** 按当前显示模式填充卡片（分组交给 BrowseAdapter） */
-    private void render(boolean keepPlayState) {
-        List<Channel> shown = new ArrayList<>();
+    /** 当前分类过滤下是否显示该频道 */
+    private boolean matchesChip(Channel c) {
+        if (chipFilter == null) return true;
+        int cat = Catalog.category(c.group, c.name);
+        switch (chipFilter) {
+            case "央视":
+                return cat == Catalog.CAT_CCTV;
+            case "卫视":
+                return cat == Catalog.CAT_SAT;
+            case "地方台":
+                return cat == Catalog.CAT_LOCAL;
+            case "港澳台":
+                return cat == Catalog.CAT_HMT;
+            case "体育":
+                return cat == Catalog.CAT_SPORT
+                        || (cat == Catalog.CAT_CCTV && c.name.replace(" ", "").startsWith("CCTV-5"));
+            default:
+                return chipFilter.equals(c.region);
+        }
+    }
+
+    /** 按当前分类 chips 过滤填充卡片（分组交给 BrowseAdapter） */
+    private void render(boolean keepPlayState) {        List<Channel> shown = new ArrayList<>();
         for (Channel c : allChannels) {
             int cat = Catalog.category(c.group, c.name);
-            boolean cctv5 = cat == Catalog.CAT_CCTV && c.name.replace(" ", "").startsWith("CCTV-5");
             if (cat == Catalog.CAT_OTHER && Catalog.isJunk(c.name)) continue;
-            if (mode == MODE_TV) {
-                if (!Catalog.isTvChannel(cat)) continue;
-                if (cat == Catalog.CAT_SPORT && !Catalog.isSportWanted(c.name)) continue;
-            } else if (mode == MODE_SPORT) {
-                if (cat != Catalog.CAT_SPORT && !cctv5) continue;
-            }
+            if (!matchesChip(c)) continue;
             shown.add(c);
         }
         adapter.submit(shown);
@@ -551,6 +578,102 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // ===================== 分类 chips（YouTube TV 风格） =====================
+
+    private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台", "港澳台", "体育"};
+
+    /** 依据当前频道表重建 chips 行 */
+    private void buildChips() {
+        if (chipsRow == null) return;
+        chipsRow.removeAllViews();
+        List<String> labels = new ArrayList<>();
+        for (String b : BASE_CHIPS) labels.add(b);
+
+        // 各国 / 地区 chips（按 Catalog 排序规则），港澳台已由基类 chip 覆盖
+        java.util.Map<String, Integer> regionCount = new java.util.LinkedHashMap<>();
+        for (Channel c : allChannels) {
+            if (c.region == null || c.region.isEmpty()) continue;
+            if ("中国大陆".equals(c.region) || "中国".equals(c.region) || "中国港澳台".equals(c.region)) {
+                continue;
+            }
+            if (Catalog.category(c.group, c.name) == Catalog.CAT_OTHER && Catalog.isJunk(c.name)) continue;
+            Integer n = regionCount.get(c.region);
+            regionCount.put(c.region, n == null ? 1 : n + 1);
+        }
+        List<String> regions = new ArrayList<>(regionCount.keySet());
+        regions.sort((a, b) -> {
+            int ra = Catalog.regionRank(a);
+            int rb = Catalog.regionRank(b);
+            return ra != rb ? Integer.compare(ra, rb) : a.compareTo(b);
+        });
+        labels.addAll(regions);
+
+        for (String label : labels) chipsRow.addView(makeChip(label));
+        highlightChips();
+    }
+
+    private TextView makeChip(final String label) {
+        TextView t = new TextView(this);
+        t.setText(label);
+        t.setTextSize(13);
+        t.setTypeface(null, android.graphics.Typeface.BOLD);
+        t.setGravity(android.view.Gravity.CENTER);
+        t.setPadding(dp(18), dp(9), dp(18), dp(9));
+        t.setBackgroundResource(R.drawable.chip_bg);
+        t.setFocusable(true);
+        t.setFocusableInTouchMode(true);
+        android.widget.LinearLayout.LayoutParams lp = new android.widget.LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.setMarginEnd(dp(10));
+        t.setLayoutParams(lp);
+        t.setOnClickListener(v -> selectChip(label));
+        t.setNextFocusDownId(R.id.sections);
+        t.setOnFocusChangeListener((v, has) -> {
+            t.setTextColor((has || t.isSelected()) ? 0xFF111111 : 0xFFF2F2F7);
+            if (has) chipsScroll.smoothScrollTo(Math.max(0, t.getLeft() - dp(160)), 0);
+        });
+        return t;
+    }
+
+    private void selectChip(String label) {
+        chipFilter = CHIP_ALL.equals(label) ? null : label;
+        prefs.edit().putString(KEY_CHIP, chipFilter == null ? "" : chipFilter).apply();
+        highlightChips();
+        String key = playingChannel == null ? null : Catalog.key(playingChannel.name);
+        render(true);
+        if (!restorePlaying(key)) {
+            currentIndex = -1;
+            updateNowPlaying(playingChannel);
+        }
+        sectionList.scrollToPosition(0);
+        // 列表重建后焦点会掉，重新落到第一张卡片
+        sectionList.postDelayed(() -> {
+            if (!adapter.focusFirst() && chipsRow != null && chipsRow.getChildCount() > 0) {
+                chipsRow.getChildAt(0).requestFocus();
+            }
+        }, 200);
+    }
+
+    private void highlightChips() {
+        if (chipsRow == null) return;
+        for (int i = 0; i < chipsRow.getChildCount(); i++) {
+            TextView t = (TextView) chipsRow.getChildAt(i);
+            boolean sel = chipFilter == null
+                    ? CHIP_ALL.contentEquals(t.getText())
+                    : chipFilter.contentEquals(t.getText());
+            t.setSelected(sel);
+            t.setTextColor((sel || t.isFocused()) ? 0xFF111111 : 0xFFF2F2F7);
+        }
+    }
+
+    private int dp(int v) {
+        return Math.round(getResources().getDisplayMetrics().density * v);
+    }
+
+    private static String emptyToNull(String s) {
+        return s == null || s.isEmpty() ? null : s;
+    }
+
     // ===================== 播放 =====================
 
     private void play(int flatIndex) {
@@ -559,6 +682,7 @@ public class MainActivity extends AppCompatActivity {
         currentIndex = flatIndex;
         lineIndex = 0;
         autoSwitch = 0;
+        playingChannel = c;
         playCurrent();
         hideList();     // 选台后全屏
     }
@@ -586,8 +710,9 @@ public class MainActivity extends AppCompatActivity {
             }
             player.prepare();
             player.play();
+            playingChannel = c;
             adapter.setPlaying(c);
-            updateHero(c);
+            updateNowPlaying(c);
             String meta = c.region + " · " + c.name;
             if (c.lineCount() > 1) {
                 meta += " · 线路 " + (lineIndex + 1) + "/" + c.lineCount();
@@ -600,37 +725,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** Hero 横幅内容随当前频道更新 */
-    private void updateHero(Channel c) {
+    /** 顶栏「正在播放」胶囊随当前频道更新 */
+    private void updateNowPlaying(Channel c) {
+        if (nowText == null) return;
         if (c == null) {
-            heroLabel.setText("LIVE TV");
-            heroDot.setVisibility(View.INVISIBLE);
-            heroName.setText("准备就绪");
-            heroMeta.setText("选择下方任意频道开始观看");
-            heroPlay.setText("开始观看");
-            heroLogo.setImageDrawable(null);
-            heroLogo.setVisibility(View.GONE);
-            return;
-        }
-        heroLabel.setText("正在播放");
-        heroDot.setVisibility(View.VISIBLE);
-        heroName.setText(c.name);
-        if (c.logo != null && !c.logo.isEmpty()) {
-            heroLogo.setVisibility(View.VISIBLE);
-            LogoLoader.into(heroLogo, c.logo);
+            nowDot.setVisibility(View.INVISIBLE);
+            nowText.setText("准备就绪");
+            nowText.setTextColor(0xFFB0B0BA);
+            nowPill.setAlpha(0.9f);
         } else {
-            heroLogo.setImageDrawable(null);
-            heroLogo.setVisibility(View.GONE);
+            nowDot.setVisibility(View.VISIBLE);
+            String t = c.name;
+            if (c.lineCount() > 1) t += " · " + (lineIndex + 1) + "/" + c.lineCount();
+            nowText.setText(t);
+            nowText.setTextColor(0xFFFFFFFF);
+            nowPill.setAlpha(1f);
         }
-        String g = Catalog.groupLabel(c.group, c.name);
-        String meta = (g.isEmpty() ? c.region : g) + " · 频道 " + (currentIndex + 1)
-                + "/" + adapter.size();
-        if (c.lineCount() > 1) meta += " · " + c.lineCount() + " 条线路";
-        heroMeta.setText(meta);
-        heroPlay.setText("继续播放");
-
         // 全屏播放时左上角常驻台标（源画面自带台标的频道不重复叠加）
-        if (c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
+        if (c != null && c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
             LogoLoader.into(playingLogo, c.logo);
             playingLogo.setVisibility(listShown ? View.GONE : View.VISIBLE);
         } else {
@@ -666,9 +778,7 @@ public class MainActivity extends AppCompatActivity {
     // ===================== 菜单 =====================
 
     private void showMenu() {
-        String modeLabel = mode == MODE_SPORT ? "只看体育（NBA / NFL）"
-                : (mode == MODE_ALL ? "全部频道（按国家）" : "电视台直播");
-        String[] items = {"检查更新…", "切换节目源…", "显示内容：" + modeLabel + " …", "重新加载当前源", "手动输入 m3u 链接…"};
+        String[] items = {"检查更新…", "切换节目源…", "重新加载当前源", "手动输入 m3u 链接…"};
         new AlertDialog.Builder(this)
                 .setTitle("菜单")
                 .setItems(items, (d, which) -> {
@@ -680,9 +790,6 @@ public class MainActivity extends AppCompatActivity {
                             showSourceDialog();
                             break;
                         case 2:
-                            showModeDialog();
-                            break;
-                        case 3:
                             loadSource(prefs.getInt(KEY_SOURCE, 0), false);
                             break;
                         default:
@@ -752,24 +859,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showModeDialog() {
-        String[] items = {"全部频道（先按国家 / 地区分组）", "只看体育（NBA / NFL / ESPN）", "只看电视台直播（央视 / 卫视 / 地方台）"};
-        new AlertDialog.Builder(this)
-                .setTitle("显示内容")
-                .setItems(items, (d, which) -> {
-                    mode = which;
-                    prefs.edit().putInt(KEY_MODE, mode).apply();
-                    String key = currentKey();
-                    render(true);
-                    if (!restorePlaying(key)) {
-                        currentIndex = -1;
-                        play(0);
-                    }
-                })
-                .setNegativeButton("取消", null)
-                .show();
-    }
-
     private void showSourceDialog() {
         String[] labels = new String[SOURCES.length];
         for (int i = 0; i < SOURCES.length; i++) labels[i] = (i + 1) + ". " + SOURCES[i].name;
@@ -816,6 +905,7 @@ public class MainActivity extends AppCompatActivity {
                     allChannels.clear();
                     allChannels.addAll(list);
                     render(true);
+                    buildChips();
                     play(0);
                     setStatus("自定义源 · " + list.size() + " 个频道");
                 });

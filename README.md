@@ -1,24 +1,30 @@
 # Prototype TV — 电视端 IPTV 播放器
 
-Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐条验证的 1080P+ 频道清单，按分类/国家分组，军绿色强调色，纯遥控器操作。
+YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条验证的 1080P+ 频道清单，按分类 / 国家分区，军绿色强调色，纯遥控器操作。
 
 ## 特性
 
-- 📺 内置 359 条频道线路 / 272 个频道（央视 / 卫视 / 体育 / 影视 / 港澳台 / 海外新闻 / 国际 + 美·韩·俄·德·法·英·日分国家分区 / 联通IPTV 秒开线），全部经电视端实测验证
-- 🆕 **v1.7 新增 33 个频道**：宁夏/海南/三沙/厦门卫视、凤凰香港、TVBS/台视/东森/三立/纬来、beIN/足球频道、BBC/CNN/Fox/ABC/半岛/法兰西24/DW/NHK/Arirang/TV5/Euronews/Bloomberg/CNBC/Sky/TRT/CNA、德国 Das Erste/ZDF/RTL——全部经 Sony 电视真实网络逐条探测可用
-- 🔄 **应用内在线更新**（v1.7）：菜单「检查更新」自动比对 GitHub Release，下载 APK 一键安装；启动时也会静默检查
-- 🏷️ **频道台标**：卡片大 logo + Hero 台标 + **全屏播放左上角常驻台标**（CCTV/卫视等源画面自带水印的台自动跳过，避免重复），230+ 台标离线打包进 APK，零网络依赖
-- 🛡️ 六源抓取（Guovin / YanG / vbsky / YueChan / wwb521 / iptv-org）→ 并发 ffprobe 过滤 1080P → 逐频道抽帧目检，剔除盗版告警、电视购物、测试卡等假流
-- 🏷️ **频道台标**（v1.6 新增）：卡片大 logo + Hero 大台标，210 个台标离线打包进 APK，零网络依赖
-- 🤝 **与 VPN 共存**（v1.5）：应用自动绑定物理网卡（`bindProcessToNetwork` 绕过 tun0），Clash / Zion 等 tun 代理开着也能直连运营商线路秒开，不会被代理出口 IP 触发假流注入
+- 📺 内置 389 条频道线路 / 379 个频道（央视 / 卫视 / 地方台 / 港澳台 / 体育 / 海外新闻 / 日本 / 美国 / 英国 / 德国 / 法国… 分国家地区），全部经 Sony 电视真实网络逐条探测验证
+- 🆕 **v1.8 新增 30 个频道**：
+  - **港澳台**：ViuTV、华视、民视、纬来体育、TVBS 亚洲
+  - **日本**：NHK 综合、日本电视台、朝日电视台、东京电视台、富士电视台、读卖电视台、TBS 电视台
+  - **美国**：AMC、Big Ten Network、CBS News、NBC News、Disney Channel、Food Network、ION、NHL Network、Nickelodeon、Paramount Network、PBS、SEC Network、Showtime、Starz、Syfy、Tastemade、Tennis Channel
+  - **英国**：Channel 4、S4C
+- 🎬 **YouTube TV 官方版式**（v1.8）：
+  - 扁平顶栏（标题 + 正在播放胶囊 + 时钟），无厚重卡片背景
+  - **分类 chips 过滤条**：全部 / 央视 / 卫视 / 地方台 / 港澳台 / 体育 / 美国 / 英国 / 日本 / 德国…，选中白底黑字、聚焦军绿描边
+  - 频道面板只占屏幕 **68%**，上方 1/3 始终露出正在播放的画面
+  - 焦点卡片：纯白底 + 黑字 + 军绿 4dp 粗描边 + 放大 + 投影，远距离一眼锁定；未聚焦卡片保持高可读亮度
+- 🔄 **应用内在线更新**（v1.7+）：菜单「检查更新」自动比对 GitHub Release，下载 APK 一键安装；启动时也会静默检查
+- 🏷️ **频道台标**：卡片大 logo + **全屏播放左上角常驻台标**（CCTV/卫视等源画面自带水印的台自动跳过，避免重复），250+ 台标离线打包进 APK，零网络依赖
+- 🛡️ 多源抓取（Guovin / YanG / vbsky / YueChan / iptv-org / Free-TV）→ 逐条电视端探测，剔除死链、盗版告警、购物台、测试卡等假流
+- 🤝 **与 VPN 共存**（v1.5+）：应用自动绑定物理网卡（`bindProcessToNetwork` 绕过 tun0），Clash / Zion 等 tun 代理开着也能直连运营商线路秒开
 - 🔓 信任所有证书的自定义 Http 数据源：IPTV 圈大量自签名 https 和跨协议重定向不再翻车
-- 🍎 tvOS 设计语言：纯黑底、12dp 圆角卡片、聚焦放大 1.2× + 军绿粗描边 + 白卡黑字、军绿强调色（#8A9B62）
-- 🖼️ 顶栏时钟 + **紧凑 Hero 条**（v1.7：大幅压缩高度，频道区占屏幕 64%+）+ 纵向分区横向卡片流
-- ⚡ RTSP 强制 TCP 交织传输（运营商 IPTV 修复），北京联通 RTSP 秒开线（59 频道）优先
+- ⚡ RTSP 强制 TCP 交织传输（运营商 IPTV 修复），北京联通 RTSP 秒开线优先
 - 📶 缓冲时右下角实时显示网速（Mb/s）
 - 🔁 每频道多线路自动切换：14 秒缓冲看门狗，超时自动换下一条（RTSP → 国内 CDN → 海外源 依次降级）
-- 🔬 **线路全量实测**（v1.6）：内置 ProbeReceiver 以播放器同网络栈逐一探测，剔除全部死链
-- 🎮 纯遥控器操作：↑/↓ 换台、OK 呼出频道列表、CH+/CH- 换台、菜单键换源
+- 🔬 **线路全量实测**：内置 ProbeReceiver 以播放器同网络栈逐一探测，剔除全部死链
+- 🎮 纯遥控器操作：↑/↓ 换台、左/OK 呼出频道面板、CH+/CH- 换台、菜单键换源与检查更新
 - 🌐 支持内置精选源 + 在线源 + 自定义 m3u 链接
 
 ## 构建
@@ -41,18 +47,19 @@ Apple TV（tvOS）风格的 Android TV 直播应用。内置全网抓取、逐�
 - 自研 ProbeReceiver 线路实测通道（诊断/维护用）
 - 自研 TrustAllDataSource（自签名证书 + 跨协议重定向）
 - ConnectivityManager 物理网络绑定（VPN 共存）
+- 分类 chips 由 `Catalog.category / regionOf` 驱动，按频道表动态生成
 
 ## 安装
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.7](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.7) 下载 `Prototype-TV-1.7.apk`（约 12MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.8](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.8) 下载 `Prototype-TV-1.8.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
-> v1.6 及以前版本装机用户：菜单键 → 检查更新，即可在线升级到最新版。
+> 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.6.apk
+adb install -r Prototype-TV-1.8.apk
 ```
 
 **方式二：自行构建**

@@ -114,6 +114,37 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
         return (i >= 0 && i < flat.size()) ? i : -1;
     }
 
+    /** 把焦点放到第一张卡片上（打开面板 / 切换分类后） */
+    public boolean focusFirst() {
+        for (RecyclerView rv : rowRecyclers.values()) {
+            if (rv != null && rv.getChildCount() > 0) {
+                View v = rv.getChildAt(0);
+                if (v != null) return v.requestFocus();
+            }
+        }
+        return false;
+    }
+
+    /** 把焦点移到某频道所在卡片（恢复播放位置后） */
+    public boolean focusChannel(Channel c) {
+        if (c == null) return false;
+        for (int s = 0; s < sections.size(); s++) {
+            Section sec = sections.get(s);
+            int local = sec.channels.indexOf(c);
+            if (local < 0) continue;
+            RecyclerView rv = rowRecyclers.get(s);
+            if (rv == null) continue;
+            rv.scrollToPosition(local);
+            final int idx = local;
+            rv.post(() -> {
+                RecyclerView.ViewHolder vh = rv.findViewHolderForAdapterPosition(idx);
+                if (vh != null) vh.itemView.requestFocus();
+            });
+            return true;
+        }
+        return false;
+    }
+
     public void setPlaying(Channel c) {
         Channel old = playing;
         playing = c;
@@ -244,14 +275,14 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             h.group.setVisibility(g.isEmpty() ? View.GONE : View.VISIBLE);
             h.live.setVisibility(c == playing ? View.VISIBLE : View.GONE);
 
-            // Apple tvOS 聚焦：白卡 + 军绿粗描边 + 显著放大 + 投影；
-            // 未聚焦卡片保持较高亮度（文字可读），只轻微压暗衬托焦点
+            // Apple tvOS / YouTube TV 聚焦：白卡 + 军绿粗描边 + 放大 + 投影；
+            // 聚焦态背景在内层卡片上切换（焦点在 itemView 上，选择器不会自动生效）
             h.itemView.setOnFocusChangeListener((v, has) -> {
-                v.animate().scaleX(has ? 1.2f : 1f)
-                        .scaleY(has ? 1.2f : 1f)
+                v.animate().scaleX(has ? 1.15f : 1f)
+                        .scaleY(has ? 1.15f : 1f)
                         .setDuration(150).start();
                 h.itemView.setTranslationZ(has ? 24f : 0f);
-                v.setAlpha(has ? 1f : 0.85f);
+                v.setAlpha(has ? 1f : 0.92f);
                 applyCardColors(h, has);
                 if (has) {
                     // 聚焦时让所在行滚到该卡片
@@ -266,7 +297,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
                 }
             });
             applyCardColors(h, h.itemView.isFocused());
-            h.itemView.setAlpha(h.itemView.isFocused() ? 1f : 0.85f);
+            h.itemView.setAlpha(h.itemView.isFocused() ? 1f : 0.92f);
 
             h.itemView.setOnClickListener(v -> {
                 int p = h.getBindingAdapterPosition();
@@ -277,6 +308,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
         }
 
         private void applyCardColors(CardVH h, boolean focused) {
+            h.body.setBackgroundResource(focused
+                    ? R.drawable.card_focus_bg : R.drawable.card_normal_bg);
             h.name.setTextColor(focused ? 0xFF111111 : 0xFFF2F2F7);
             h.group.setTextColor(focused ? 0xFF55555C : 0xFFB0B0BA);
             h.num.setTextColor(focused ? 0xFF55555C : 0xFFB0B0BA);
@@ -290,6 +323,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
     }
 
     static class CardVH extends RecyclerView.ViewHolder {
+        final View body;
         final TextView num;
         final TextView name;
         final TextView group;
@@ -299,6 +333,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
 
         CardVH(View v) {
             super(v);
+            body = v.findViewById(R.id.card_body);
             num = v.findViewById(R.id.num);
             name = v.findViewById(R.id.name);
             group = v.findViewById(R.id.group);

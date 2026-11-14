@@ -5,41 +5,42 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingTop="14dp">
+    android:paddingTop="8dp">
 
+    <!-- YouTube TV 行标题：小号粗体 + 灰字数量，与 chips 左对齐 -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="56dp">
+        android:paddingStart="48dp">
 
         <TextView
             android:id="@+id/section_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/section_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="10dp"
             android:textColor="@color/dim"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/section_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="horizontal"
-        android:paddingStart="56dp"
-        android:paddingEnd="56dp"
+        android:paddingStart="48dp"
+        android:paddingEnd="48dp"
         android:scrollbars="none" />
 </LinearLayout>

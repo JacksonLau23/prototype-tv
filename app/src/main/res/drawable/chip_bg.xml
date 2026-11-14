@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- YouTube TV 分类 chip：选中=白底黑字，聚焦=亮灰底 + 军绿描边，常态=深灰 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="#FFEFEFEF" />
+            <corners android:radius="8dp" />
+            <stroke android:width="3dp" android:color="#8A9B62" />
+        </shape>
+    </item>
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="#FFFFFFFF" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="#FF272727" />
+            <corners android:radius="8dp" />
+            <stroke android:width="1dp" android:color="#26FFFFFF" />
+        </shape>
+    </item>
+</selector>
