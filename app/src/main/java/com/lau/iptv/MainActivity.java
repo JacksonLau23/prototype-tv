@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP = "chip_filter_v2";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 3;
+    private static final int ASSET_VER = 7;
     private static final String CHIP_ALL = "全部";
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
@@ -138,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
     private View nowPill;
     private android.widget.LinearLayout chipsRow;
     private android.widget.HorizontalScrollView chipsScroll;
-    private android.widget.ImageView playingLogo;
+    /** 诊断：直接播放的线路（仅调试用，正常启动为 null） */
+    private String debugUrl;
+
     private BrowseAdapter adapter;
     /** 当前分类过滤（null = 全部） */
     private String chipFilter;
@@ -296,7 +298,6 @@ public class MainActivity extends AppCompatActivity {
         nowPill = findViewById(R.id.now_playing);
         chipsRow = findViewById(R.id.chips);
         chipsScroll = findViewById(R.id.chips_scroll);
-        playingLogo = findViewById(R.id.playing_logo);
 
         speedMeter = new SpeedMeter();
         DataSource.Factory ds = () -> {
@@ -318,6 +319,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new BrowseAdapter((flatIndex, channel) -> play(flatIndex));
         sectionList.setLayoutManager(new LinearLayoutManager(this));
         sectionList.setAdapter(adapter);
+
+        // 诊断入口：adb ... --es play_url <URL> 直接播放指定线路，用于在电视上抽帧核对频道身份
+        String dbg = getIntent().getStringExtra("play_url");
+        if (dbg != null && !dbg.isEmpty()) {
+            debugUrl = dbg;
+            main.postDelayed(this::playDebugUrl, 2500);
+        }
 
         // 点顶栏「正在播放」胶囊 → 回到全屏画面
         nowPill.setOnClickListener(v -> hideList());
@@ -382,7 +390,6 @@ public class MainActivity extends AppCompatActivity {
         browseView.setAlpha(0f);
         browseView.setVisibility(View.VISIBLE);
         browseView.animate().alpha(1f).setDuration(200).start();
-        playingLogo.setVisibility(View.GONE);
         // 浏览时关掉播放器缓冲圈（避免透过面板显示），缓冲状态由右下胶囊提示
         playerView.setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER);
         // 焦点落在第一张卡片上（若无内容则落 chips）
@@ -398,11 +405,6 @@ public class MainActivity extends AppCompatActivity {
         listShown = false;
         browseView.animate().alpha(0f).setDuration(200)
                 .withEndAction(() -> browseView.setVisibility(View.GONE)).start();
-        // 退回全屏：恢复左上角播放台标（有台标且源不自带水印时）
-        Channel c = playingChannel;
-        if (c != null && c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
-            playingLogo.setVisibility(View.VISIBLE);
-        }
         playerView.requestFocus();
         playerView.setShowBuffering(PlayerView.SHOW_BUFFERING_ALWAYS);
     }
@@ -557,9 +559,20 @@ public class MainActivity extends AppCompatActivity {
             case "体育":
                 return cat == Catalog.CAT_SPORT
                         || (cat == Catalog.CAT_CCTV && c.name.replace(" ", "").startsWith("CCTV-5"));
+            case "音乐":
+                return isMusic(c);
             default:
                 return chipFilter.equals(c.region);
         }
+    }
+
+    /** 音乐类频道：音乐频道 / CCTV-15 / MTV / 演唱会 / 点歌台等 */
+    private static boolean isMusic(Channel c) {
+        String text = (c.name == null ? "" : c.name) + " " + (c.group == null ? "" : c.group);
+        String u = text.toUpperCase().replace(" ", "");
+        if (u.contains("CCTV15") || u.contains("CCTV-15")) return true;
+        return text.matches(".*(音乐|音樂|MTV|演唱会|演唱會|点歌|點歌|古典|KTV|金曲|音乐节).*")
+                || u.contains("CHANNELV") || u.contains("VH1") || u.contains("MUSIC");
     }
 
     /** 按当前分类 chips 过滤填充卡片（分组交给 BrowseAdapter） */
@@ -580,7 +593,7 @@ public class MainActivity extends AppCompatActivity {
 
     // ===================== 分类 chips（YouTube TV 风格） =====================
 
-    private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台", "港澳台", "体育"};
+    private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台", "港澳台", "体育", "音乐"};
 
     /** 依据当前频道表重建 chips 行 */
     private void buildChips() {
@@ -593,7 +606,8 @@ public class MainActivity extends AppCompatActivity {
         java.util.Map<String, Integer> regionCount = new java.util.LinkedHashMap<>();
         for (Channel c : allChannels) {
             if (c.region == null || c.region.isEmpty()) continue;
-            if ("中国大陆".equals(c.region) || "中国".equals(c.region) || "中国港澳台".equals(c.region)) {
+            if ("中国大陆".equals(c.region) || "中国".equals(c.region)
+                    || "中国港澳台".equals(c.region) || "港澳台".equals(c.region)) {
                 continue;
             }
             if (Catalog.category(c.group, c.name) == Catalog.CAT_OTHER && Catalog.isJunk(c.name)) continue;
@@ -687,6 +701,37 @@ public class MainActivity extends AppCompatActivity {
         hideList();     // 选台后全屏
     }
 
+    /** 诊断用：直接播放指定 URL（配合 adb 抽帧核对频道） */
+    private void playDebugUrl() {
+        if (debugUrl == null) return;
+        try {
+            main.removeCallbacks(bufferingWatchdog);
+            main.removeCallbacks(bufferTicker);
+            MediaItem item = new MediaItem.Builder().setUri(debugUrl).setMediaId("debug").build();
+            if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {
+                player.setMediaSource(rtspFactory.createMediaSource(item));
+            } else {
+                player.setMediaItem(item);
+            }
+            player.prepare();
+            player.play();
+            hideList();
+            setStatus("调试播放");
+        } catch (Exception e) {
+            setStatus("调试播放失败：" + brief(e.getMessage()));
+        }
+    }
+
+    @Override
+    protected void onNewIntent(android.content.Intent intent) {
+        super.onNewIntent(intent);
+        String u = intent.getStringExtra("play_url");
+        if (u != null && !u.isEmpty()) {
+            debugUrl = u;
+            playDebugUrl();
+        }
+    }
+
     private void playCurrent() {
         Channel c = adapter.channelAt(currentIndex);
         if (c == null) return;
@@ -741,21 +786,6 @@ public class MainActivity extends AppCompatActivity {
             nowText.setTextColor(0xFFFFFFFF);
             nowPill.setAlpha(1f);
         }
-        // 全屏播放时左上角常驻台标（源画面自带台标的频道不重复叠加）
-        if (c != null && c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
-            LogoLoader.into(playingLogo, c.logo);
-            playingLogo.setVisibility(listShown ? View.GONE : View.VISIBLE);
-        } else {
-            playingLogo.setImageDrawable(null);
-            playingLogo.setVisibility(View.GONE);
-        }
-    }
-
-    /** 央视 / CGTN / 各省卫视等国内官方源画面自带台标水印，无需浮层 */
-    private static boolean hasBurnedInLogo(Channel c) {
-        String n = c.name == null ? "" : c.name.replace(" ", "");
-        return n.startsWith("CCTV") || n.startsWith("CGTN")
-                || n.contains("卫视") || n.contains("联播") || n.contains("新闻台");
     }
 
     private void onPlayFailed(String reason) {

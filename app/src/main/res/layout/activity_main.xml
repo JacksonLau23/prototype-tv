@@ -14,19 +14,6 @@
         app:show_buffering="always"
         app:use_controller="false" />
 
-    <!-- 播放时左上角常驻台标（浏览列表打开时隐藏，避免与顶栏重叠） -->
-    <ImageView
-        android:id="@+id/playing_logo"
-        android:layout_width="170dp"
-        android:layout_height="66dp"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="36dp"
-        android:alpha="0.92"
-        android:scaleType="fitCenter"
-        android:contentDescription="@null"
-        android:visibility="gone" />
-
     <!-- 浏览浮层：YouTube TV 官方版式 —— 底部面板（约 3/4 屏，上方留播放画面可见） -->
     <LinearLayout
         android:id="@+id/browse"

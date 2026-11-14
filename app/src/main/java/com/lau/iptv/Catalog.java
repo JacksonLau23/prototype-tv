@@ -262,7 +262,7 @@ public final class Catalog {
 
     static {
         String[][] pairs = {
-                {"cn", "中国大陆"}, {"hk", "中国港澳台"}, {"mo", "中国港澳台"}, {"tw", "中国港澳台"},
+                {"cn", "中国大陆"}, {"hk", "香港"}, {"mo", "澳门"}, {"tw", "台湾"},
                 {"us", "美国"}, {"uk", "英国"}, {"gb", "英国"}, {"jp", "日本"}, {"kr", "韩国"},
                 {"de", "德国"}, {"fr", "法国"}, {"it", "意大利"}, {"es", "西班牙"},
                 {"nl", "荷兰"}, {"pt", "葡萄牙"}, {"br", "巴西"}, {"ar", "阿根廷"},
@@ -288,7 +288,7 @@ public final class Catalog {
 
     /** 地区排序权重：中国大陆 → 港澳台 → 美国 → 英国 → 其他 */
     private static final String[] REGION_ORDER = {
-            "中国大陆", "中国港澳台", "美国", "英国", "日本", "韩国", "加拿大", "澳大利亚",
+            "中国大陆", "港澳台", "香港", "台湾", "澳门", "美国", "英国", "日本", "韩国", "加拿大", "澳大利亚",
             "德国", "法国", "意大利", "西班牙", "荷兰", "葡萄牙", "俄罗斯", "印度"
     };
 
@@ -312,9 +312,11 @@ public final class Catalog {
         String n = name == null ? "" : name;
         String text = n + " " + (group == null ? "" : group);
         if (n.matches(".*[\\u4e00-\\u9fa5].*")) {
-            if (text.matches(".*(香港|翡翠|明珠|TVB|澳门|澳视|台湾|台视|中视|华视|民视|东森|三立|纬来|非凡|年代).*")) {
-                return "中国港澳台";
-            }
+            // 港澳台频道按台名线索细分，便于分 chips 浏览
+            if (text.matches(".*(澳门|澳视|澳亚|莲花|澳广视).*")) return "澳门";
+            if (text.matches(".*(香港|翡翠|明珠|TVB|ViuTV|HOY|开电视|港台电视|RTHK|凤凰|有线|耀才|HKIBC).*")) return "香港";
+            if (text.matches(".*(台湾|台视|中视|华视|民视|东森|三立|纬来|非凡|年代|八大|中天|TVBS|公视|龙华|龙祥|靖天|寰宇|大爱|客家|原民|MOMO|爱尔达|博斯|星卫|卫视中文).*")) return "台湾";
+            if (text.matches(".*(港澳|港台).*")) return "港澳台";
             return "中国大陆";
         }
         String[][] kw = {
