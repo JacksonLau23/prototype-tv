@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF = "iptv_pref";
     private static final String KEY_SOURCE = "source_index";
     private static final String KEY_MODE = "show_mode_v2";
+    private static final String KEY_ASSET_VER = "asset_ver";
+    /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部频道 */
+    private static final int ASSET_VER = 2;
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
 
@@ -139,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView heroPlay;
     private View heroDot;
     private TextView heroLabel;
+    private android.widget.ImageView playingLogo;
     private BrowseAdapter adapter;
 
     private final ExecutorService io = Executors.newSingleThreadExecutor();
@@ -272,6 +276,13 @@ public class MainActivity extends AppCompatActivity {
         LogoLoader.init(this);
 
         prefs = getSharedPreferences(PREF, MODE_PRIVATE);
+        // 内置频道表升级：重置到内置源 + 全部频道，让新频道直接可见
+        if (prefs.getInt(KEY_ASSET_VER, 0) < ASSET_VER) {
+            prefs.edit().putInt(KEY_ASSET_VER, ASSET_VER)
+                    .putInt(KEY_SOURCE, 0)
+                    .putInt(KEY_MODE, MODE_ALL)
+                    .apply();
+        }
         mode = prefs.getInt(KEY_MODE, MODE_ALL);
 
         titleView = findViewById(R.id.title);
@@ -287,6 +298,7 @@ public class MainActivity extends AppCompatActivity {
         heroPlay = findViewById(R.id.hero_play);
         heroDot = findViewById(R.id.hero_dot);
         heroLabel = findViewById(R.id.hero_label);
+        playingLogo = findViewById(R.id.playing_logo);
 
         speedMeter = new SpeedMeter();
         DataSource.Factory ds = () -> {
@@ -346,6 +358,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         startUp();
+
+        // 启动时静默检查更新（新版本只在状态胶囊轻提示，不打扰观看）
+        checkUpdate(false);
     }
 
     @Override
@@ -368,6 +383,7 @@ public class MainActivity extends AppCompatActivity {
         browseView.setAlpha(0f);
         browseView.setVisibility(View.VISIBLE);
         browseView.animate().alpha(1f).setDuration(200).start();
+        playingLogo.setVisibility(View.GONE);
         sectionList.requestFocus();
     }
 
@@ -375,6 +391,11 @@ public class MainActivity extends AppCompatActivity {
         listShown = false;
         browseView.animate().alpha(0f).setDuration(200)
                 .withEndAction(() -> browseView.setVisibility(View.GONE)).start();
+        // 退回全屏：恢复左上角播放台标（有台标且源不自带水印时）
+        Channel c = adapter.channelAt(currentIndex);
+        if (c != null && c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
+            playingLogo.setVisibility(View.VISIBLE);
+        }
         playerView.requestFocus();
     }
 
@@ -607,6 +628,22 @@ public class MainActivity extends AppCompatActivity {
         if (c.lineCount() > 1) meta += " · " + c.lineCount() + " 条线路";
         heroMeta.setText(meta);
         heroPlay.setText("继续播放");
+
+        // 全屏播放时左上角常驻台标（源画面自带台标的频道不重复叠加）
+        if (c.logo != null && !c.logo.isEmpty() && !hasBurnedInLogo(c)) {
+            LogoLoader.into(playingLogo, c.logo);
+            playingLogo.setVisibility(listShown ? View.GONE : View.VISIBLE);
+        } else {
+            playingLogo.setImageDrawable(null);
+            playingLogo.setVisibility(View.GONE);
+        }
+    }
+
+    /** 央视 / CGTN / 各省卫视等国内官方源画面自带台标水印，无需浮层 */
+    private static boolean hasBurnedInLogo(Channel c) {
+        String n = c.name == null ? "" : c.name.replace(" ", "");
+        return n.startsWith("CCTV") || n.startsWith("CGTN")
+                || n.contains("卫视") || n.contains("联播") || n.contains("新闻台");
     }
 
     private void onPlayFailed(String reason) {
@@ -631,18 +668,21 @@ public class MainActivity extends AppCompatActivity {
     private void showMenu() {
         String modeLabel = mode == MODE_SPORT ? "只看体育（NBA / NFL）"
                 : (mode == MODE_ALL ? "全部频道（按国家）" : "电视台直播");
-        String[] items = {"切换节目源…", "显示内容：" + modeLabel + " …", "重新加载当前源", "手动输入 m3u 链接…"};
+        String[] items = {"检查更新…", "切换节目源…", "显示内容：" + modeLabel + " …", "重新加载当前源", "手动输入 m3u 链接…"};
         new AlertDialog.Builder(this)
                 .setTitle("菜单")
                 .setItems(items, (d, which) -> {
                     switch (which) {
                         case 0:
-                            showSourceDialog();
+                            checkUpdate(true);
                             break;
                         case 1:
-                            showModeDialog();
+                            showSourceDialog();
                             break;
                         case 2:
+                            showModeDialog();
+                            break;
+                        case 3:
                             loadSource(prefs.getInt(KEY_SOURCE, 0), false);
                             break;
                         default:
@@ -652,6 +692,64 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("关闭", null)
                 .show();
+    }
+
+    // ===================== 在线更新 =====================
+
+    /** 手动/静默检查 GitHub 最新 Release；manual=true 时每一步都有状态提示 */
+    private void checkUpdate(boolean manual) {
+        if (manual) setStatus("正在检查更新…");
+        final String current = BuildConfig.VERSION_NAME;
+        Updater.check(current, (release, error) -> {
+            if ("latest".equals(error)) {
+                if (manual) setStatus("已是最新版本 v" + current);
+                return;
+            }
+            if (release == null) {
+                if (manual) setStatus("检查更新失败：" + brief(error));
+                return;
+            }
+            // 静默检查：只提示，不打断
+            if (!manual) {
+                setStatus("发现新版本 " + release.tag + " · 菜单键检查更新");
+                main.removeCallbacks(hideStatus);
+                main.postDelayed(hideStatus, 8000);
+                return;
+            }
+            showUpdateDialog(release);
+        });
+    }
+
+    private void showUpdateDialog(Updater.Release r) {
+        String size = r.apkSize > 0 ? String.format(java.util.Locale.CHINA,
+                "%.1f MB", r.apkSize / 1048576.0) : "未知大小";
+        String notes = r.notes == null || r.notes.isEmpty() ? "" : r.notes.trim();
+        if (notes.length() > 600) notes = notes.substring(0, 600) + "…";
+        new AlertDialog.Builder(this)
+                .setTitle("发现新版本 " + r.tag + "（" + size + "）")
+                .setMessage(notes)
+                .setPositiveButton("下载并安装", (d, w) -> downloadUpdate(r))
+                .setNegativeButton("以后再说", null)
+                .show();
+    }
+
+    private void downloadUpdate(Updater.Release r) {
+        setStatus("正在下载 " + r.tag + " …");
+        io.execute(() -> {
+            try {
+                Updater.downloadAndInstall(this, r, (percent, done, total) -> {
+                    String t = percent >= 0
+                            ? String.format(java.util.Locale.CHINA, "正在下载 %d%%（%.1f/%.1f MB）",
+                            percent, done / 1048576.0, total / 1048576.0)
+                            : String.format(java.util.Locale.CHINA, "正在下载…（%.1f MB）", done / 1048576.0);
+                    main.post(() -> setStatus(t));
+                });
+                main.post(() -> setStatus("下载完成，请在系统弹窗中确认安装"));
+            } catch (Exception e) {
+                android.util.Log.w("IPTV", "update failed", e);
+                main.post(() -> setStatus("下载失败：" + brief(e.getMessage())));
+            }
+        });
     }
 
     private void showModeDialog() {

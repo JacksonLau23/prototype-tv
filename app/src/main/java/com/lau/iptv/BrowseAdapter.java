@@ -244,12 +244,14 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             h.group.setVisibility(g.isEmpty() ? View.GONE : View.VISIBLE);
             h.live.setVisibility(c == playing ? View.VISIBLE : View.GONE);
 
-            // Apple tvOS 聚焦：卡片轻微放大 + 白底黑字
+            // Apple tvOS 聚焦：白卡 + 军绿粗描边 + 显著放大 + 投影；
+            // 未聚焦卡片保持较高亮度（文字可读），只轻微压暗衬托焦点
             h.itemView.setOnFocusChangeListener((v, has) -> {
-                v.animate().scaleX(has ? 1.08f : 1f)
-                        .scaleY(has ? 1.08f : 1f)
+                v.animate().scaleX(has ? 1.2f : 1f)
+                        .scaleY(has ? 1.2f : 1f)
                         .setDuration(150).start();
-                h.itemView.setTranslationZ(has ? 10f : 0f);
+                h.itemView.setTranslationZ(has ? 24f : 0f);
+                v.setAlpha(has ? 1f : 0.85f);
                 applyCardColors(h, has);
                 if (has) {
                     // 聚焦时让所在行滚到该卡片
@@ -264,6 +266,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
                 }
             });
             applyCardColors(h, h.itemView.isFocused());
+            h.itemView.setAlpha(h.itemView.isFocused() ? 1f : 0.85f);
 
             h.itemView.setOnClickListener(v -> {
                 int p = h.getBindingAdapterPosition();
@@ -274,10 +277,10 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
         }
 
         private void applyCardColors(CardVH h, boolean focused) {
-            h.name.setTextColor(focused ? 0xFF000000 : 0xFFFFFFFF);
-            h.group.setTextColor(focused ? 0x993C3C43 : 0xFF8E8E93);
-            h.num.setTextColor(focused ? 0x993C3C43 : 0xFF8E8E93);
-            h.fallback.setTextColor(focused ? 0xFF000000 : 0xFFFFFFFF);
+            h.name.setTextColor(focused ? 0xFF111111 : 0xFFF2F2F7);
+            h.group.setTextColor(focused ? 0xFF55555C : 0xFFB0B0BA);
+            h.num.setTextColor(focused ? 0xFF55555C : 0xFFB0B0BA);
+            h.fallback.setTextColor(focused ? 0xFF111111 : 0xFFF2F2F7);
         }
 
         @Override

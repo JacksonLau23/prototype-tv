@@ -14,6 +14,19 @@
         app:show_buffering="always"
         app:use_controller="false" />
 
+    <!-- 播放时左上角常驻台标（浏览列表打开时隐藏，避免与顶栏重叠） -->
+    <ImageView
+        android:id="@+id/playing_logo"
+        android:layout_width="170dp"
+        android:layout_height="66dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="36dp"
+        android:alpha="0.92"
+        android:scaleType="fitCenter"
+        android:contentDescription="@null"
+        android:visibility="gone" />
+
     <!-- 浏览浮层：Netflix / Disney+ 式结构，Apple tvOS 视觉 -->
     <LinearLayout
         android:id="@+id/browse"
@@ -29,14 +42,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginEnd="56dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="18dp"
             android:background="@drawable/top_bar"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingStart="28dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="28dp"
-            android:paddingBottom="16dp">
+            android:paddingStart="24dp"
+            android:paddingTop="11dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="11dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -50,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/app_name"
                     android:textColor="@color/text"
-                    android:textSize="27sp"
+                    android:textSize="23sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -73,22 +86,31 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Hero 横幅：正在播放的频道 -->
+        <!-- Hero 紧凑条：正在播放的频道（v1.7：大幅压缩，把屏幕让给频道区） -->
         <LinearLayout
             android:id="@+id/hero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
             android:layout_marginEnd="56dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="14dp"
             android:background="@drawable/hero_card"
             android:gravity="center_vertical"
-            android:minHeight="176dp"
+            android:minHeight="76dp"
             android:orientation="horizontal"
-            android:paddingStart="32dp"
-            android:paddingTop="26dp"
-            android:paddingEnd="32dp"
-            android:paddingBottom="26dp">
+            android:paddingStart="24dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:id="@+id/hero_logo"
+                android:layout_width="132dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="18dp"
+                android:scaleType="fitCenter"
+                android:contentDescription="@null"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -104,38 +126,29 @@
 
                     <View
                         android:id="@+id/hero_dot"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
                         android:background="@drawable/live_dot" />
 
                     <TextView
                         android:id="@+id/hero_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="8dp"
                         android:text="正在播放"
                         android:textColor="#8A9B62"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/hero_logo"
-                    android:layout_width="260dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="12dp"
-                    android:scaleType="fitCenter"
-                    android:contentDescription="@null"
-                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/hero_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="4dp"
                     android:text="准备就绪"
                     android:textColor="@color/text"
-                    android:textSize="38sp"
+                    android:textSize="22sp"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:ellipsize="end" />
@@ -144,10 +157,10 @@
                     android:id="@+id/hero_meta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="2dp"
                     android:text="选择下方任意频道开始观看"
                     android:textColor="@color/dim"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:maxLines="1"
                     android:ellipsize="end" />
             </LinearLayout>
@@ -157,16 +170,16 @@
                 android:id="@+id/hero_play"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="20dp"
                 android:background="@drawable/play_pill"
                 android:gravity="center"
-                android:paddingStart="34dp"
-                android:paddingTop="14dp"
-                android:paddingEnd="34dp"
-                android:paddingBottom="14dp"
+                android:paddingStart="26dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="26dp"
+                android:paddingBottom="10dp"
                 android:text="继续播放"
                 android:textColor="#000000"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
