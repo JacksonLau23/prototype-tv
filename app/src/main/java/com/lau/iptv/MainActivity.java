@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP = "chip_filter_v2";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 7;
+    private static final int ASSET_VER = 9;
     private static final String CHIP_ALL = "全部";
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
