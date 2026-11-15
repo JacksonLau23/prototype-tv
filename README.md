@@ -1,10 +1,18 @@
 # Prototype TV — 电视端 IPTV 播放器
 
-YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条验证的 1080P+ 频道清单，按内容 / 国别大分类浏览，军绿色强调色，纯遥控器操作。
+YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条验证的 1080P+ 频道清单，按内容 / 平台 / 国别大分类浏览，军绿色强调色，纯遥控器操作。
 
 ## 特性
 
-- 📺 内置 577 条频道线路 / 415 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐 / 海外国别…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- 📺 内置 605 条频道线路 / 443 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐 / **Twitch** / **YouTube** / 海外国别…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- 🆕 **v1.20 变化：加回 Twitch / YouTube 源，并给两个平台单独分类**
+  - 恢复此前移除的 8 个网络电台，并扩到 **28 条平台源**：Twitch 15 个（音乐 6 / 体育·电竞 9）、YouTube 13 个（音乐 4 / 体育 6 / 新闻 3），全部逐条实测在播且能取回 HLS 清单
+  - 顶部分类条新增「**Twitch**」「**YouTube**」两个独立分类（共 19 个）；新分类自动补到已保存的自定义顺序末尾，可自行拖动
+  - 平台分类内部再按 **音乐 / 体育 / 新闻 / 综合** 二次分区；同一频道仍同时出现在「音乐」「体育」等内容分类里，但不会混进按国家划分的海外分类
+  - 平台源按 URL scheme（`ytlive://` / `twitchlive://`）自动识别，播放前实时解析 YouTube 24/7 直播 HLS 与 Twitch usher 清单；24/7 流会换 ID、Twitch 频道也会下线，失效时自动跳台会跳过
+  - **当前节点注意**：YouTube 对部分代理出口返回 `LOGIN_REQUIRED`，此时只能回退 Invidious，而其清单的分片签名绑定实例后端 IP，电视会 403。解析器已改为优先走 YouTube 原生清单（绑定电视自身出口 IP），换到未被风控的节点即可正常播放；**Twitch 不受此限制，当前节点实测可播**
+  - 修正 `BET` 关键词误命中（`YouTube TalkSPORT` 里恰好含子串 `BET` 被误判为音乐台），改为按单词匹配
+  - 最终 **605 条线路 / 443 个频道**、URL 零重复；`ASSET_VER` 18，升级后自动重置到内置源 + 全部分类（自定义分类顺序不受影响）
 - 🆕 **v1.19 变化：修复海外音乐台（美国居多）播不出来**
   - 与代理节点无关：`jmp2.uk/stvp-*` 短链会 302 到 Pluto TV / Samsung TV Plus 的 `.m3u8`，但 URI 本身没有后缀，media3 把它当普通文件探测；叠加 `TrustAllDataSource` 关闭后被再次读取的空指针，最终报 `Source error`
   - 现在对 HLS 短链显式声明 `APPLICATION_M3U8`，`TrustAllDataSource.read()` 加 EOF 防护，重定向耗尽时也改为明确报错
@@ -80,7 +88,7 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
   - **英国**：Channel 4、S4C
 - 🎬 **YouTube TV 官方版式**（v1.8）：
   - 扁平顶栏（标题 + 正在播放胶囊 + 时钟），无厚重卡片背景
-  - **分类 chips 过滤条**：全部 / 央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / **体育** / **音乐** / **美日英德韩法俄 · 国际**（v1.18 共 17 个，横向滚动；国别分类内另有新闻 / 体育 / 音乐 / 综合二次分区），选中白底黑字、聚焦军绿描边 + 放大
+  - **分类 chips 过滤条**：全部 / 央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / **体育** / **音乐** / **Twitch** / **YouTube** / **美日英德韩法俄 · 国际**（v1.20 共 19 个，横向滚动；国别分类与平台分类内另有新闻 / 体育 / 音乐 / 综合二次分区），选中白底黑字、聚焦军绿描边 + 放大
   - 频道面板只占屏幕 **42%**（v1.13），上方 **58%** 始终露出正在播放的画面
   - 焦点卡片：纯白底 + 黑字 + 军绿实描边 + 外层柔光晕 + 1.16 倍放大，远距离一眼锁定；未聚焦卡片压暗到 76% 以拉开对比
 - 🔄 **应用内在线更新**（v1.7+）：菜单「检查更新」自动比对 GitHub Release，下载 APK 一键安装；启动时也会静默检查
@@ -116,19 +124,19 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 自研 ProbeReceiver 线路实测通道（诊断/维护用）
 - 自研 TrustAllDataSource（自签名证书 + 跨协议重定向）
 - ConnectivityManager 物理网络绑定（VPN 共存）
-- 分类 chips 由 `Catalog.category / regionOf / overseasChip` 驱动，按频道表动态生成
+- 分类 chips 由 `Catalog.category / regionOf / overseasChip` + `Channel.platform`（按 `ytlive://` / `twitchlive://` scheme 自动识别）驱动，按频道表动态生成
 
 ## 安装
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.19](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.19) 下载 `Prototype-TV-1.19.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.20](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.20) 下载 `Prototype-TV-1.20.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.19.apk
+adb install -r Prototype-TV-1.20.apk
 ```
 
 **方式二：自行构建**

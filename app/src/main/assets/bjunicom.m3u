@@ -1154,3 +1154,61 @@ https://raw.githubusercontent.com/ChiSheng9/iptv/master/TV05.m3u8
 https://jmp2.uk/plu-5873fc21cad696fb37aa9054.m3u8
 #EXTINF:-1 tvg-name="MTV Catfish" tvg-logo="https://images.pluto.tv/channels/6177fe76691b2e000702c7fc/colorLogoPNG_1750864554364.png" group-title="音乐",MTV Catfish
 https://jmp2.uk/plu-61780d4267bf4d00077ddd73.m3u8
+# ============ v1.20 平台源：YouTube / Twitch（单独分类；音乐 / 体育 / 新闻）============
+# ytlive://<videoId> 与 twitchlive://<login> 为运行时解析标记，播放前取回实时 HLS 清单
+#EXTINF:-1 tvg-id="YouTube.90sHipHop" tvg-name="YouTube 90s 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/yt-90s-hh.png" group-title="音乐",YouTube 90s 嘻哈电台
+ytlive://jHbB3v8wBVU
+#EXTINF:-1 tvg-id="YouTube.Rap247" tvg-name="YouTube Gangsta Rap 电台" tvg-logo="https://prototype-tv.local/logo/yt-rap-247.png" group-title="音乐",YouTube Gangsta Rap 电台
+ytlive://0MOkLkTP-Jk
+#EXTINF:-1 tvg-id="YouTube.Chillhop" tvg-name="YouTube Chillhop 爵士嘻哈" tvg-logo="https://prototype-tv.local/logo/yt-chillhop.png" group-title="音乐",YouTube Chillhop 爵士嘻哈
+ytlive://5yx6BWlEVcY
+#EXTINF:-1 tvg-id="YouTube.LofiGirl" tvg-name="YouTube Lofi Girl 学习节拍" tvg-logo="https://prototype-tv.local/logo/yt-lofigirl.png" group-title="音乐",YouTube Lofi Girl 学习节拍
+ytlive://rFZHOHl-L8A
+#EXTINF:-1 tvg-id="YouTube.YahooSports" tvg-name="YouTube Yahoo Sports 24/7" tvg-logo="https://prototype-tv.local/logo/yt-yahoo-sports.png" group-title="体育",YouTube Yahoo Sports 24/7
+ytlive://PMDQ82w1pAE
+#EXTINF:-1 tvg-id="YouTube.TalkSport" tvg-name="YouTube talkSPORT 体育电台" tvg-logo="https://prototype-tv.local/logo/yt-talksport.png" group-title="体育",YouTube talkSPORT 体育电台
+ytlive://uLWEssCrXYc
+#EXTINF:-1 tvg-id="YouTube.FloHockey" tvg-name="YouTube FloHockey 冰球 24/7" tvg-logo="https://prototype-tv.local/logo/yt-flohockey.png" group-title="体育",YouTube FloHockey 冰球 24/7
+ytlive://9aMu8HuYpRk
+#EXTINF:-1 tvg-id="YouTube.BeInSports" tvg-name="YouTube beIN SPORTS 直播" tvg-logo="https://prototype-tv.local/logo/yt-bein-sports.png" group-title="体育",YouTube beIN SPORTS 直播
+ytlive://QXw3ryva6MI
+#EXTINF:-1 tvg-id="YouTube.SportsStories" tvg-name="YouTube 体育故事 24/7" tvg-logo="https://prototype-tv.local/logo/yt-sports-stories.png" group-title="体育",YouTube 体育故事 24/7
+ytlive://Fak5m6RLywU
+#EXTINF:-1 tvg-id="YouTube.NflNba247" tvg-name="YouTube NFL NBA 集锦 24/7" tvg-logo="https://prototype-tv.local/logo/yt-nfl-nba.png" group-title="体育",YouTube NFL NBA 集锦 24/7
+ytlive://K3svqNd3VJ8
+#EXTINF:-1 tvg-id="YouTube.CnnHeadlines" tvg-name="YouTube CNN 头条 24/7" tvg-logo="https://prototype-tv.local/logo/yt-cnn.png" group-title="海外新闻",YouTube CNN 头条 24/7
+ytlive://GotlA1KKWoo
+#EXTINF:-1 tvg-id="YouTube.FoxLiveNow" tvg-name="YouTube FOX LiveNOW 24/7" tvg-logo="https://prototype-tv.local/logo/yt-fox-livenow.png" group-title="海外新闻",YouTube FOX LiveNOW 24/7
+ytlive://C96oohpWBGw
+#EXTINF:-1 tvg-id="YouTube.SkyNews" tvg-name="YouTube Sky News 直播" tvg-logo="https://prototype-tv.local/logo/yt-sky-news.png" group-title="海外新闻",YouTube Sky News 直播
+ytlive://umLWFz4izTM
+#EXTINF:-1 tvg-id="Twitch.LofiGirl" tvg-name="Twitch Lofi Girl 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/tw-lofigirl.png" group-title="音乐",Twitch Lofi Girl 嘻哈电台
+twitchlive://lofigirl
+#EXTINF:-1 tvg-id="Twitch.Chillhop" tvg-name="Twitch Chillhop 爵士嘻哈" tvg-logo="https://prototype-tv.local/logo/tw-chillhop.png" group-title="音乐",Twitch Chillhop 爵士嘻哈
+twitchlive://chillhopradio
+#EXTINF:-1 tvg-id="Twitch.LeekBeats" tvg-name="Twitch Leek Beats 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-leekbeats.png" group-title="音乐",Twitch Leek Beats 嘻哈节拍
+twitchlive://leekbeats
+#EXTINF:-1 tvg-id="Twitch.ChilledCat" tvg-name="Twitch ChilledCat 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-chilledcat.png" group-title="音乐",Twitch ChilledCat 嘻哈节拍
+twitchlive://chilledcat_music
+#EXTINF:-1 tvg-id="Twitch.RealRap" tvg-name="Twitch Real Rap 说唱现场" tvg-logo="https://prototype-tv.local/logo/tw-realrap.png" group-title="音乐",Twitch Real Rap 说唱现场
+twitchlive://djsaywhaat
+#EXTINF:-1 tvg-id="Twitch.RelaxBeats" tvg-name="Twitch Relax Beats 嘻哈放松" tvg-logo="https://prototype-tv.local/logo/tw-relaxbeats.png" group-title="音乐",Twitch Relax Beats 嘻哈放松
+twitchlive://relaxbeats
+#EXTINF:-1 tvg-id="Twitch.EslCs" tvg-name="Twitch ESL CS2 电竞" tvg-logo="https://prototype-tv.local/logo/tw-eslcs.png" group-title="体育",Twitch ESL CS2 电竞
+twitchlive://eslcs
+#EXTINF:-1 tvg-id="Twitch.Chess24" tvg-name="Twitch Chess24 国际象棋" tvg-logo="https://prototype-tv.local/logo/tw-chess24.png" group-title="体育",Twitch Chess24 国际象棋
+twitchlive://chess24
+#EXTINF:-1 tvg-id="Twitch.TritonPoker" tvg-name="Twitch Triton Poker 扑克" tvg-logo="https://prototype-tv.local/logo/tw-tritonpoker.png" group-title="体育",Twitch Triton Poker 扑克
+twitchlive://tritonpoker
+#EXTINF:-1 tvg-id="Twitch.LexPoker" tvg-name="Twitch Lex Veldhuis 扑克" tvg-logo="https://prototype-tv.local/logo/tw-lexpoker.png" group-title="体育",Twitch Lex Veldhuis 扑克
+twitchlive://lexveldhuis
+#EXTINF:-1 tvg-id="Twitch.Football247" tvg-name="Twitch 24/7 足球赛事" tvg-logo="https://prototype-tv.local/logo/tw-football247.png" group-title="体育",Twitch 24/7 足球赛事
+twitchlive://letsplay24_7
+#EXTINF:-1 tvg-id="Twitch.Spontent" tvg-name="Twitch SPONTENT 排球足球" tvg-logo="https://prototype-tv.local/logo/tw-spontent.png" group-title="体育",Twitch SPONTENT 排球足球
+twitchlive://spontent
+#EXTINF:-1 tvg-id="Twitch.Poneeey" tvg-name="Twitch Poneeey 橄榄球" tvg-logo="https://prototype-tv.local/logo/tw-poneeey.png" group-title="体育",Twitch Poneeey 橄榄球
+twitchlive://poneeeyclub
+#EXTINF:-1 tvg-id="Twitch.Slakun" tvg-name="Twitch SlakunTV 足球赛事" tvg-logo="https://prototype-tv.local/logo/tw-slakun.png" group-title="体育",Twitch SlakunTV 足球赛事
+twitchlive://slakuntv
+#EXTINF:-1 tvg-id="Twitch.PickAndRoll" tvg-name="Twitch Pick and Roll 篮球" tvg-logo="https://prototype-tv.local/logo/tw-pickandroll.png" group-title="体育",Twitch Pick and Roll 篮球
+twitchlive://pickandrolltv

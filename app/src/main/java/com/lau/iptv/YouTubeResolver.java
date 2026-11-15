@@ -40,12 +40,15 @@ public final class YouTubeResolver {
     private static final ConcurrentHashMap<String, Entry> CACHE = new ConcurrentHashMap<>();
     private static final Pattern HLS = Pattern.compile("\"hlsManifestUrl\"\\s*:\\s*\"([^\"]+)\"");
 
-    /** 依序尝试；Invidious 实例失效时自动回退到 YouTube 网页内嵌的 playerResponse。 */
+    /**
+     * 依序尝试：优先用 YouTube 网页自己返回的 hlsManifestUrl（签名绑定请求方 IP，
+     * 分片可直接拉）；节点被 YouTube 风控时网页会返回 LOGIN_REQUIRED，再回退 Invidious。
+     */
     private static final String[] ENDPOINTS = {
+            "https://www.youtube.com/watch?v=",
             "https://yt.chocolatemoo53.com/api/v1/videos/",
             "https://inv.nadeko.net/api/v1/videos/",
             "https://invidious.tiekoetter.com/api/v1/videos/",
-            "https://www.youtube.com/watch?v="
     };
 
     private static final class Entry {
@@ -80,6 +83,11 @@ public final class YouTubeResolver {
                     String body = httpGet(target);
                     String hls = ep.contains("/api/v1/videos/") ? fromInvidious(body) : fromWatchPage(body);
                     if (hls != null && hls.startsWith("http")) {
+                        // Invidious 清单里的分片签名绑定的是实例后端 IP，客户端直连会 403。
+                        // 加 local=true 让子清单与分片也走实例代理（实例需开放 /videoplayback）。
+                        if (ep.contains("/api/v1/videos/") && !hls.contains("local=true")) {
+                            hls += (hls.contains("?") ? "&" : "?") + "local=true";
+                        }
                         found = hls;
                         break;
                     }

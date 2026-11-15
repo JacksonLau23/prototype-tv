@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP_ORDER = "chip_order_v1";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次变更内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 17;
+    private static final int ASSET_VER = 18;
     private static final String CHIP_ALL = "全部";
     /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
     private static final int MAX_PLAY_ATTEMPTS = 3;
@@ -623,8 +623,14 @@ public class MainActivity extends AppCompatActivity {
                         || (cat == Catalog.CAT_CCTV && c.name.replace(" ", "").startsWith("CCTV-5"));
             case "音乐":
                 return isMusic(c);
+            case "Twitch":
+                return "Twitch".equals(c.platform);
+            case "YouTube":
+                return "YouTube".equals(c.platform);
             default:
                 if (Catalog.isOverseasChip(chipFilter)) {
+                    // 平台源按平台归类，不混进按国家划分的海外电视频道分类
+                    if (c.platform != null && !c.platform.isEmpty()) return false;
                     return chipFilter.equals(Catalog.overseasChip(c.name, c.group, c.region));
                 }
                 return chipFilter.equals(c.region);
@@ -634,16 +640,19 @@ public class MainActivity extends AppCompatActivity {
     /** 音乐类频道：音乐 / MTV / 嘻哈 / 说唱 / MV 台（v1.11 扩展） */
     private static boolean isMusic(Channel c) {
         String text = (c.name == null ? "" : c.name) + " " + (c.group == null ? "" : c.group);
-        String u = text.toUpperCase().replace(" ", "");
+        String up = text.toUpperCase();
+        String u = up.replace(" ", "");
         if (u.contains("CCTV15") || u.contains("CCTV-15")) return true;
         return text.matches(".*(音乐|音樂|MTV|演唱会|演唱會|点歌|點歌|古典|KTV|金曲|音乐节|嘻哈|说唱|說唱|饶舌|饒舌).*")
                 || u.contains("CHANNELV") || u.contains("VH1") || u.contains("MUSIC")
                 || u.contains("HIPHOP") || u.contains("HIP-HOP") || u.contains("RAP")
                 || u.contains("VEVO") || u.contains("REVOLT") || u.contains("TRACEURBAN")
-                || u.contains("R&B") || u.contains("DELUXE") || u.contains("BET");
+                || u.contains("R&B") || u.contains("DELUXE")
+                // BET 需按单词匹配：否则 "YouTube TalkSPORT" 里的 YOUTUBE+T 会误命中
+                || up.matches(".*(?:^|[^A-Z])BET(?:$|[^A-Z]).*");
     }
 
-    /** 海外国别分类内部的二次分区：新闻 / 体育 / 音乐 / 综合 */
+    /** 海外国别分类 / 平台分类内部的二次分区：新闻 / 体育 / 音乐 / 综合 */
     private static String overseasTag(Channel c) {
         if (isMusic(c)) return "音乐";
         int cat = Catalog.category(c.group, c.name);
@@ -665,10 +674,11 @@ public class MainActivity extends AppCompatActivity {
             if (!matchesChip(c)) continue;
             shown.add(c);
         }
-        // 海外国别分类：内部再按「新闻 / 体育 / 音乐 / 综合」二次分区
+        // 海外国别分类、平台分类：内部再按「新闻 / 体育 / 音乐 / 综合」二次分区
         boolean overseas = Catalog.isOverseasChip(chipFilter);
+        boolean platform = isPlatformChip(chipFilter);
         for (Channel c : allChannels) c.sectionTag = null;
-        if (overseas) {
+        if (overseas || platform) {
             for (Channel c : shown) c.sectionTag = overseasTag(c);
         }
         // 音乐 / 体育这类内容大分类：不再按国家细分，直接平铺
@@ -683,10 +693,15 @@ public class MainActivity extends AppCompatActivity {
 
     // ===================== 分类 chips（YouTube TV 风格） =====================
 
-    /** v1.18：国内大分类 + 港澳台 + 内容分类 + 海外国别分类；「全部」固定首位 */
+    /** v1.20：国内大分类 + 港澳台 + 内容分类 + 平台分类 + 海外国别分类；「全部」固定首位 */
     private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台",
-            "香港", "台湾", "澳门", "体育", "音乐",
+            "香港", "台湾", "澳门", "体育", "音乐", "Twitch", "YouTube",
             "美国", "日本", "英国", "德国", "韩国", "法国", "俄罗斯", "国际"};
+
+    /** 平台分类：按 URL scheme 独立成类，内部仍按音乐 / 体育 / 新闻二次分区 */
+    private static boolean isPlatformChip(String chip) {
+        return "Twitch".equals(chip) || "YouTube".equals(chip);
+    }
 
     /** 依据当前频道表 + 用户自定义顺序重建 chips 行 */
     private void buildChips() {
@@ -962,7 +977,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void debugPlay(String url) {
         debugPlaying = true;
-        bufferTimeoutMs = isSlowOverseas(url) ? 22000 : 14000;
+        bufferTimeoutMs = bufferTimeoutFor(url);
         try {
             main.removeCallbacks(bufferingWatchdog);
             main.removeCallbacks(bufferTicker);
@@ -1044,18 +1059,33 @@ public class MainActivity extends AppCompatActivity {
                 || u.contains("mjh.nz") || u.contains("akamaized.net");
     }
 
+    /** 平台源（YouTube / Twitch）解析后还要多跳一层签名与分片，给足 30 秒 */
+    private static boolean isPlatformHls(String url) {
+        if (url == null) return false;
+        String u = url.toLowerCase();
+        return u.contains("/api/manifest/hls_") || u.contains("usher.ttvnw.net")
+                || u.contains("googlevideo.com") || u.contains(".c.youtube.com");
+    }
+
+    private static int bufferTimeoutFor(String url) {
+        if (isPlatformHls(url)) return 30000;
+        return isSlowOverseas(url) ? 22000 : 14000;
+    }
+
     private static boolean isHlsUrl(String url) {
         if (url == null) return false;
         String u = url.toLowerCase();
         String path = u.split("[?#]")[0];
         if (path.endsWith(".m3u8")) return true;
         if (u.contains("jmp2.uk/") && (u.contains("/stvp-") || u.contains("/plu-"))) return true;
+        // Invidious / YouTube 原生直播清单路径没有 .m3u8 后缀，需显式声明 HLS
+        if (u.contains("/api/manifest/hls_")) return true;
         return u.contains("pluto.tv") && u.contains("/hls/");
     }
 
     private void startPlayback(Channel c, String loggedUrl, String playUrl) {
         android.util.Log.i("IPTV", "PLAY[" + c.name + "] line " + (lineIndex + 1) + "/" + c.urls.size() + " " + loggedUrl);
-        bufferTimeoutMs = isSlowOverseas(playUrl) ? 22000 : 14000;
+        bufferTimeoutMs = bufferTimeoutFor(playUrl);
         main.removeCallbacks(bufferingWatchdog);
         main.removeCallbacks(bufferTicker);
         try {

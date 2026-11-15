@@ -29,6 +29,7 @@ public class M3uParser {
                 merged.put(key, c);
             } else {
                 for (String u : c.urls) exist.addUrl(u);
+                if (exist.platform.isEmpty() && !c.platform.isEmpty()) exist.platform = c.platform;
                 // 分组优先取更"像电视频道"的那个
                 if ((exist.group.isEmpty() || exist.group.contains("更新时间"))
                         && !c.group.isEmpty() && !c.group.contains("更新时间")) {
@@ -93,6 +94,8 @@ public class M3uParser {
                 Channel c = new Channel(pendingName, pendingGroup, pendingLogo,
                         Catalog.order(pendingGroup, pendingName));
                 c.region = Catalog.regionOf(pendingName, pendingGroup, pendingTvgId);
+                if (line.startsWith("ytlive://")) c.platform = "YouTube";
+                else if (line.startsWith("twitchlive://")) c.platform = "Twitch";
                 c.addUrl(line);
                 out.add(c);
                 pendingName = null;
