@@ -50,11 +50,27 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
     // ===================== 数据 =====================
 
     public void submit(List<Channel> list) {
+        submit(list, false);
+    }
+
+    /** singleSection=true：音乐 / 体育等大分类不再按国家细分，全部平铺成一行 */
+    public void submit(List<Channel> list, boolean singleSection) {
         flat.clear();
         sections.clear();
         playing = null;
         if (list != null) {
             flat.addAll(list);
+        }
+
+        if (singleSection && !flat.isEmpty()) {
+            Section only = new Section("");
+            for (int i = 0; i < flat.size(); i++) {
+                only.channels.add(flat.get(i));
+                only.flatIndex.add(i);
+            }
+            sections.add(only);
+            notifyDataSetChanged();
+            return;
         }
 
         // 先按自然分组标题分桶
@@ -182,6 +198,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
     @Override
     public void onBindViewHolder(@NonNull SectionVH holder, int position) {
         Section s = sections.get(position);
+        boolean noTitle = s.title == null || s.title.isEmpty();
+        holder.head.setVisibility(noTitle ? View.GONE : View.VISIBLE);
         holder.name.setText(s.title);
         holder.count.setText(s.channels.size() + " 个频道");
         rowRecyclers.put(position, holder.row);
@@ -214,12 +232,14 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
     }
 
     static class SectionVH extends RecyclerView.ViewHolder {
+        final View head;
         final TextView name;
         final TextView count;
         final RecyclerView row;
 
         SectionVH(View v) {
             super(v);
+            head = v.findViewById(R.id.section_head);
             name = v.findViewById(R.id.section_name);
             count = v.findViewById(R.id.section_count);
             row = v.findViewById(R.id.section_list);
@@ -278,11 +298,11 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             // Apple tvOS / YouTube TV 聚焦：白卡 + 军绿粗描边 + 放大 + 投影；
             // 聚焦态背景在内层卡片上切换（焦点在 itemView 上，选择器不会自动生效）
             h.itemView.setOnFocusChangeListener((v, has) -> {
-                v.animate().scaleX(has ? 1.15f : 1f)
-                        .scaleY(has ? 1.15f : 1f)
-                        .setDuration(150).start();
-                h.itemView.setTranslationZ(has ? 24f : 0f);
-                v.setAlpha(has ? 1f : 0.92f);
+                v.animate().scaleX(has ? 1.22f : 1f)
+                        .scaleY(has ? 1.22f : 1f)
+                        .setDuration(140).start();
+                h.itemView.setTranslationZ(has ? 32f : 0f);
+                v.setAlpha(has ? 1f : 0.76f);
                 applyCardColors(h, has);
                 if (has) {
                     // 聚焦时让所在行滚到该卡片
@@ -297,7 +317,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
                 }
             });
             applyCardColors(h, h.itemView.isFocused());
-            h.itemView.setAlpha(h.itemView.isFocused() ? 1f : 0.92f);
+            h.itemView.setAlpha(h.itemView.isFocused() ? 1f : 0.76f);
 
             h.itemView.setOnClickListener(v -> {
                 int p = h.getBindingAdapterPosition();

@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP = "chip_filter_v2";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 9;
+    private static final int ASSET_VER = 11;
     private static final String CHIP_ALL = "全部";
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
@@ -566,13 +566,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /** 音乐类频道：音乐频道 / CCTV-15 / MTV / 演唱会 / 点歌台等 */
+    /** 音乐类频道：音乐 / MTV / 嘻哈 / 说唱 / MV 台（v1.11 扩展） */
     private static boolean isMusic(Channel c) {
         String text = (c.name == null ? "" : c.name) + " " + (c.group == null ? "" : c.group);
         String u = text.toUpperCase().replace(" ", "");
         if (u.contains("CCTV15") || u.contains("CCTV-15")) return true;
-        return text.matches(".*(音乐|音樂|MTV|演唱会|演唱會|点歌|點歌|古典|KTV|金曲|音乐节).*")
-                || u.contains("CHANNELV") || u.contains("VH1") || u.contains("MUSIC");
+        return text.matches(".*(音乐|音樂|MTV|演唱会|演唱會|点歌|點歌|古典|KTV|金曲|音乐节|嘻哈|说唱|說唱|饶舌|饒舌).*")
+                || u.contains("CHANNELV") || u.contains("VH1") || u.contains("MUSIC")
+                || u.contains("HIPHOP") || u.contains("HIP-HOP") || u.contains("RAP")
+                || u.contains("VEVO") || u.contains("REVOLT") || u.contains("TRACEURBAN")
+                || u.contains("R&B") || u.contains("DELUXE") || u.contains("BET");
     }
 
     /** 按当前分类 chips 过滤填充卡片（分组交给 BrowseAdapter） */
@@ -583,7 +586,9 @@ public class MainActivity extends AppCompatActivity {
             if (!matchesChip(c)) continue;
             shown.add(c);
         }
-        adapter.submit(shown);
+        // 音乐 / 体育这类内容大分类：不再按国家细分，直接平铺
+        boolean flatSections = "体育".equals(chipFilter) || "音乐".equals(chipFilter);
+        adapter.submit(shown, flatSections);
         subtitleView.setText(getTitleText());
         if (!keepPlayState) {
             currentIndex = -1;
@@ -593,7 +598,9 @@ public class MainActivity extends AppCompatActivity {
 
     // ===================== 分类 chips（YouTube TV 风格） =====================
 
-    private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台", "港澳台", "体育", "音乐"};
+    /** v1.11：只保留大分类 + 港澳台地区，去掉重复的「港澳台」和一堆国家小分类 chip */
+    private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台",
+            "香港", "台湾", "澳门", "体育", "音乐"};
 
     /** 依据当前频道表重建 chips 行 */
     private void buildChips() {
@@ -602,25 +609,11 @@ public class MainActivity extends AppCompatActivity {
         List<String> labels = new ArrayList<>();
         for (String b : BASE_CHIPS) labels.add(b);
 
-        // 各国 / 地区 chips（按 Catalog 排序规则），港澳台已由基类 chip 覆盖
-        java.util.Map<String, Integer> regionCount = new java.util.LinkedHashMap<>();
-        for (Channel c : allChannels) {
-            if (c.region == null || c.region.isEmpty()) continue;
-            if ("中国大陆".equals(c.region) || "中国".equals(c.region)
-                    || "中国港澳台".equals(c.region) || "港澳台".equals(c.region)) {
-                continue;
-            }
-            if (Catalog.category(c.group, c.name) == Catalog.CAT_OTHER && Catalog.isJunk(c.name)) continue;
-            Integer n = regionCount.get(c.region);
-            regionCount.put(c.region, n == null ? 1 : n + 1);
+        // 旧版本遗留的 chip（如「港澳台」或已移除的国家分类）→ 回到「全部」
+        if (chipFilter != null && !labels.contains(chipFilter)) {
+            chipFilter = null;
+            prefs.edit().putString(KEY_CHIP, "").apply();
         }
-        List<String> regions = new ArrayList<>(regionCount.keySet());
-        regions.sort((a, b) -> {
-            int ra = Catalog.regionRank(a);
-            int rb = Catalog.regionRank(b);
-            return ra != rb ? Integer.compare(ra, rb) : a.compareTo(b);
-        });
-        labels.addAll(regions);
 
         for (String label : labels) chipsRow.addView(makeChip(label));
         highlightChips();
@@ -644,6 +637,9 @@ public class MainActivity extends AppCompatActivity {
         t.setNextFocusDownId(R.id.sections);
         t.setOnFocusChangeListener((v, has) -> {
             t.setTextColor((has || t.isSelected()) ? 0xFF111111 : 0xFFF2F2F7);
+            t.animate().scaleX(has ? 1.12f : 1f).scaleY(has ? 1.12f : 1f)
+                    .setDuration(130).start();
+            t.setTranslationZ(has ? 18f : 0f);
             if (has) chipsScroll.smoothScrollTo(Math.max(0, t.getLeft() - dp(160)), 0);
         });
         return t;

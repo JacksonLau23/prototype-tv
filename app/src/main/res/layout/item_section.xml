@@ -7,8 +7,9 @@
     android:orientation="vertical"
     android:paddingTop="8dp">
 
-    <!-- YouTube TV 行标题：小号粗体 + 灰字数量，与 chips 左对齐 -->
+    <!-- YouTube TV 行标题：小号粗体 + 灰字数量，与 chips 左对齐（无标题时整行隐藏） -->
     <LinearLayout
+        android:id="@+id/section_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

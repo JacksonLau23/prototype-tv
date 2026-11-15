@@ -14,7 +14,7 @@
         app:show_buffering="always"
         app:use_controller="false" />
 
-    <!-- 浏览浮层：YouTube TV 官方版式 —— 底部面板（约 3/4 屏，上方留播放画面可见） -->
+    <!-- 浏览浮层：底部面板（v1.11 缩到约 55% 屏，上方留 45% 播放画面） -->
     <LinearLayout
         android:id="@+id/browse"
         android:layout_width="match_parent"
@@ -22,17 +22,17 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <!-- 上方留白：透出正在播放的画面（约 1/3 屏） -->
+        <!-- 上方留白：透出正在播放的画面（约 45% 屏） -->
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="32" />
+            android:layout_weight="45" />
 
         <LinearLayout
             android:id="@+id/panel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="68"
+            android:layout_weight="55"
             android:background="@drawable/browse_panel"
             android:orientation="vertical">
 
