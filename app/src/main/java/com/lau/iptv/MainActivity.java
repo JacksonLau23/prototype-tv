@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.media3.common.C;
 import androidx.media3.common.MediaItem;
+import androidx.media3.common.MimeTypes;
 import androidx.media3.common.PlaybackException;
 import androidx.media3.common.Player;
 import androidx.media3.datasource.BaseDataSource;
@@ -400,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
                 android.util.Log.w("IPTV", "state=" + state);
                 if (state == Player.STATE_BUFFERING) {
                     main.removeCallbacks(bufferingWatchdog);
-                    main.postDelayed(bufferingWatchdog, 14000);
+                    main.postDelayed(bufferingWatchdog, bufferTimeoutMs);
                     main.removeCallbacks(bufferTicker);
                     main.post(bufferTicker);
                 } else if (state == Player.STATE_READY) {
@@ -961,10 +962,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void debugPlay(String url) {
         debugPlaying = true;
+        bufferTimeoutMs = isSlowOverseas(url) ? 22000 : 14000;
         try {
             main.removeCallbacks(bufferingWatchdog);
             main.removeCallbacks(bufferTicker);
-            MediaItem item = new MediaItem.Builder().setUri(url).setMediaId("debug").build();
+            MediaItem.Builder b = new MediaItem.Builder().setUri(url).setMediaId("debug");
+            // 短链（jmp2.uk/stvp-*）会 302 到 pluto.tv 的 .m3u8，但 URI 本身无后缀；
+            // 不显式声明 HLS，media3 会当成普通文件去 sniff，触发 TrustAllDataSource 竞态失败
+            if (isHlsUrl(url)) b.setMimeType(MimeTypes.APPLICATION_M3U8);
+            MediaItem item = b.build();
             if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {
                 player.setMediaSource(rtspFactory.createMediaSource(item));
             } else {
@@ -1023,15 +1029,41 @@ public class MainActivity extends AppCompatActivity {
         startPlayback(c, raw, raw);
     }
 
+    /**
+     * 是否为 HLS 源。media3 默认只靠 URI 后缀推断容器类型，
+     * 而 jmp2.uk/stvp-* 这类短链 302 之后才是 .m3u8，必须显式声明。
+     * 其余无后缀源（.mpd / mpegts / 跳转页）保持自动判定，避免误判。
+     */
+    /** 缓冲看门狗时长：海外 HLS 需要先 302 + 签名 + 拉分片，给足 22 秒；国内源保持 14 秒快速跳台 */
+    private int bufferTimeoutMs = 14000;
+
+    private static boolean isSlowOverseas(String url) {
+        if (url == null) return false;
+        String u = url.toLowerCase();
+        return u.contains("jmp2.uk") || u.contains("pluto.tv") || u.contains("cloudfront.net")
+                || u.contains("mjh.nz") || u.contains("akamaized.net");
+    }
+
+    private static boolean isHlsUrl(String url) {
+        if (url == null) return false;
+        String u = url.toLowerCase();
+        String path = u.split("[?#]")[0];
+        if (path.endsWith(".m3u8")) return true;
+        if (u.contains("jmp2.uk/") && (u.contains("/stvp-") || u.contains("/plu-"))) return true;
+        return u.contains("pluto.tv") && u.contains("/hls/");
+    }
+
     private void startPlayback(Channel c, String loggedUrl, String playUrl) {
         android.util.Log.i("IPTV", "PLAY[" + c.name + "] line " + (lineIndex + 1) + "/" + c.urls.size() + " " + loggedUrl);
+        bufferTimeoutMs = isSlowOverseas(playUrl) ? 22000 : 14000;
         main.removeCallbacks(bufferingWatchdog);
         main.removeCallbacks(bufferTicker);
         try {
-            MediaItem item = new MediaItem.Builder()
+            MediaItem.Builder b = new MediaItem.Builder()
                     .setUri(playUrl)
-                    .setMediaId(String.valueOf(currentIndex))
-                    .build();
+                    .setMediaId(String.valueOf(currentIndex));
+            if (isHlsUrl(playUrl)) b.setMimeType(MimeTypes.APPLICATION_M3U8);
+            MediaItem item = b.build();
             if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {
                 player.setMediaSource(rtspFactory.createMediaSource(item));
             } else {

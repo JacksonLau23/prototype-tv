@@ -86,6 +86,9 @@ public class TrustAllDataSource extends BaseDataSource {
             if (code >= 400) {
                 throw new IOException("HTTP " + code + " " + url);
             }
+            if (conn == null) {
+                throw new IOException("no response after redirects: " + dataSpec.uri);
+            }
             in = conn.getInputStream();
             uri = Uri.parse(url.toString());
             transferStarted(dataSpec);
@@ -104,6 +107,9 @@ public class TrustAllDataSource extends BaseDataSource {
     public int read(byte[] buffer, int offset, int length) throws IOException {
         if (length == 0) return 0;
         if (ended) return C.RESULT_END_OF_INPUT;
+        // ExoPlayer 的 sniff / 重试路径可能在 close() 之后再次调用 read()；
+        // 此时 in 已被置空，直接返回 EOF，避免 NullPointerException 被当成播放失败
+        if (in == null) return C.RESULT_END_OF_INPUT;
         int n = in.read(buffer, offset, length);
         if (n == -1) {
             ended = true;

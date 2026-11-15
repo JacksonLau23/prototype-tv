@@ -5,6 +5,12 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 ## 特性
 
 - 📺 内置 577 条频道线路 / 415 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐 / 海外国别…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- 🆕 **v1.19 变化：修复海外音乐台（美国居多）播不出来**
+  - 与代理节点无关：`jmp2.uk/stvp-*` 短链会 302 到 Pluto TV / Samsung TV Plus 的 `.m3u8`，但 URI 本身没有后缀，media3 把它当普通文件探测；叠加 `TrustAllDataSource` 关闭后被再次读取的空指针，最终报 `Source error`
+  - 现在对 HLS 短链显式声明 `APPLICATION_M3U8`，`TrustAllDataSource.read()` 加 EOF 防护，重定向耗尽时也改为明确报错
+  - 海外 HLS 首次加载需要 302 + 签名 + 拉分片，缓冲看门狗对海外源放宽到 22 秒（国内源仍是 14 秒快速跳台）
+  - 实机复测 12 条（8 条无后缀短链 + 2 条 plu + 2 条国内对照）：修复前 2 条必报 `Source error` / NPE、多条缓冲超时；修复后全部出画面，NPE 归零
+  - 频道表不变（577 条线路 / 415 个频道），`ASSET_VER` 仍为 17，升级不会重置自定义分类顺序
 - 🆕 **v1.18 变化：海外频道按国家分类**
   - 顶部分类条新增「美国 / 日本 / 英国 / 德国 / 韩国 / 法国 / 俄罗斯 / **国际**」8 个国别分类（共 17 个，横向可滚动、焦点自动滚入视野），点进去只看该国频道；「国际」兜底收其余海外台
   - **海外体育 / 音乐台一并收录**（仍同时保留在「体育」「音乐」分类）；按原分组、`tvg-id` 国家码、台名国家词与电视台关键词综合判定归属，国内频道不会混入
@@ -116,13 +122,13 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.18](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.18) 下载 `Prototype-TV-1.18.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.19](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.19) 下载 `Prototype-TV-1.19.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.18.apk
+adb install -r Prototype-TV-1.19.apk
 ```
 
 **方式二：自行构建**
