@@ -14,6 +14,58 @@
         app:show_buffering="always"
         app:use_controller="false" />
 
+    <!-- 实时简中字幕（v1.21）：盖在画面上，浏览面板出现时由上层覆盖 -->
+    <LinearLayout
+        android:id="@+id/subtitle_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginStart="140dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="92dp"
+        android:background="@drawable/subtitle_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingStart="26dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="26dp"
+        android:paddingBottom="12dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/subtitle_zh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="1000dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="#FFFFFFFF"
+            android:textSize="27sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/subtitle_src"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:maxWidth="1000dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#C4FFFFFF"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/subtitle_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="AI 实时字幕"
+            android:textColor="#8A9B62"
+            android:textSize="11sp" />
+    </LinearLayout>
+
     <!-- 浏览浮层：底部面板（v1.13 再缩到约 42% 屏，上方留 58% 播放画面） -->
     <LinearLayout
         android:id="@+id/browse"

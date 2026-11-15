@@ -122,6 +122,13 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次变更内置表后 +1，自动把用户切回内置源 + 全部分类 */
     private static final int ASSET_VER = 18;
+    /** v1.21 实时简中字幕：旁路服务地址、开关、范围、时钟偏移 */
+    private static final String KEY_SUBTITLE_ON = "subtitle_on";
+    private static final String KEY_SUBTITLE_URL = "subtitle_url";
+    private static final String KEY_SUBTITLE_OFFSET = "subtitle_offset_ms";
+    private static final String KEY_SUBTITLE_FOREIGN_ONLY = "subtitle_foreign_only";
+    /** 电视本机 loopback：由服务端自动执行 adb reverse 转发到 Mac，绕开 VPN 与防火墙 */
+    private static final String DEFAULT_SUBTITLE_URL = "http://127.0.0.1:8899";
     private static final String CHIP_ALL = "全部";
     /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
     private static final int MAX_PLAY_ATTEMPTS = 3;
@@ -150,6 +157,13 @@ public class MainActivity extends AppCompatActivity {
     private android.widget.HorizontalScrollView chipsScroll;
     /** 诊断：直接播放的线路（仅调试用，正常启动为 null） */
     private String debugUrl;
+    /** 当前实际送入播放器的地址（字幕旁路服务要拉同一路流） */
+    private String currentPlayUrl = "";
+    private SubtitleClient subtitleClient;
+    private View subtitleBox;
+    private TextView subtitleZh;
+    private TextView subtitleSrc;
+    private TextView subtitleTag;
 
     private BrowseAdapter adapter;
     /** 当前分类过滤（null = 全部） */
@@ -213,6 +227,19 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             statusView.setVisibility(View.GONE);
+        }
+    };
+
+    /** 实时字幕：按播放器时钟驱动字幕显示（120ms 一次，比每秒的时钟更细） */
+    private final Runnable subtitleTicker = new Runnable() {
+        @Override
+        public void run() {
+            if (subtitleClient != null && player != null) {
+                try {
+                    subtitleClient.tick(player.getCurrentPosition());
+                } catch (Exception ignored) { }
+            }
+            main.postDelayed(this, 120);
         }
     };
 
@@ -298,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onAvailable(Network network) {
                     physicalNetwork = network;
+                    if (subtitleClient != null) subtitleClient.setNetwork(network);
                     boolean ok = bindNetwork(network);
                     android.util.Log.i("IPTV", "bindNetwork(physical) " + (ok ? "ok " + network : "FAILED(allowBypass denied)"));
                 }
@@ -353,6 +381,45 @@ public class MainActivity extends AppCompatActivity {
         nowPill = findViewById(R.id.now_playing);
         chipsRow = findViewById(R.id.chips);
         chipsScroll = findViewById(R.id.chips_scroll);
+        subtitleBox = findViewById(R.id.subtitle_box);
+        subtitleZh = findViewById(R.id.subtitle_zh);
+        subtitleSrc = findViewById(R.id.subtitle_src);
+        subtitleTag = findViewById(R.id.subtitle_tag);
+
+        // v1.21 实时简中字幕：旁路服务推 SSE，客户端按播放时钟排队显示
+        subtitleClient = new SubtitleClient();
+        subtitleClient.setListener(new SubtitleClient.Listener() {
+            @Override public void onCue(String src, String zh, String mode) {
+                subtitleZh.setText(zh);
+                subtitleSrc.setText(src);
+                subtitleTag.setText("demo".equals(mode)
+                        ? "AI 实时字幕 · 演示模式" : "AI 实时字幕 · 机器翻译");
+                subtitleBox.setVisibility(View.VISIBLE);
+            }
+            @Override public void onClear() {
+                subtitleBox.setVisibility(View.GONE);
+            }
+            @Override public void onState(String text, boolean error) {
+                if (error) android.util.Log.w("IPTV", "SUBTITLE_STATE " + text);
+                if (error && prefs.getBoolean(KEY_SUBTITLE_ON, false)) {
+                    setStatus(text);
+                    main.removeCallbacks(hideStatus);
+                    main.postDelayed(hideStatus, 3200);
+                }
+            }
+        });
+        // ADB 诊断入口：am start -n com.lau.iptv/.MainActivity --ez subtitle_on true
+        if (getIntent().hasExtra("subtitle_on")) {
+            prefs.edit().putBoolean(KEY_SUBTITLE_ON,
+                    getIntent().getBooleanExtra("subtitle_on", false)).apply();
+        }
+        if (getIntent().hasExtra("subtitle_url")) {
+            prefs.edit().putString(KEY_SUBTITLE_URL,
+                    getIntent().getStringExtra("subtitle_url")).apply();
+        }
+        applySubtitleSettings();
+        if (physicalNetwork != null) subtitleClient.setNetwork(physicalNetwork);
+        subtitleClient.start();
 
         speedMeter = new SpeedMeter();
         DataSource.Factory ds = () -> {
@@ -427,6 +494,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         startUp();
+        main.post(subtitleTicker);
 
         // 启动时静默检查更新（新版本只在状态胶囊轻提示，不打扰观看）
         checkUpdate(false);
@@ -1102,8 +1170,14 @@ public class MainActivity extends AppCompatActivity {
             player.prepare();
             player.play();
             playingChannel = c;
+            currentPlayUrl = playUrl;
             adapter.setPlaying(c);
             updateNowPlaying(c);
+            // 切台：清空字幕队列并让旁路服务改拉新频道的音频
+            if (subtitleClient != null && prefs.getBoolean(KEY_SUBTITLE_ON, false)) {
+                subtitleClient.onChannel(c.name, playUrl, subtitleActiveFor(c),
+                        player.getCurrentPosition());
+            }
             boolean hop = hopNotice != null;
             String meta = (hop ? hopNotice + " · " : "") + c.region + " · " + c.name;
             hopNotice = null;
@@ -1198,8 +1272,13 @@ public class MainActivity extends AppCompatActivity {
     // ===================== 菜单 =====================
 
     private void showMenu() {
+        boolean subOn = prefs.getBoolean(KEY_SUBTITLE_ON, false);
+        boolean foreignOnly = prefs.getBoolean(KEY_SUBTITLE_FOREIGN_ONLY, false);
         String[] items = {"检查更新…", "切换节目源…", "重新加载当前源", "手动输入 m3u 链接…",
-                "自定义分类顺序…", "恢复默认分类顺序"};
+                "自定义分类顺序…", "恢复默认分类顺序",
+                "实时简中字幕（" + (subOn ? "已开启 · 点此关闭" : "已关闭 · 点此开启") + "）",
+                "字幕范围（" + (foreignOnly ? "仅外语频道" : "全部频道") + "）",
+                "字幕服务地址…", "字幕时间偏移…"};
         new AlertDialog.Builder(this)
                 .setTitle("菜单")
                 .setItems(items, (d, which) -> {
@@ -1226,11 +1305,127 @@ public class MainActivity extends AppCompatActivity {
                             main.removeCallbacks(hideStatus);
                             main.postDelayed(hideStatus, 2600);
                             break;
+                        case 6:
+                            toggleSubtitles();
+                            break;
+                        case 7:
+                            prefs.edit().putBoolean(KEY_SUBTITLE_FOREIGN_ONLY, !foreignOnly).apply();
+                            rebindSubtitleChannel();
+                            setStatus(!foreignOnly ? "字幕范围：仅外语频道" : "字幕范围：全部频道");
+                            main.removeCallbacks(hideStatus);
+                            main.postDelayed(hideStatus, 2600);
+                            break;
+                        case 8:
+                            showSubtitleUrlDialog();
+                            break;
+                        case 9:
+                            showSubtitleOffsetDialog();
+                            break;
                         default:
                             break;
                     }
                 })
                 .setNegativeButton("关闭", null)
+                .show();
+    }
+
+    // ===================== 实时简中字幕（v1.21） =====================
+
+    private void applySubtitleSettings() {
+        if (subtitleClient == null) return;
+        subtitleClient.configure(
+                prefs.getString(KEY_SUBTITLE_URL, DEFAULT_SUBTITLE_URL),
+                prefs.getInt(KEY_SUBTITLE_OFFSET, -1500),
+                prefs.getBoolean(KEY_SUBTITLE_ON, false));
+        if (!prefs.getBoolean(KEY_SUBTITLE_ON, false) && subtitleBox != null) {
+            subtitleBox.setVisibility(View.GONE);
+        }
+    }
+
+    /** 仅外语频道：平台源 + 明确的海外国别/台标；音乐台（BGM 无可译语音）排除 */
+    private boolean subtitleActiveFor(Channel c) {
+        if (c == null || !prefs.getBoolean(KEY_SUBTITLE_ON, false)) return false;
+        if (!prefs.getBoolean(KEY_SUBTITLE_FOREIGN_ONLY, false)) return true;
+        return isForeignChannel(c) && !isMusic(c);
+    }
+
+    private static boolean isForeignChannel(Channel c) {
+        if (c.platform != null && !c.platform.isEmpty()) return true;
+        String s = (c.region == null ? "" : c.region) + " "
+                + (c.group == null ? "" : c.group) + " " + (c.name == null ? "" : c.name);
+        return s.matches(".*(美国|日本|英国|德国|韩国|法国|俄罗斯|国际|海外|US|UK|JP|KR|NHK|BBC|CNN|FOX|ESPN|BET|MTV|Twitch|YouTube).*");
+    }
+
+    /** 设置变化后重新把当前频道绑定给字幕服务（含关闭时停掉 ffmpeg） */
+    private void rebindSubtitleChannel() {
+        if (subtitleClient == null || playingChannel == null) return;
+        if (!prefs.getBoolean(KEY_SUBTITLE_ON, false)) {
+            subtitleClient.onChannel(playingChannel.name, currentPlayUrl, false,
+                    player != null ? player.getCurrentPosition() : 0);
+            return;
+        }
+        subtitleClient.onChannel(playingChannel.name, currentPlayUrl,
+                subtitleActiveFor(playingChannel),
+                player != null ? player.getCurrentPosition() : 0);
+    }
+
+    private void toggleSubtitles() {
+        boolean on = prefs.getBoolean(KEY_SUBTITLE_ON, false);
+        prefs.edit().putBoolean(KEY_SUBTITLE_ON, !on).apply();
+        applySubtitleSettings();
+        rebindSubtitleChannel();
+        setStatus(on ? "实时简中字幕已关闭" : "实时简中字幕已开启");
+        main.removeCallbacks(hideStatus);
+        main.postDelayed(hideStatus, 2600);
+    }
+
+    private void showSubtitleUrlDialog() {
+        EditText et = new EditText(this);
+        et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
+        et.setText(prefs.getString(KEY_SUBTITLE_URL, DEFAULT_SUBTITLE_URL));
+        et.setSingleLine(true);
+        new AlertDialog.Builder(this)
+                .setTitle("字幕服务地址")
+                .setMessage("默认 http://127.0.0.1:8899（服务端自动 adb reverse）；服务在 NAS 上时填局域网地址")
+                .setView(et)
+                .setPositiveButton("保存", (d, w) -> {
+                    String v = et.getText().toString().trim();
+                    if (!v.startsWith("http://") && !v.startsWith("https://")) {
+                        setStatus("地址需以 http:// 开头");
+                        main.removeCallbacks(hideStatus);
+                        main.postDelayed(hideStatus, 2600);
+                        return;
+                    }
+                    prefs.edit().putString(KEY_SUBTITLE_URL, v).apply();
+                    applySubtitleSettings();
+                    rebindSubtitleChannel();
+                    setStatus("字幕服务地址已保存：" + v);
+                    main.removeCallbacks(hideStatus);
+                    main.postDelayed(hideStatus, 2600);
+                })
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    private void showSubtitleOffsetDialog() {
+        final int[] values = {-4000, -3000, -2000, -1500, -1000, -500, 0, 500, 1000, 2000, 3000};
+        String[] labels = new String[values.length];
+        for (int i = 0; i < values.length; i++) {
+            int v = values[i];
+            labels[i] = v == 0 ? "0 ms（不偏移）"
+                    : (v > 0 ? "+" : "") + v + " ms（字幕" + (v > 0 ? "延后" : "提前") + "）";
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("字幕时间偏移")
+                .setMessage("字幕比画面早 → 调负值；字幕比画面晚 → 调正值。直播缓冲各家不同，需要现场微调。")
+                .setItems(labels, (d, w) -> {
+                    prefs.edit().putInt(KEY_SUBTITLE_OFFSET, values[w]).apply();
+                    applySubtitleSettings();
+                    setStatus("字幕偏移已设为 " + values[w] + " ms");
+                    main.removeCallbacks(hideStatus);
+                    main.postDelayed(hideStatus, 2600);
+                })
+                .setNegativeButton("取消", null)
                 .show();
     }
 
@@ -1393,6 +1588,11 @@ public class MainActivity extends AppCompatActivity {
             showMenu();
             return true;
         }
+        // 遥控器字幕键：一键开关实时简中字幕
+        if (keyCode == KeyEvent.KEYCODE_CAPTIONS) {
+            toggleSubtitles();
+            return true;
+        }
         // 全屏观看时，上下键直接换台（和电视机一样）
         if (keyCode == KeyEvent.KEYCODE_DPAD_UP && !listShown) {
             int prev = adapter.nextChannelIndex(currentIndex, -1);
@@ -1485,6 +1685,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        main.removeCallbacks(subtitleTicker);
+        if (subtitleClient != null) subtitleClient.stop();
         io.shutdownNow();
         if (player != null) {
             player.release();

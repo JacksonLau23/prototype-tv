@@ -5,6 +5,13 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 ## 特性
 
 - 📺 内置 605 条频道线路 / 443 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐 / **Twitch** / **YouTube** / 海外国别…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- **v1.21 变化：非中文频道可叠加实时简中字幕（旁路 ASR + 机器翻译）**
+  - 直播流本身没有简中字幕轨，所以走旁路：Mac / NAS 上的 `subtitle-service` 用 ffmpeg 抽同一路流的音频 → 流式 ASR → 机器翻译 → SSE 推送带时间戳的双语字幕，电视端按 `player.getCurrentPosition()` 排队显示
+  - 菜单新增「实时简中字幕（开/关）」「字幕范围（仅外语频道 / 全部频道）」「字幕服务地址…」「字幕时间偏移…」；遥控器 `CAPTIONS` 键可一键开关
+  - 电视端用裸 Socket 直连 + 服务端 HTTP/1.0 纯文本流，避开这台 Sony 上 OkHttp 长连接被判 `unexpected end of stream` 的问题；默认经 `adb reverse` 走本机 loopback
+  - 默认关闭、主播放链路零改动；切台 / 自动跳台会清空字幕队列并让服务端换 session，旧频道迟到的字幕丢弃；3 秒无字幕自动收起，不阻塞播放
+  - **MVP 默认 demo provider**：抽音频与 VAD 是真实链路，字幕文本为固定样例，用于验证全链路与时钟对齐；接入真实识别只需配环境变量（见下），无需改 App
+  - 频道表不变（605 条线路 / 443 个频道），`ASSET_VER` 仍为 18，升级不会重置节目源与自定义分类顺序
 - 🆕 **v1.20 变化：加回 Twitch / YouTube 源，并给两个平台单独分类**
   - 恢复此前移除的 8 个网络电台，并扩到 **28 条平台源**：Twitch 15 个（音乐 6 / 体育·电竞 9）、YouTube 13 个（音乐 4 / 体育 6 / 新闻 3），全部逐条实测在播且能取回 HLS 清单
   - 顶部分类条新增「**Twitch**」「**YouTube**」两个独立分类（共 19 个）；新分类自动补到已保存的自定义顺序末尾，可自行拖动
@@ -124,19 +131,20 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 自研 ProbeReceiver 线路实测通道（诊断/维护用）
 - 自研 TrustAllDataSource（自签名证书 + 跨协议重定向）
 - ConnectivityManager 物理网络绑定（VPN 共存）
+- 实时简中字幕旁路：`SubtitleClient`（SSE + 播放时钟排队）/ `subtitle-service`（ffmpeg + 可插拔 ASR/MT provider，纯 Python 标准库）
 - 分类 chips 由 `Catalog.category / regionOf / overseasChip` + `Channel.platform`（按 `ytlive://` / `twitchlive://` scheme 自动识别）驱动，按频道表动态生成
 
 ## 安装
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.20](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.20) 下载 `Prototype-TV-1.20.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.21](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.21) 下载 `Prototype-TV-1.21.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.20.apk
+adb install -r Prototype-TV-1.21.apk
 ```
 
 **方式二：自行构建**
@@ -147,6 +155,50 @@ adb install -r app/build/outputs/apk/release/app-release.apk
 ```
 
 > 🤝 **VPN 共存说明**：v1.5 起应用自动把播放流量绑定到物理网卡（Wi-Fi/以太网），Clash Meta、Zion 等 tun 代理无需任何分流配置即可共存——国内 IPTV 直连秒开，代理同时照常服务其他应用。
+
+## 实时简中字幕（v1.21）
+
+非中文频道没有现成的简中字幕轨，因此字幕由旁路服务实时生成：服务端拉同一路直播流、抽音频、识别、翻译，电视端按播放时钟把双语字幕叠在画面上。电视只连局域网，主播放链路与频道表都不受影响。
+
+```bash
+# 1) 在 Mac / NAS 上启动旁路服务（需 ffmpeg，Python 3 标准库即可）
+python3 subtitle-service/server.py          # 默认 0.0.0.0:8899
+
+# 2) 自检：不依赖外网与电视，验证抽音频 → VAD → provider → SSE
+python3 subtitle-service/selftest.py
+
+# 3) 电视：菜单 → 打开「实时简中字幕」（默认地址 http://127.0.0.1:8899）
+#    或 ADB 一键开启：
+adb shell am start -n com.lau.iptv/.MainActivity \
+    --ez subtitle_on true --es subtitle_url http://127.0.0.1:8899
+```
+
+服务启动时会自动执行 `adb reverse tcp:8899 tcp:8899`，把电视的 `127.0.0.1:8899` 转发到本机，**不需要**给 macOS 防火墙加例外、也不依赖电视上代理的局域网分流规则。实测 Sony BRAVIA 上 `bindProcessToNetwork` 返回 `FAILED(allowBypass denied)`，应用无法自行绕过 VPN，局域网地址会被 tun 接管，因此默认走 loopback + ADB 转发。ADB 断开后转发失效，重连后重跑一次服务或手工 `adb reverse tcp:8899 tcp:8899` 即可；设 `SUBTITLE_ADB_REVERSE=0` 可关闭自动转发。若服务部署在 NAS 上无法用 ADB，则在电视菜单里填 `http://<NAS IP>:8899`，并自行放行防火墙 / 给该网段配直连规则。
+
+接入真实识别 / 翻译（默认 `SUBTITLE_PROVIDER=demo`）：
+
+```bash
+export SUBTITLE_PROVIDER=cloud
+export SUBTITLE_ASR_URL=https://<厂商>/v1/audio/transcriptions
+export SUBTITLE_ASR_KEY=...
+export SUBTITLE_ASR_MODEL=FunAudioLLM/SenseVoiceSmall
+export SUBTITLE_MT_URL=https://<厂商>/v1/chat/completions
+export SUBTITLE_MT_KEY=...
+export SUBTITLE_MT_MODEL=qwen-mt-turbo
+python3 subtitle-service/server.py
+```
+
+也可设 `SUBTITLE_PROVIDER=whisper` 在本机跑 faster-whisper（CPU int8；翻译端点仍建议配置）。国内云 ASR / MT 可直连，不依赖代理出口。
+
+诊断开关：`SUBTITLE_ADB_REVERSE=0`（关闭自动端口转发）、`SUBTITLE_FORCE_URL=/path/to/test.wav` 让服务端忽略电视传来的 URL、循环读本地音频，用于在没有可用直播流的环境验证链路；`SUBTITLE_CHUNK_SEC`（默认 2.0）、`SUBTITLE_VAD_RMS`（默认 120）、`SUBTITLE_CUE_MS`（默认 3200）、`SUBTITLE_PORT`（默认 8899）可调。
+
+已知限制：
+
+- MVP 字幕内容为演示样例，界面标注「演示模式」；识别与翻译质量取决于后续接入的 provider。
+- 时钟对齐采用 `pts + 可调偏移`（默认 -1500ms），不同源的缓冲差异需要用「字幕时间偏移…」现场微调；精确 PTS 对齐留到接真实 ASR 后迭代。
+- 每个正在观看的频道会多拉一路流（双份带宽），只给当前频道开，不要全表启用。
+- 音乐台多为 BGM，ASR 会乱识别，建议用「仅外语频道」范围；央视 / 卫视 / 港澳台本身是中文，无需开启。
+- 转播内容的机器翻译字幕可能错译，界面标注「AI 实时字幕」，请自行判断并合规使用。
 
 ## 免责声明
 
