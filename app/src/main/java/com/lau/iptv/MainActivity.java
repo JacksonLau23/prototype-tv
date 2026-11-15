@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP_ORDER = "chip_order_v1";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次变更内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 16;
+    private static final int ASSET_VER = 17;
     private static final String CHIP_ALL = "全部";
     /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
     private static final int MAX_PLAY_ATTEMPTS = 3;
@@ -623,6 +623,9 @@ public class MainActivity extends AppCompatActivity {
             case "音乐":
                 return isMusic(c);
             default:
+                if (Catalog.isOverseasChip(chipFilter)) {
+                    return chipFilter.equals(Catalog.overseasChip(c.name, c.group, c.region));
+                }
                 return chipFilter.equals(c.region);
         }
     }
@@ -639,6 +642,20 @@ public class MainActivity extends AppCompatActivity {
                 || u.contains("R&B") || u.contains("DELUXE") || u.contains("BET");
     }
 
+    /** 海外国别分类内部的二次分区：新闻 / 体育 / 音乐 / 综合 */
+    private static String overseasTag(Channel c) {
+        if (isMusic(c)) return "音乐";
+        int cat = Catalog.category(c.group, c.name);
+        String g = (c.group == null ? "" : c.group).toLowerCase();
+        if (cat == Catalog.CAT_SPORT || g.contains("sport")) return "体育";
+        String n = (c.name == null ? "" : c.name).toUpperCase();
+        if ("海外新闻".equals(c.group) || n.matches(".*(NEWS|CNN|BBC|AL JAZEERA|EURONEWS|"
+                + "BLOOMBERG|CNBC|SKY|FRANCE 24|TRT|ARIRANG|NHK WORLD|DW ENGLISH).*")) {
+            return "新闻";
+        }
+        return "综合";
+    }
+
     /** 按当前分类 chips 过滤填充卡片（分组交给 BrowseAdapter） */
     private void render(boolean keepPlayState) {        List<Channel> shown = new ArrayList<>();
         for (Channel c : allChannels) {
@@ -646,6 +663,12 @@ public class MainActivity extends AppCompatActivity {
             if (cat == Catalog.CAT_OTHER && Catalog.isJunk(c.name)) continue;
             if (!matchesChip(c)) continue;
             shown.add(c);
+        }
+        // 海外国别分类：内部再按「新闻 / 体育 / 音乐 / 综合」二次分区
+        boolean overseas = Catalog.isOverseasChip(chipFilter);
+        for (Channel c : allChannels) c.sectionTag = null;
+        if (overseas) {
+            for (Channel c : shown) c.sectionTag = overseasTag(c);
         }
         // 音乐 / 体育这类内容大分类：不再按国家细分，直接平铺
         boolean flatSections = "体育".equals(chipFilter) || "音乐".equals(chipFilter);
@@ -659,9 +682,10 @@ public class MainActivity extends AppCompatActivity {
 
     // ===================== 分类 chips（YouTube TV 风格） =====================
 
-    /** v1.11：只保留大分类 + 港澳台地区，去掉重复的「港澳台」和一堆国家小分类 chip */
+    /** v1.18：国内大分类 + 港澳台 + 内容分类 + 海外国别分类；「全部」固定首位 */
     private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台",
-            "香港", "台湾", "澳门", "体育", "音乐"};
+            "香港", "台湾", "澳门", "体育", "音乐",
+            "美国", "日本", "英国", "德国", "韩国", "法国", "俄罗斯", "国际"};
 
     /** 依据当前频道表 + 用户自定义顺序重建 chips 行 */
     private void buildChips() {

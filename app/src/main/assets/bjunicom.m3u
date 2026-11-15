@@ -931,10 +931,6 @@ https://jmp2.uk/stvp-GBBD2300001C0
 https://jmp2.uk/stvp-FRBC2100002JA
 #EXTINF:-1 tvg-id="MTVSpankinNew.us" tvg-name="MTV Spankin New" tvg-logo="https://prototype-tv.local/logo/mtv-spankin.png" group-title="音乐",MTV Spankin New
 https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8
-#EXTINF:-1 tvg-id="YouTube.90sHipHop" tvg-name="YouTube 90s 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/yt-90s-hh.png" group-title="音乐",YouTube 90s 嘻哈电台
-ytlive://jHbB3v8wBVU
-#EXTINF:-1 tvg-id="YouTube.Rap247" tvg-name="YouTube Gangsta Rap 电台" tvg-logo="https://prototype-tv.local/logo/yt-rap-247.png" group-title="音乐",YouTube Gangsta Rap 电台
-ytlive://0MOkLkTP-Jk
 #EXTINF:-1 tvg-id="CCTVStormMusic.cn" tvg-name="风云音乐" tvg-logo="https://prototype-tv.local/logo/fengyun-music.png" group-title="音乐",风云音乐
 https://live.264788.xyz/channel/fengyunyinyue?streamid=be37d16b874e7ba11dd383d7ecd75752&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
 #EXTINF:-1 tvg-id="CCTVStormMusic.cn" tvg-name="风云音乐" tvg-logo="https://prototype-tv.local/logo/fengyun-music.png" group-title="音乐",风云音乐
@@ -943,18 +939,6 @@ https://live.264788.xyz/channel/fengyunyinyue?streamid=1b41fb9153cba3ee19bd5d1b3
 http://38.75.136.137:98/gslb/dsdqpub/fyyy.m3u8?auth=testpub
 #EXTINF:-1 tvg-id="CNRMusicLive.cn" tvg-name="音乐现场" tvg-logo="https://prototype-tv.local/logo/music-live.png" group-title="音乐",音乐现场
 https://satellitepull.cnr.cn/live/wx32nmgyygb/playlist.m3u8
-#EXTINF:-1 tvg-id="Twitch.LofiGirl" tvg-name="Twitch Lofi Girl 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/tw-lofigirl.png" group-title="音乐",Twitch Lofi Girl 嘻哈电台
-twitchlive://lofigirl
-#EXTINF:-1 tvg-id="Twitch.Chillhop" tvg-name="Twitch Chillhop 爵士嘻哈" tvg-logo="https://prototype-tv.local/logo/tw-chillhop.png" group-title="音乐",Twitch Chillhop 爵士嘻哈
-twitchlive://chillhopradio
-#EXTINF:-1 tvg-id="Twitch.LeekBeats" tvg-name="Twitch Leek Beats 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-leekbeats.png" group-title="音乐",Twitch Leek Beats 嘻哈节拍
-twitchlive://leekbeats
-#EXTINF:-1 tvg-id="Twitch.ChilledCat" tvg-name="Twitch ChilledCat 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-chilledcat.png" group-title="音乐",Twitch ChilledCat 嘻哈节拍
-twitchlive://chilledcat_music
-#EXTINF:-1 tvg-id="Twitch.RealRap" tvg-name="Twitch Real Rap 说唱现场" tvg-logo="https://prototype-tv.local/logo/tw-realrap.png" group-title="音乐",Twitch Real Rap 说唱现场
-twitchlive://djsaywhaat
-#EXTINF:-1 tvg-id="Twitch.RelaxBeats" tvg-name="Twitch Relax Beats 嘻哈放松" tvg-logo="https://prototype-tv.local/logo/tw-relaxbeats.png" group-title="音乐",Twitch Relax Beats 嘻哈放松
-twitchlive://relaxbeats
 # --- v1.16 融合 zyscj.com 电视直播/体育直播/直播源分区公开清单（经 HTTP 探测 + 抽样抽帧验证，已去重）---
 #EXTINF:-1 tvg-name="Fox Sports News" group-title="体育",Fox Sports News
 https://skynewsau-live-premium.akamaized.net/hls/live/2105307/foxsportsnews/live_1080p.m3u8

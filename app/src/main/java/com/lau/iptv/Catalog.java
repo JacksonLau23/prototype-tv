@@ -337,4 +337,60 @@ public final class Catalog {
         }
         return "其他";
     }
+
+    // ===================== 海外国别分类（v1.18） =====================
+
+    /** 顶部分类条里的海外国别分类；「国际」兜底收其余海外台 */
+    public static final String[] OVERSEAS_CHIPS = {
+            "美国", "日本", "英国", "德国", "韩国", "法国", "俄罗斯", "国际"};
+
+    /** 明确属于国内的分组，不进任何海外国别分类 */
+    private static final java.util.Set<String> DOMESTIC_GROUPS = new java.util.HashSet<>(
+            java.util.Arrays.asList("央视", "卫视", "地方台", "香港", "台湾", "澳门",
+                    "港澳台", "联通IPTV", "影视", "北京"));
+
+    /** 台名里能直接判定国家的关键词（数组顺序即优先级） */
+    private static final String[][] OVERSEAS_KW = {
+            {"BBC|SKY NEWS|CHANNEL 4|S4C|ITV", "英国"},
+            {"CNN|FOX|ABC|CBS|NBC|PBS|BLOOMBERG|CNBC|ESPN|NBA|NFL|NHL|MLB|AMC|DISNEY|"
+                    + "NICKELODEON|PARAMOUNT|SHOWTIME|STARZ|SYFY|ION|TENNIS|GOLF|BET|MTV|VH1|"
+                    + "VEVO|REVOLT|HIPHOP|HIP-HOP|RAP|BIG TEN|SEC NETWORK|FOOD NETWORK|"
+                    + "TASTEMADE|WORLD POKER", "美国"},
+            {"NHK|JAPAN", "日本"},
+            {"ARIRANG|KOREA|KBS|MBC|SBS", "韩国"},
+            {"DW|DEUTSCH|GERMANY|ARD|ZDF|RTL|BIBEL|3SAT|ARTE", "德国"},
+            {"FRANCE|TV5|13EME|ALPE", "法国"},
+            {"RUSSIA|RUSSIAN|MATCH!|MATCH4", "俄罗斯"},
+    };
+
+    public static boolean isOverseasChip(String chip) {
+        if (chip == null) return false;
+        for (String c : OVERSEAS_CHIPS) if (c.equals(chip)) return true;
+        return false;
+    }
+
+    /**
+     * 返回频道归属的海外国别分类；国内频道返回 null。
+     * 判定顺序：原分组 → region（已含 tvg-id 国家码 + 台名国家词）→ 台名关键词 → 国际兜底。
+     * 体育 / 音乐是混合分组，纯中文台名按国内台处理。
+     */
+    public static String overseasChip(String name, String group, String region) {
+        String g = group == null ? "" : group.trim();
+        String n = name == null ? "" : name;
+        if (DOMESTIC_GROUPS.contains(g)) return null;
+        for (String c : OVERSEAS_CHIPS) {
+            if (!"国际".equals(c) && c.equals(g)) return c;
+        }
+        for (String c : OVERSEAS_CHIPS) {
+            if (!"国际".equals(c) && c.equals(region)) return c;
+        }
+        String up = n.toUpperCase();
+        for (String[] k : OVERSEAS_KW) {
+            if (Pattern.compile(k[0]).matcher(up).find()) return k[1];
+        }
+        if (("体育".equals(g) || "音乐".equals(g))
+                && n.matches(".*[\\u4e00-\\u9fa5].*")
+                && !n.matches(".*[A-Za-z]{2,}.*")) return null;
+        return "国际";
+    }
 }

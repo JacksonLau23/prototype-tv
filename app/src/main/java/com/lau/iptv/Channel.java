@@ -14,6 +14,8 @@ public class Channel {
     public final int order;
     /** 所属国家/地区，用于列表分组 */
     public String region = "其他";
+    /** 仅用于当前分类视图的二次分区标题（国别分类里的新闻/体育/音乐/综合），不持久化 */
+    public String sectionTag;
 
     public Channel(String name, String group, String logo, int order) {
         this.name = name;

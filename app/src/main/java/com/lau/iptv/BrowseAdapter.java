@@ -106,6 +106,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
     }
 
     private static String sectionTitle(Channel c) {
+        // 国别分类下由 MainActivity 指定「新闻 / 体育 / 音乐 / 综合」二次分区
+        if (c.sectionTag != null && !c.sectionTag.isEmpty()) return c.sectionTag;
         String g = Catalog.groupLabel(c.group, c.name);
         if (g.isEmpty()) {
             g = c.region == null || c.region.isEmpty() ? "其他" : c.region;
