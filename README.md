@@ -4,7 +4,11 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 ## 特性
 
-- 📺 内置 587 条频道线路 / 425 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- 📺 内置 585 条频道线路 / 423 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
+- 🆕 **v1.17 变化：精简央视分类**
+  - 按反馈移除「高尔夫网球」「熊猫直播」两个频道（各 1 条线路），其余频道与线路不变；最终 585 条线路零重复
+  - 体育分类里的国际 Golf / Tennis 台属于独立体育频道，本次保留
+  - 内置表版本推进到 16，升级后自动重置到内置源 + 全部分类，删掉的频道立即消失
 - 🆕 **v1.16 变化：融合 zyscj.com 直播源分区的电视直播 / 体育直播清单**
   - 抓取 `zyscj.com/zy/video/tv.html` 的「电视直播网站」「直播源」「体育直播」三个分区指向的公开清单（iptv-org、joevess/IPTV、Tvlist-awesome、MyIPTV、epg.pw 等），共解析 2 万余条候选
   - 1015 条重点候选做并发 HTTP 探测 + 700 条定向补探，剔除死链、电台、带时效签名的地址；按现有分类归一后新增 **111 条**可用线路（体育 38 / 音乐 34 / 地方台 20 / 台湾 13 / 央视 5 / 香港 1）
@@ -105,13 +109,13 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.16](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.16) 下载 `Prototype-TV-1.16.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.17](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.17) 下载 `Prototype-TV-1.17.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.16.apk
+adb install -r Prototype-TV-1.17.apk
 ```
 
 **方式二：自行构建**

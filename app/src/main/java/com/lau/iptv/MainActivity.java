@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
     /** 用户自定义分类顺序：不含「全部」，以逗号分隔持久化 */
     private static final String KEY_CHIP_ORDER = "chip_order_v1";
     private static final String KEY_ASSET_VER = "asset_ver";
-    /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 15;
+    /** 内置频道表版本号：每次变更内置表后 +1，自动把用户切回内置源 + 全部分类 */
+    private static final int ASSET_VER = 16;
     private static final String CHIP_ALL = "全部";
     /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
     private static final int MAX_PLAY_ATTEMPTS = 3;
