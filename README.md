@@ -140,4 +140,4 @@ adb install -r app/build/outputs/apk/release/app-release.apk
 
 ## License
 
-来自北京朝阳刘嘉尔
+来自北京朝阳宇宙无敌帅 刘嘉尔🇨🇳😎
