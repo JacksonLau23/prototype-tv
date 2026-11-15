@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.media3.common.C;
 import androidx.media3.common.MediaItem;
+import androidx.media3.common.audio.AudioProcessor;
 import androidx.media3.common.MimeTypes;
 import androidx.media3.common.PlaybackException;
 import androidx.media3.common.Player;
@@ -31,7 +32,11 @@ import androidx.media3.datasource.BaseDataSource;
 import androidx.media3.datasource.DataSource;
 import androidx.media3.datasource.DataSpec;
 import androidx.media3.datasource.DefaultHttpDataSource;
+import androidx.media3.exoplayer.DefaultRenderersFactory;
 import androidx.media3.exoplayer.ExoPlayer;
+import androidx.media3.exoplayer.audio.AudioOffloadSupport;
+import androidx.media3.exoplayer.audio.AudioSink;
+import androidx.media3.exoplayer.audio.DefaultAudioSink;
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory;
 import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.exoplayer.rtsp.RtspMediaSource;
@@ -129,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_SUBTITLE_FOREIGN_ONLY = "subtitle_foreign_only";
     /** 电视本机 loopback：由服务端自动执行 adb reverse 转发到 Mac，绕开 VPN 与防火墙 */
     private static final String DEFAULT_SUBTITLE_URL = "http://127.0.0.1:8899";
+    /** v1.22 频道音量平衡：所有频道统一到同一长期响度 */
+    private static final String KEY_VOLUME_NORMALIZE = "volume_normalize";
+    private static final String KEY_VOLUME_TARGET = "volume_target";
     private static final String CHIP_ALL = "全部";
     /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
     private static final int MAX_PLAY_ATTEMPTS = 3;
@@ -159,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
     private String debugUrl;
     /** 当前实际送入播放器的地址（字幕旁路服务要拉同一路流） */
     private String currentPlayUrl = "";
+    /** 音频链上的实时响度归一化（默认开启，解决切台音量忽大忽小） */
+    private final LoudnessNormalizer loudness = new LoudnessNormalizer();
     private SubtitleClient subtitleClient;
     private View subtitleBox;
     private TextView subtitleZh;
@@ -417,6 +427,17 @@ public class MainActivity extends AppCompatActivity {
             prefs.edit().putString(KEY_SUBTITLE_URL,
                     getIntent().getStringExtra("subtitle_url")).apply();
         }
+        // ADB 诊断入口：--ez volume_normalize <bool> --ei volume_target <0|1|2>
+        if (getIntent().hasExtra("volume_normalize")) {
+            prefs.edit().putBoolean(KEY_VOLUME_NORMALIZE,
+                    getIntent().getBooleanExtra("volume_normalize", true)).apply();
+        }
+        if (getIntent().hasExtra("volume_target")) {
+            prefs.edit().putInt(KEY_VOLUME_TARGET,
+                    getIntent().getIntExtra("volume_target", 0)).apply();
+        }
+        loudness.setEnabled(prefs.getBoolean(KEY_VOLUME_NORMALIZE, true));
+        loudness.setTargetMode(prefs.getInt(KEY_VOLUME_TARGET, 0));
         applySubtitleSettings();
         if (physicalNetwork != null) subtitleClient.setNetwork(physicalNetwork);
         subtitleClient.start();
@@ -427,7 +448,23 @@ public class MainActivity extends AppCompatActivity {
             source.addTransferListener(speedMeter);
             return source;
         };
+        // v1.22：把响度归一化装进 AudioSink 的 processor 链，对所有源（HLS/RTSP/平台源）生效。
+        // 强制 16bit PCM 输出 + 禁用 offload，保证 processor 一定拿到可处理的 PCM。
+        DefaultRenderersFactory renderers = new DefaultRenderersFactory(this) {
+            @Override
+            protected AudioSink buildAudioSink(Context context, boolean enableFloatOutput,
+                                              boolean enableAudioTrackPlaybackParams) {
+                return new DefaultAudioSink.Builder(context)
+                        .setEnableFloatOutput(false)
+                        .setEnableAudioTrackPlaybackParams(enableAudioTrackPlaybackParams)
+                        .setAudioProcessors(new AudioProcessor[]{loudness})
+                        .setAudioOffloadSupportProvider(
+                                (format, attrs) -> AudioOffloadSupport.DEFAULT_UNSUPPORTED)
+                        .build();
+            }
+        };
         player = new ExoPlayer.Builder(this)
+                .setRenderersFactory(renderers)
                 .setMediaSourceFactory(new DefaultMediaSourceFactory(ds))
                 .build();
         playerView.setPlayer(player);
@@ -1045,6 +1082,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void debugPlay(String url) {
         debugPlaying = true;
+        loudness.onChannelChanged();
         bufferTimeoutMs = bufferTimeoutFor(url);
         try {
             main.removeCallbacks(bufferingWatchdog);
@@ -1171,6 +1209,8 @@ public class MainActivity extends AppCompatActivity {
             player.play();
             playingChannel = c;
             currentPlayUrl = playUrl;
+            // 切台：重置响度测量但保留当前增益，1.6 秒内平滑收敛到新频道
+            loudness.onChannelChanged();
             adapter.setPlaying(c);
             updateNowPlaying(c);
             // 切台：清空字幕队列并让旁路服务改拉新频道的音频
@@ -1274,11 +1314,16 @@ public class MainActivity extends AppCompatActivity {
     private void showMenu() {
         boolean subOn = prefs.getBoolean(KEY_SUBTITLE_ON, false);
         boolean foreignOnly = prefs.getBoolean(KEY_SUBTITLE_FOREIGN_ONLY, false);
+        boolean volOn = prefs.getBoolean(KEY_VOLUME_NORMALIZE, true);
+        int volTarget = prefs.getInt(KEY_VOLUME_TARGET, 0);
+        if (volTarget < 0 || volTarget >= LoudnessNormalizer.TARGET_LABELS.length) volTarget = 0;
         String[] items = {"检查更新…", "切换节目源…", "重新加载当前源", "手动输入 m3u 链接…",
                 "自定义分类顺序…", "恢复默认分类顺序",
                 "实时简中字幕（" + (subOn ? "已开启 · 点此关闭" : "已关闭 · 点此开启") + "）",
                 "字幕范围（" + (foreignOnly ? "仅外语频道" : "全部频道") + "）",
-                "字幕服务地址…", "字幕时间偏移…"};
+                "字幕服务地址…", "字幕时间偏移…",
+                "频道音量平衡（" + (volOn ? "已开启 · 点此关闭" : "已关闭 · 点此开启") + "）",
+                "音量目标（" + LoudnessNormalizer.TARGET_LABELS[volTarget] + "）"};
         new AlertDialog.Builder(this)
                 .setTitle("菜单")
                 .setItems(items, (d, which) -> {
@@ -1321,11 +1366,47 @@ public class MainActivity extends AppCompatActivity {
                         case 9:
                             showSubtitleOffsetDialog();
                             break;
+                        case 10:
+                            toggleVolumeNormalize();
+                            break;
+                        case 11:
+                            showVolumeTargetDialog();
+                            break;
                         default:
                             break;
                     }
                 })
                 .setNegativeButton("关闭", null)
+                .show();
+    }
+
+    // ===================== 频道音量平衡（v1.22） =====================
+
+    private void toggleVolumeNormalize() {
+        boolean on = prefs.getBoolean(KEY_VOLUME_NORMALIZE, true);
+        prefs.edit().putBoolean(KEY_VOLUME_NORMALIZE, !on).apply();
+        loudness.setEnabled(!on);
+        setStatus(on ? "频道音量平衡已关闭" : "频道音量平衡已开启");
+        main.removeCallbacks(hideStatus);
+        main.postDelayed(hideStatus, 2600);
+    }
+
+    private void showVolumeTargetDialog() {
+        int cur = prefs.getInt(KEY_VOLUME_TARGET, 0);
+        if (cur < 0 || cur >= LoudnessNormalizer.TARGET_LABELS.length) cur = 0;
+        String[] labels = {"标准（推荐）", "柔和（整体更轻 · 保留更多动态）", "响亮（整体更响）"};
+        new AlertDialog.Builder(this)
+                .setTitle("音量平衡目标")
+                .setMessage("把所有频道的长期响度统一到同一水平；切台时增益平滑过渡，不会瞬间突变。")
+                .setSingleChoiceItems(labels, cur, (d, w) -> {
+                    prefs.edit().putInt(KEY_VOLUME_TARGET, w).apply();
+                    loudness.setTargetMode(w);
+                    d.dismiss();
+                    setStatus("音量平衡目标：" + LoudnessNormalizer.TARGET_LABELS[w]);
+                    main.removeCallbacks(hideStatus);
+                    main.postDelayed(hideStatus, 2600);
+                })
+                .setNegativeButton("取消", null)
                 .show();
     }
 

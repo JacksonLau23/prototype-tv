@@ -5,7 +5,15 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 ## 特性
 
 - 📺 内置 605 条频道线路 / 443 个频道（应用内实测；央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐 / **Twitch** / **YouTube** / 海外国别…），逐条探测 + 抽样实播 / 抽帧核对，全表 URL 严格去重
-- **v1.21 变化：非中文频道可叠加实时简中字幕（旁路 ASR + 机器翻译）**
+- **v1.22 变化：所有频道音量平衡统一，切台不再忽大忽小**
+  - 根因是不同源的音频响度基准不一致（有的 -14 LUFS、有的 -24 LUFS）；`player.setVolume()` 只能调小不能调大，所以改为在 `AudioSink` 的 processor 链里做**实时响度归一化**
+  - `LoudnessNormalizer`：对解码后的 PCM 做近似 K 加权响度测量 → 2.5 秒长期积分 → 「快压慢放」平滑增益（压低 0.12s / 抬高 1.5s 时间常数）→ 逐样本增益过渡 + 峰值保护；只统一频道整体响度，不压平节目内对白/掌声的动态
+  - **切台保留当前增益**并进入 1.6 秒快速收敛窗口，不会瞬间突变；静音门限避免广告间隙把底噪拉爆；增益限制在 -11dB ~ +10dB
+  - 菜单新增「频道音量平衡（开/关）」与「音量目标（标准 / 柔和 / 响亮）」，**默认开启**；关闭时透明透传，音频链无需重建
+  - 强制 16bit PCM 输出并禁用 offload，保证所有 HLS / RTSP / 平台源都经过处理；不支持的编码原样透传，不会导致播放失败
+  - 实机定量验证：两路原始响度相差 12.1dB 的音频，归一化后输出响度分别为 0.1205 / 0.1197（**差 0.06dB**）；切台从 -5.9dB 平滑收敛到 +6.2dB，无 FATAL / ANR / NPE
+  - 频道表不变（605 条线路 / 443 个频道），`ASSET_VER` 仍为 18，升级不重置节目源与自定义分类顺序
+- 🆕 **v1.21 变化：非中文频道可叠加实时简中字幕（旁路 ASR + 机器翻译）**
   - 直播流本身没有简中字幕轨，所以走旁路：Mac / NAS 上的 `subtitle-service` 用 ffmpeg 抽同一路流的音频 → 流式 ASR → 机器翻译 → SSE 推送带时间戳的双语字幕，电视端按 `player.getCurrentPosition()` 排队显示
   - 菜单新增「实时简中字幕（开/关）」「字幕范围（仅外语频道 / 全部频道）」「字幕服务地址…」「字幕时间偏移…」；遥控器 `CAPTIONS` 键可一键开关
   - 电视端用裸 Socket 直连 + 服务端 HTTP/1.0 纯文本流，避开这台 Sony 上 OkHttp 长连接被判 `unexpected end of stream` 的问题；默认经 `adb reverse` 走本机 loopback
@@ -132,19 +140,20 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 自研 TrustAllDataSource（自签名证书 + 跨协议重定向）
 - ConnectivityManager 物理网络绑定（VPN 共存）
 - 实时简中字幕旁路：`SubtitleClient`（SSE + 播放时钟排队）/ `subtitle-service`（ffmpeg + 可插拔 ASR/MT provider，纯 Python 标准库）
+- 频道音量平衡：`LoudnessNormalizer`（media3 `BaseAudioProcessor`，近似 K 加权 + 快压慢放 AGC），经自定义 `DefaultRenderersFactory.buildAudioSink()` 注入
 - 分类 chips 由 `Catalog.category / regionOf / overseasChip` + `Channel.platform`（按 `ytlive://` / `twitchlive://` scheme 自动识别）驱动，按频道表动态生成
 
 ## 安装
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.21](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.21) 下载 `Prototype-TV-1.21.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.22](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.22) 下载 `Prototype-TV-1.22.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.21.apk
+adb install -r Prototype-TV-1.22.apk
 ```
 
 **方式二：自行构建**
@@ -155,6 +164,23 @@ adb install -r app/build/outputs/apk/release/app-release.apk
 ```
 
 > 🤝 **VPN 共存说明**：v1.5 起应用自动把播放流量绑定到物理网卡（Wi-Fi/以太网），Clash Meta、Zion 等 tun 代理无需任何分流配置即可共存——国内 IPTV 直连秒开，代理同时照常服务其他应用。
+
+## 频道音量平衡（v1.22）
+
+不同直播源的响度基准差异很大，切台时音量会忽大忽小。v1.22 在 media3 的 `AudioSink` 上挂了一个实时响度归一化处理器，把每个频道的**长期节目响度**拉到同一目标；默认开启，无需任何配置。
+
+工作原理：解码后的 PCM 先做近似 K 加权（一阶高通去次低频 + 高频搁架提升）测响度，再用 2.5 秒时间常数积分得到频道整体响度，据此算出目标增益。增益用「快压慢放」平滑（突然变响 0.12 秒压下去、变轻 1.5 秒抬起来），并在每个音频块内逐样本线性过渡，配合 0.97 峰值上限防止削波。因为只跟踪长期响度，节目内部的对白、掌声、广告动态不会被压平。
+
+切台时**保留上一频道的增益**，只重置测量并进入 1.6 秒快速收敛窗口，所以不会有瞬间突变；静音段不更新估计，避免把底噪放大。增益被限制在 -11dB ~ +10dB，超出范围的极端源只能部分补偿。
+
+菜单里可调：
+
+- 「频道音量平衡（已开启 / 已关闭）」：一键开关，关闭时音频透明透传
+- 「音量目标（标准 / 柔和 / 响亮）」：标准推荐；柔和整体更轻、保留更多动态；响亮整体更响
+
+诊断可用 ADB：`adb shell am start -n com.lau.iptv/.MainActivity --ez volume_normalize true --ei volume_target 0`。运行时日志标签 `VOLNORM` 会每 5 秒打印测量响度、收敛增益（dB）与峰值。
+
+已知限制：音频直通（AC3/EAC3 passthrough）或系统 offload 路径下处理器拿不到 PCM，已通过强制 16bit PCM 输出 + 禁用 offload 规避；若个别设备仍走直通，该频道不会参与平衡。CPU 开销约每样本几次浮点运算，Sony BRAVIA 实测无卡顿。
 
 ## 实时简中字幕（v1.21）
 
