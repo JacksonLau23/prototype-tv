@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
     private static final int ASSET_VER = 13;
     private static final String CHIP_ALL = "全部";
+    /** 单个频道最多尝试 3 次（第一次 + 2 次重试/换线路），仍失败就自动切下一个频道 */
+    private static final int MAX_PLAY_ATTEMPTS = 3;
+    /** 连续自动跳台上限：整表都不通时不至于无限循环 */
+    private static final int MAX_AUTO_HOPS = 12;
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
 
@@ -185,6 +189,17 @@ public class MainActivity extends AppCompatActivity {
     private int currentIndex = -1;   // 扁平频道序号
     private int lineIndex = 0;
     private int autoSwitch = 0;
+    /** 当前频道连续失败次数（每次开始/成功播放后清零） */
+    private int failAttempts = 0;
+    /** 连续自动跳台次数，播放成功后清零 */
+    private int autoHopCount = 0;
+    /** 每次播放尝试递增，用于丢弃上一次尝试迟到的解析/错误回调、避免重复计数 */
+    private int playGeneration = 0;
+    private int failedGeneration = -1;
+    private boolean debugPlaying = false;
+    /** 调试入口专用：带上 auto_hop=1 时，让调试播放也走自动跳台（实机验证用） */
+    private boolean debugAutoHop = false;
+    private String hopNotice;
     private boolean loading = false;
     private boolean listShown = true;
 
@@ -240,6 +255,24 @@ public class MainActivity extends AppCompatActivity {
     };
 
     /**
+     * API 21 兼容：bindProcessToNetwork 从 API 23 才有，Android 5.x 老电视回退
+     * setProcessDefaultNetwork；用 Throwable 兜住 NoSuchMethodError，绝不让网络绑定把应用带崩。
+     */
+    private boolean bindNetwork(Network network) {
+        if (connectivity == null) return false;
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= 23) {
+                return connectivity.bindProcessToNetwork(network);
+            }
+            ConnectivityManager.setProcessDefaultNetwork(network);
+            return true;
+        } catch (Throwable t) {
+            android.util.Log.w("IPTV", "bindNetwork failed", t);
+            return false;
+        }
+    }
+
+    /**
      * VPN 共存（Clash / Zion 等 tun 代理）：
      * 把整个进程绑定到物理网络（Wi-Fi/以太网，NET_CAPABILITY_NOT_VPN），
      * 播放流量直连运营商网络，不进 tun0 隧道。
@@ -258,12 +291,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onAvailable(Network network) {
                     physicalNetwork = network;
-                    boolean ok = cm.bindProcessToNetwork(network);
-                    android.util.Log.i("IPTV", "bindProcessToNetwork(physical) " + (ok ? "ok " + network : "FAILED(allowBypass denied)"));
+                    boolean ok = bindNetwork(network);
+                    android.util.Log.i("IPTV", "bindNetwork(physical) " + (ok ? "ok " + network : "FAILED(allowBypass denied)"));
                 }
                 @Override
                 public void onLost(Network network) {
-                    cm.bindProcessToNetwork(null);
+                    bindNetwork(null);
                     android.util.Log.i("IPTV", "physical network lost, unbound");
                 }
             });
@@ -275,14 +308,10 @@ public class MainActivity extends AppCompatActivity {
     /** 按当前线路类型选择网络：普通频道直连运营商，YouTube / Twitch 直播走 VPN/代理。 */
     private void tuneNetworkFor(String url) {
         if (connectivity == null) return;
-        try {
-            if (YouTubeResolver.isYtLive(url) || TwitchResolver.isTwitchLive(url)) {
-                connectivity.bindProcessToNetwork(null);
-            } else if (physicalNetwork != null) {
-                connectivity.bindProcessToNetwork(physicalNetwork);
-            }
-        } catch (Exception e) {
-            android.util.Log.w("IPTV", "tuneNetworkFor failed", e);
+        if (YouTubeResolver.isYtLive(url) || TwitchResolver.isTwitchLive(url)) {
+            bindNetwork(null);
+        } else if (physicalNetwork != null) {
+            bindNetwork(physicalNetwork);
         }
     }
 
@@ -341,7 +370,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 诊断入口：adb ... --es play_url <URL> 直接播放指定线路，用于在电视上抽帧核对频道身份
         String dbg = getIntent().getStringExtra("play_url");
-        android.util.Log.i("IPTV", "INTENT play_url=" + dbg);
+        debugAutoHop = getIntent().getBooleanExtra("auto_hop", false);
+        android.util.Log.i("IPTV", "INTENT play_url=" + dbg + " auto_hop=" + debugAutoHop);
         if (dbg != null && !dbg.isEmpty()) {
             debugUrl = dbg;
             main.postDelayed(this::playDebugUrl, 2500);
@@ -372,6 +402,11 @@ public class MainActivity extends AppCompatActivity {
                     main.removeCallbacks(bufferTicker);
                     main.removeCallbacks(hideStatus);
                     main.postDelayed(hideStatus, 2600);
+                    // 出画面了：清掉失败与连续跳台计数，之后偶发断流重新按 3 次算
+                    if (!debugPlaying) {
+                        failAttempts = 0;
+                        autoHopCount = 0;
+                    }
                 }
             }
 
@@ -707,14 +742,23 @@ public class MainActivity extends AppCompatActivity {
     // ===================== 播放 =====================
 
     private void play(int flatIndex) {
+        // 手动选台 / 启动：连续自动跳台计数重新开始
+        autoHopCount = 0;
+        startChannel(flatIndex);
+    }
+
+    /** 开始播放指定频道；自动跳台也走这里，但不会重置 autoHopCount */
+    private void startChannel(int flatIndex) {
         Channel c = adapter.channelAt(flatIndex);
         if (c == null) return;
         currentIndex = flatIndex;
         lineIndex = 0;
         autoSwitch = 0;
+        failAttempts = 0;
+        debugPlaying = false;
         playingChannel = c;
         playCurrent();
-        hideList();     // 选台后全屏
+        if (listShown) hideList();     // 选台后全屏
     }
 
     /** 海外直播解析结果回调 */
@@ -730,7 +774,7 @@ public class MainActivity extends AppCompatActivity {
     private void resolveLive(String raw, LiveResult result) {
         final boolean twitch = TwitchResolver.isTwitchLive(raw);
         if (connectivity != null) {
-            try { connectivity.bindProcessToNetwork(null); } catch (Exception ignored) { }
+            bindNetwork(null);
         }
         final boolean[] retried = {false};
         LiveResult attempt = new LiveResult() {
@@ -739,7 +783,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!retried[0] && connectivity != null && physicalNetwork != null) {
                     retried[0] = true;
                     android.util.Log.i("IPTV", "海外源解析失败，改走物理网络重试：" + reason);
-                    try { connectivity.bindProcessToNetwork(physicalNetwork); } catch (Exception ignored) { }
+                    bindNetwork(physicalNetwork);
                     runResolver(raw, twitch, this);
                 } else {
                     result.fail(reason);
@@ -767,7 +811,9 @@ public class MainActivity extends AppCompatActivity {
     private void playDebugUrl() {
         if (debugUrl == null) return;
         final String raw = debugUrl;
-        android.util.Log.i("IPTV", "DEBUG_PLAY " + raw);
+        final int gen = ++playGeneration;
+        debugPlaying = true;
+        android.util.Log.i("IPTV", "DEBUG_PLAY " + raw + " auto_hop=" + debugAutoHop);
         tuneNetworkFor(raw);
         hideList();
         // 调试入口也走完整的运行时解析链路，便于在电视上验证 YouTube / Twitch 源
@@ -775,10 +821,12 @@ public class MainActivity extends AppCompatActivity {
             setStatus(TwitchResolver.isTwitchLive(raw)
                     ? "正在解析 Twitch 直播源…" : "正在解析 YouTube 直播源…");
             resolveLive(raw, new LiveResult() {
-                @Override public void ok(String hls) { debugPlay(hls); }
+                @Override public void ok(String hls) { if (gen == playGeneration) debugPlay(hls); }
                 @Override public void fail(String reason) {
                     android.util.Log.w("IPTV", "海外源解析最终失败：" + reason);
-                    setStatus("海外源不可用：" + brief(reason));
+                    if (gen != playGeneration) return;
+                    if (debugAutoHop) onPlayFailed("海外源解析失败：" + brief(reason));
+                    else setStatus("海外源不可用：" + brief(reason));
                 }
             });
             return;
@@ -787,6 +835,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void debugPlay(String url) {
+        debugPlaying = true;
         try {
             main.removeCallbacks(bufferingWatchdog);
             main.removeCallbacks(bufferTicker);
@@ -807,9 +856,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(android.content.Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         String u = intent.getStringExtra("play_url");
         if (u != null && !u.isEmpty()) {
             debugUrl = u;
+            debugAutoHop = intent.getBooleanExtra("auto_hop", false);
             playDebugUrl();
         }
     }
@@ -817,8 +868,14 @@ public class MainActivity extends AppCompatActivity {
     private void playCurrent() {
         Channel c = adapter.channelAt(currentIndex);
         if (c == null) return;
+        final int gen = ++playGeneration;   // 新一次尝试，旧的异步回调一律作废
+        // 调试 auto_hop：重试也继续用指定的坏源，便于实机验证「3 次失败 → 自动跳台」
+        if (debugPlaying && debugAutoHop && debugUrl != null) {
+            debugPlay(debugUrl);
+            return;
+        }
         if (c.urls.isEmpty()) {
-            setStatus("这个台没有可用地址");
+            onPlayFailed("没有可用地址");
             return;
         }
         if (lineIndex >= c.urls.size()) lineIndex = 0;
@@ -829,9 +886,11 @@ public class MainActivity extends AppCompatActivity {
             setStatus(TwitchResolver.isTwitchLive(raw)
                     ? "正在解析 Twitch 直播源…" : "正在解析 YouTube 直播源…");
             resolveLive(raw, new LiveResult() {
-                @Override public void ok(String hls) { startPlayback(c, raw, hls); }
+                @Override public void ok(String hls) {
+                    if (gen == playGeneration) startPlayback(c, raw, hls);
+                }
                 @Override public void fail(String reason) {
-                    setStatus("海外源不可用：" + brief(reason));
+                    if (gen == playGeneration) onPlayFailed("海外源解析失败：" + brief(reason));
                 }
             });
             return;
@@ -858,15 +917,18 @@ public class MainActivity extends AppCompatActivity {
             playingChannel = c;
             adapter.setPlaying(c);
             updateNowPlaying(c);
-            String meta = c.region + " · " + c.name;
+            boolean hop = hopNotice != null;
+            String meta = (hop ? hopNotice + " · " : "") + c.region + " · " + c.name;
+            hopNotice = null;
             if (c.lineCount() > 1) {
                 meta += " · 线路 " + (lineIndex + 1) + "/" + c.lineCount();
             }
             setStatus(meta);
             main.removeCallbacks(hideStatus);
-            main.postDelayed(hideStatus, 2600);
+            main.postDelayed(hideStatus, hop ? 5200 : 2600);
         } catch (Exception e) {
-            setStatus("无法播放：" + brief(e.getMessage()));
+            android.util.Log.w("IPTV", "startPlayback failed", e);
+            onPlayFailed(brief(e.getMessage()));
         }
     }
 
@@ -888,21 +950,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 播放失败统一入口：同一次尝试只算一次（避免 onPlayerError 与缓冲看门狗重复计数）。
+     * 同一频道累计尝试 3 次（有备线时顺带换线路，没备线就重试当前线路），
+     * 仍放不出来就自动切到下一个频道。
+     */
     private void onPlayFailed(String reason) {
-        Channel c = adapter.channelAt(currentIndex);
-        if (c == null) return;
-        int maxAuto = Math.min(4, c.urls.size() - 1);
-        if (autoSwitch < maxAuto) {
-            autoSwitch++;
-            lineIndex++;
-            setStatus("第 " + lineIndex + " 条线路不通，自动切到 " + (lineIndex + 1) + "/" + c.lineCount() + "…");
+        if (failedGeneration == playGeneration) return;
+        failedGeneration = playGeneration;
+        main.removeCallbacks(bufferTicker);
+        main.removeCallbacks(bufferingWatchdog);
+        android.util.Log.w("IPTV", "PLAY_FAILED gen=" + playGeneration
+                + " channel=" + currentIndex + " reason=" + reason);
+        // 重试/跳台时直接 setMediaItem 覆盖即可，不调用 stop()，避免它的异步状态回调被算成新一次失败
+
+        // 诊断入口：默认停在失败状态，方便抽帧核对；带 auto_hop=1 时可验证自动跳台
+        if (debugPlaying && !debugAutoHop) {
+            if (player != null) player.stop();
+            setStatus("调试播放失败：" + brief(reason));
+            return;
+        }
+        Channel failed = adapter.channelAt(currentIndex);
+        if (failed == null) return;
+        failAttempts++;
+        if (failAttempts < MAX_PLAY_ATTEMPTS) {
+            boolean hasNextLine = lineIndex < failed.urls.size() - 1;
+            if (hasNextLine) {
+                lineIndex++;
+                autoSwitch++;
+            }
+            setStatus("播放失败 · 第 " + (failAttempts + 1) + "/" + MAX_PLAY_ATTEMPTS + " 次尝试"
+                    + (hasNextLine
+                    ? " · 换线路 " + (lineIndex + 1) + "/" + failed.lineCount()
+                    : " · 重试当前线路"));
             playCurrent();
             return;
         }
-        main.removeCallbacks(bufferTicker);
-        main.removeCallbacks(bufferingWatchdog);
-        if (player != null) player.stop();   // 停掉卡住的缓冲圈
-        setStatus("这个台暂时放不出来 · CH+ 换台 / 菜单换源");
+        hopToNextChannel(failed);
+    }
+
+    /** 3 次都不通：自动跳下一个频道；到列表末尾回到开头，连续跳台有上限防止整表断网时空转 */
+    private void hopToNextChannel(Channel failed) {
+        int next = adapter.nextChannelIndex(currentIndex, 1);
+        if (next < 0 && adapter.size() > 0) next = 0;
+        Channel c = adapter.channelAt(next);
+        if (c == null || autoHopCount >= MAX_AUTO_HOPS) {
+            if (player != null) player.stop();   // 停掉卡住的缓冲圈
+            setStatus("连续多个频道放不出来 · 请检查网络 / CH+ 换台 / 菜单换源");
+            android.util.Log.w("IPTV", "AUTO_HOP stop, hops=" + autoHopCount);
+            return;
+        }
+        autoHopCount++;
+        hopNotice = "「" + failed.name + "」试了 3 次不通 · 自动切台 "
+                + autoHopCount + "/" + MAX_AUTO_HOPS;
+        android.util.Log.i("IPTV", "AUTO_HOP " + currentIndex + " -> " + next + " " + c.name
+                + " (" + autoHopCount + "/" + MAX_AUTO_HOPS + ")");
+        startChannel(next);
     }
 
     // ===================== 菜单 =====================

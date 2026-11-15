@@ -5,6 +5,12 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 ## 特性
 
 - 📺 内置 485 条频道线路 / 340+ 频道（央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐…），全部经 Sony 电视真实网络逐条探测验证
+- 🆕 **v1.14 变化：播不出来的频道自动跳过 + 移除 GitHub 配图**
+  - **失败自动跳台**：同一频道最多尝试 3 次（有备线时顺带换线路，无备线则重试当前线路），仍放不出来就自动切到下一个频道；状态胶囊提示「试了 3 次不通 · 自动切台 n/12」，播放成功后计数清零
+  - **失败判定更全**：播放错误、14 秒缓冲超时、YouTube / Twitch 运行时解析失败、地址构造异常走同一套重试逻辑；每次播放尝试带代号，丢弃迟到的旧解析回调，避免一次失败被重复计数或换台后被旧回调打断
+  - **防死循环**：连续自动跳台最多 12 个台，整表都不通时停下提示检查网络；走到列表末尾自动回到第一个台；调试入口（`play_url`）默认仍停在失败状态便于抽帧核对，加 `--ez auto_hop true` 可实机验证跳台
+  - **老电视兼容**：网络绑定在 Android 5.x（API 21）回退 `setProcessDefaultNetwork`，不再因 `bindProcessToNetwork` 的 `NoSuchMethodError` 闪退
+  - **移除 GitHub 配图**：README 与 Release 不再附界面截图
 - 🆕 **v1.13 变化：音乐扩到 28 个（以嘻哈为主）+ 接入 YouTube / Twitch 直播 + 界面再缩小**
   - **音乐分类 13 → 28 个频道**，嘻哈 / 说唱为主：新增 Yo! MTV 经典嘻哈、BET Pluto TV 嘻哈、Stingray Hip Hop、Vevo Hip-Hop R&B、MTV Spankin New 等 FAST 频道，以及 **BET Throwbacks / Vevo / VH1 / Trace Urban** 等此前因地区限制未收录的台
   - **接入 YouTube 24/7 嘻哈直播**：`ytlive://<videoId>` 运行时通过 Invidious 公共实例解析（YouTube 的 HLS 带 expire 签名且绑 IP，写死进 APK 几小时就失效），缓存 15 分钟，失败自动回退 YouTube 网页
@@ -55,23 +61,11 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 🔓 信任所有证书的自定义 Http 数据源：IPTV 圈大量自签名 https 和跨协议重定向不再翻车
 - ⚡ RTSP 强制 TCP 交织传输（运营商 IPTV 修复），北京联通 RTSP 秒开线优先
 - 📶 缓冲时右下角实时显示网速（Mb/s）
-- 🔁 每频道多线路自动切换：14 秒缓冲看门狗，超时自动换下一条（RTSP → 国内 CDN → 海外源 依次降级）
+- 🔁 **播放失败自动恢复**（v1.14）：14 秒缓冲看门狗 + 单频道 3 次尝试（自动换线路 / 无备线则重试），仍不通就自动切下一个频道，连续最多跳 12 个台后停下提示检查网络
 - 🔬 **线路全量实测**：内置 ProbeReceiver 以播放器同网络栈逐一探测，剔除全部死链
 - 🎮 纯遥控器操作：↑/↓ 换台、左/OK 呼出频道面板、CH+/CH- 换台、菜单键换源与检查更新
 - 🌐 支持内置精选源 + 在线源 + 自定义 m3u 链接
 
-
-## 界面截图
-
-> 以下为 Sony BRAVIA 电视（Android 12）实机截图，v1.13。
-
-| 全部频道 | 音乐分类（28 个嘻哈 / 音乐台） |
-| --- | --- |
-| ![全部频道](screenshots/01-home.png) | ![音乐分类](screenshots/02-music.png) |
-
-| 央视分类 | 全屏播放 |
-| --- | --- |
-| ![央视分类](screenshots/03-cctv.png) | ![全屏播放](screenshots/04-fullscreen.png) |
 
 ## 构建
 
@@ -99,13 +93,13 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.13](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.13) 下载 `Prototype-TV-1.13.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.14](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.14) 下载 `Prototype-TV-1.14.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.13.apk
+adb install -r Prototype-TV-1.14.apk
 ```
 
 **方式二：自行构建**
