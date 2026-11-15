@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREF = "iptv_pref";
     private static final String KEY_SOURCE = "source_index";
     private static final String KEY_CHIP = "chip_filter_v2";
+    /** 用户自定义分类顺序：不含「全部」，以逗号分隔持久化 */
+    private static final String KEY_CHIP_ORDER = "chip_order_v1";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
     private static final int ASSET_VER = 13;
@@ -202,6 +204,8 @@ public class MainActivity extends AppCompatActivity {
     private String hopNotice;
     private boolean loading = false;
     private boolean listShown = true;
+    /** 分类排序模式：焦点在 chips 上时 ←→ 直接移动分类，OK / 返回退出 */
+    private boolean chipSortMode = false;
 
     /** 状态胶囊自动淡出 */
     private final Runnable hideStatus = new Runnable() {
@@ -217,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             if (player == null) return;
             if (player.getPlaybackState() == Player.STATE_BUFFERING) {
+                // 排序模式下状态胶囊归排序提示专用，不被缓冲网速刷掉
+                if (chipSortMode) { main.postDelayed(this, 600); return; }
                 long now = android.os.SystemClock.elapsedRealtime();
                 long dt = now - speedTickAt;
                 long db = speedMeter.totalBytes - speedTickBytes;
@@ -657,12 +663,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String[] BASE_CHIPS = {"全部", "央视", "卫视", "地方台",
             "香港", "台湾", "澳门", "体育", "音乐"};
 
-    /** 依据当前频道表重建 chips 行 */
+    /** 依据当前频道表 + 用户自定义顺序重建 chips 行 */
     private void buildChips() {
         if (chipsRow == null) return;
         chipsRow.removeAllViews();
-        List<String> labels = new ArrayList<>();
-        for (String b : BASE_CHIPS) labels.add(b);
+        List<String> labels = orderedChips();
 
         // 旧版本遗留的 chip（如「港澳台」或已移除的国家分类）→ 回到「全部」
         if (chipFilter != null && !labels.contains(chipFilter)) {
@@ -672,6 +677,102 @@ public class MainActivity extends AppCompatActivity {
 
         for (String label : labels) chipsRow.addView(makeChip(label));
         highlightChips();
+        android.util.Log.i("IPTV", "CHIP_ORDER " + labels.toString());
+    }
+
+    // ===================== 自定义分类顺序（v1.15） =====================
+
+    /** 「全部」永远固定在首位，其余分类按用户保存的顺序排列 */
+    private List<String> orderedChips() {
+        List<String> out = new ArrayList<>();
+        out.add(CHIP_ALL);
+        out.addAll(customChipOrder());
+        return out;
+    }
+
+    /** 读持久化顺序：过滤掉已废弃分类、去重，并补齐后续版本新加的分类 */
+    private List<String> customChipOrder() {
+        List<String> out = new ArrayList<>();
+        String saved = prefs == null ? "" : prefs.getString(KEY_CHIP_ORDER, "");
+        if (saved != null && !saved.isEmpty()) {
+            for (String s : saved.split(",")) {
+                String t = s.trim();
+                if (!t.isEmpty() && !CHIP_ALL.equals(t) && isBaseChip(t) && !out.contains(t)) {
+                    out.add(t);
+                }
+            }
+        }
+        for (int i = 1; i < BASE_CHIPS.length; i++) {
+            if (!out.contains(BASE_CHIPS[i])) out.add(BASE_CHIPS[i]);
+        }
+        return out;
+    }
+
+    private static boolean isBaseChip(String s) {
+        for (String b : BASE_CHIPS) if (b.equals(s)) return true;
+        return false;
+    }
+
+    private void saveChipOrder(List<String> order) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : order) {
+            if (sb.length() > 0) sb.append(',');
+            sb.append(s);
+        }
+        prefs.edit().putString(KEY_CHIP_ORDER, sb.toString()).apply();
+    }
+
+    private String chipLabelAt(int i) {
+        if (chipsRow == null || i < 0 || i >= chipsRow.getChildCount()) return "";
+        View v = chipsRow.getChildAt(i);
+        return v instanceof TextView ? ((TextView) v).getText().toString() : "";
+    }
+
+    /** 菜单进入排序模式：焦点落到当前分类，←→ 即时移动并保存 */
+    private void enterChipSortMode() {
+        showList();
+        chipSortMode = true;
+        int focus = 1;
+        if (chipFilter != null) {
+            for (int i = 1; i < chipsRow.getChildCount(); i++) {
+                if (chipFilter.contentEquals(chipLabelAt(i))) { focus = i; break; }
+            }
+        }
+        final int f = focus;
+        setSortStatus("排序模式 · ← → 移动分类 · OK / 返回 保存退出");
+        // showList() 会在 180ms 后把焦点放到卡片上，这里稍后夺回到 chips
+        main.postDelayed(() -> {
+            if (!chipSortMode || chipsRow == null) return;
+            View v = chipsRow.getChildAt(f);
+            if (v != null) v.requestFocus();
+        }, 320);
+    }
+
+    private void exitChipSortMode() {
+        chipSortMode = false;
+        setStatus("分类顺序已保存");
+        main.removeCallbacks(hideStatus);
+        main.postDelayed(hideStatus, 2600);
+    }
+
+    /** 交换相邻两个分类（下标为 chipsRow 的位置，0 是固定的「全部」） */
+    private void moveChip(int from, int to) {
+        List<String> order = customChipOrder();
+        int a = from - 1, b = to - 1;
+        if (a < 0 || b < 0 || a >= order.size() || b >= order.size()) return;
+        Collections.swap(order, a, b);
+        saveChipOrder(order);
+        buildChips();   // 顺序即时生效，重建后焦点要还回被移动的 chip
+        final String moved = order.get(b);
+        if (chipsRow != null && to < chipsRow.getChildCount()) {
+            chipsRow.getChildAt(to).requestFocus();   // 立即夺回，支持连续快速按 ←→
+        }
+        main.postDelayed(() -> {
+            if (!chipSortMode || chipsRow == null) return;
+            View v = chipsRow.getChildAt(to);
+            if (v != null) v.requestFocus();
+        }, 60);
+        setSortStatus("「" + moved + "」移到第 " + to + " 位 · 已保存 · OK 退出");
     }
 
     private TextView makeChip(final String label) {
@@ -1011,7 +1112,8 @@ public class MainActivity extends AppCompatActivity {
     // ===================== 菜单 =====================
 
     private void showMenu() {
-        String[] items = {"检查更新…", "切换节目源…", "重新加载当前源", "手动输入 m3u 链接…"};
+        String[] items = {"检查更新…", "切换节目源…", "重新加载当前源", "手动输入 m3u 链接…",
+                "自定义分类顺序…", "恢复默认分类顺序"};
         new AlertDialog.Builder(this)
                 .setTitle("菜单")
                 .setItems(items, (d, which) -> {
@@ -1025,8 +1127,20 @@ public class MainActivity extends AppCompatActivity {
                         case 2:
                             loadSource(prefs.getInt(KEY_SOURCE, 0), false);
                             break;
-                        default:
+                        case 3:
                             showUrlDialog();
+                            break;
+                        case 4:
+                            enterChipSortMode();
+                            break;
+                        case 5:
+                            prefs.edit().remove(KEY_CHIP_ORDER).apply();
+                            buildChips();
+                            setStatus("分类顺序已恢复默认");
+                            main.removeCallbacks(hideStatus);
+                            main.postDelayed(hideStatus, 2600);
+                            break;
+                        default:
                             break;
                     }
                 })
@@ -1150,6 +1264,42 @@ public class MainActivity extends AppCompatActivity {
 
     // ===================== 遥控器 =====================
 
+    /**
+     * 分类排序模式必须在事件分发最早期拦截：焦点在 chip 上时，DPAD_CENTER 会被
+     * chip 的 OnClickListener 先消费掉（触发切分类），走到 Activity.onKeyDown 已经晚了。
+     */
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (chipSortMode) {
+            if (event.getAction() != KeyEvent.ACTION_DOWN) return true;
+            int keyCode = event.getKeyCode();
+            View focused = chipsRow == null ? null : chipsRow.findFocus();
+            int idx = focused == null ? -1 : chipsRow.indexOfChild(focused);
+            if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
+                if (idx < 1) {   // 焦点跑丢或落到固定的「全部」上时，送回第一个可排序分类
+                    if (chipsRow != null && chipsRow.getChildCount() > 1) {
+                        chipsRow.getChildAt(1).requestFocus();
+                    }
+                    return true;
+                }
+                int to = idx + (keyCode == KeyEvent.KEYCODE_DPAD_LEFT ? -1 : 1);
+                // 「全部」固定在第 0 位，不参与排序
+                if (to >= 1 && chipsRow != null && to < chipsRow.getChildCount()) {
+                    moveChip(idx, to);
+                }
+                return true;
+            }
+            if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER
+                    || keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER || keyCode == KeyEvent.KEYCODE_BACK
+                    || keyCode == KeyEvent.KEYCODE_MENU || keyCode == KeyEvent.KEYCODE_INFO) {
+                exitChipSortMode();
+                return true;
+            }
+            return true;   // 排序期间屏蔽换台等其它按键
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU || keyCode == KeyEvent.KEYCODE_INFO) {
@@ -1197,8 +1347,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setStatus(String text) {
+        if (chipSortMode) return;   // 排序胶囊不被播放状态覆盖
         statusView.setText(text);
         statusView.setVisibility(View.VISIBLE);
+    }
+
+    /** 排序模式专用状态提示，绕过 setStatus 的拦截 */
+    private void setSortStatus(String text) {
+        statusView.setText(text);
+        statusView.setVisibility(View.VISIBLE);
+        main.removeCallbacks(hideStatus);
     }
 
     private File cacheFile() {
