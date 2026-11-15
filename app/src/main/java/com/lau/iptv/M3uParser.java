@@ -87,7 +87,8 @@ public class M3uParser {
             } else if (line.startsWith("#")) {
                 continue;
             } else if (line.startsWith("http://") || line.startsWith("https://")
-                    || line.startsWith("rtmp://") || line.startsWith("rtsp://")) {
+                    || line.startsWith("rtmp://") || line.startsWith("rtsp://")
+                    || line.startsWith("ytlive://") || line.startsWith("twitchlive://")) {
                 if (pendingName == null) pendingName = "频道 " + (out.size() + 1);
                 Channel c = new Channel(pendingName, pendingGroup, pendingLogo,
                         Catalog.order(pendingGroup, pendingName));

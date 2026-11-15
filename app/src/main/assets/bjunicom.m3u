@@ -87,6 +87,8 @@ rtsp://61.135.88.136/PLTV/88888892/224/3221226153/100001000000000600000000011548
 http://38.75.136.137:98/gslb/dsdqpub/cctv4k.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="风云足球" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png" group-title="央视",风云足球
 http://38.75.136.137:98/gslb/dsdqpub/fyzq.m3u8?auth=testpub
+#EXTINF:-1 tvg-name="风云足球" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png" group-title="央视",风云足球
+http://63.141.230.178:82/gslb/zbdq5.m3u8?id=fyzq
 #EXTINF:-1 tvg-name="高尔夫网球" tvg-logo="https://live.fanmingming.com/tv/%E9%AB%98%E5%B0%94%E5%A4%AB%E7%BD%91%E7%90%83.png" group-title="央视",高尔夫网球
 http://38.75.136.137:98/gslb/dsdqpub/gefwq.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="NBA TV" group-title="体育" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/d/d2/NBA_TV.svg/960px-NBA_TV.svg.png",NBA TV
@@ -227,16 +229,14 @@ http://38.75.136.137:98/gslb/dsdqbv/cctv5p.m3u8?auth=test20251009
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ystq
 #EXTINF:-1 tvg-name="央视台球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
 http://107.150.60.122/live/ystq.m3u8
-#EXTINF:-1 tvg-name="风云足球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E9%A3%8E%E4%BA%91%E8%B6%B3%E7%90%83.png",风云足球
-http://63.141.230.178:82/gslb/zbdq5.m3u8?id=fyzq
+#EXTINF:-1 tvg-name="央视台球" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
+http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="广东体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%B9%BF%E4%B8%9C%E4%BD%93%E8%82%B2.png",广东体育
 http://38.75.136.137:98/gslb/dsdqpub/gdty.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="天津体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/天津卫视.png",天津体育
 http://38.75.136.137:98/gslb/dsdqpub/tjtv5.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="天津体育" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/天津卫视.png",天津体育
 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=tjtv5
-#EXTINF:-1 tvg-name="CCTV-Billiards" group-title="体育" tvg-logo="https://live.fanmingming.com/tv/%E5%A4%AE%E8%A7%86%E5%8F%B0%E7%90%83.png",央视台球
-http://38.75.136.137:98/gslb/dsdqpub/ystq.m3u8?auth=testpub
 #EXTINF:-1 tvg-name="like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports",Arena Sport 1" group-title="体育",like Gecko) Chrome/149.0.0.0 Safari/537.3" group-title="Sports" tvg-logo="https://i.imgur.com/RJrJGbW.png",Arena Sport 1
 http://88.212.15.50/live/test_arenasport/playlist.m3u8
 #EXTINF:-1 tvg-name="Al Iraqia Sport (720p)" group-title="体育" tvg-logo="https://i.imgur.com/DrrlxTO.png",Al Iraqia Sport (720p)
@@ -553,6 +553,8 @@ http://stream.mcquack.net/131/index.m3u8
 https://live.alarabiya.net/alarabiapublish/english/playlist_dvr.m3u8
 #EXTINF:-1 tvg-name="TRT World" group-title="海外新闻" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/TRT_World.svg/960px-TRT_World.svg.png",TRT World
 https://dash2.antik.sk/live/test_trt_world_atktv/playlist.m3u8
+#EXTINF:-1 tvg-name="TRT World" group-title="海外新闻" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/TRT_World.svg/960px-TRT_World.svg.png",TRT World
+https://mumbai-edge.smartplaytv.in/TRTWorld/index.m3u8
 #EXTINF:-1 tvg-name="欧洲新闻台英语" group-title="海外新闻" tvg-logo="https://provider-static.plex.tv/epg/cms/production/f0a48729-6f08-43e4-9cc4-44ba472281de/Marc_Faron_-_Wurl_Plex_assets_Channel-logo-white3x2_ENrdx.png",欧洲新闻台英语
 https://dash4.antik.sk/live/test_euronews/playlist.m3u8
 #EXTINF:-1 tvg-name="CNN Prima News" group-title="海外新闻" tvg-logo="https://i.imgur.com/elZyUjX.png",CNN Prima News
@@ -757,8 +759,6 @@ https://live-stream.skynewsarabia.com/c-vertical-channel/vertical-stream/index.m
 https://live-stream.skynewsarabia.com/c-horizontal-channel/horizontal-stream/index.m3u8
 #EXTINF:-1 tvg-name="Sky News" group-title="海外新闻" tvg-logo="https://d2n0069hmnqmmx.cloudfront.net/epgdata/1.0/newchanlogos/512/512/skychb1404.png",Sky News
 https://stream.skynewsarabia.com/vertical/vertical.m3u8
-#EXTINF:-1 tvg-name="TRT World" group-title="海外新闻" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/TRT_World.svg/960px-TRT_World.svg.png",TRT World
-https://mumbai-edge.smartplaytv.in/TRTWorld/index.m3u8
 #EXTINF:-1 tvg-name="CNA (Singapore)" group-title="海外新闻" tvg-logo="https://codeit.al/wp-content/uploads/2020/08/cna.png",CNA (Singapore)
 https://freem3u.xyz/api/live/play.m3u8?vid=112
 #EXTINF:-1 tvg-name="CNA (Singapore)" group-title="海外新闻" tvg-logo="https://codeit.al/wp-content/uploads/2020/08/cna.png",CNA (Singapore)
@@ -926,4 +926,46 @@ https://jmp2.uk/plu-61326275b3c86a00078e4833.m3u8
 #EXTINF:-1 tvg-id="VevoTrueSchool.us" tvg-name="Vevo True School 嘻哈" tvg-logo="https://prototype-tv.local/logo/vevo-true-school.png" group-title="音乐",Vevo True School 嘻哈
 https://jmp2.uk/plu-61d4c2817a823d00070ba53e.m3u8
 #EXTINF:-1 tvg-id="HipHopTV.it" tvg-name="Hip Hop TV 嘻哈" tvg-logo="https://prototype-tv.local/logo/hiphop-tv.png" group-title="音乐",Hip Hop TV 嘻哈
-https://i.mjh.nz/SamsungTVPlus/ITBC11000108G.m3u8
+https://jmp2.uk/stvp-ITBC11000108G
+#EXTINF:-1 tvg-id="YoMTV.us" tvg-name="Yo! MTV 经典嘻哈" tvg-logo="https://prototype-tv.local/logo/yo-mtv.png" group-title="音乐",Yo! MTV 经典嘻哈
+https://jmp2.uk/plu-5d14fc31252d35decbc4080b.m3u8
+#EXTINF:-1 tvg-id="YoMTV.us" tvg-name="Yo! MTV 经典嘻哈" tvg-logo="https://prototype-tv.local/logo/yo-mtv.png" group-title="音乐",Yo! MTV 经典嘻哈
+https://jmp2.uk/plu-654102ed770cf1000866c307.m3u8
+#EXTINF:-1 tvg-id="YoMTV.us" tvg-name="Yo! MTV 经典嘻哈" tvg-logo="https://prototype-tv.local/logo/yo-mtv.png" group-title="音乐",Yo! MTV 经典嘻哈
+https://jmp2.uk/stvp-US3900009ZV
+#EXTINF:-1 tvg-id="BETPlutoTV.us" tvg-name="BET Pluto TV 嘻哈" tvg-logo="https://prototype-tv.local/logo/bet-pluto.png" group-title="音乐",BET Pluto TV 嘻哈
+https://jmp2.uk/stvp-USBC450000130
+#EXTINF:-1 tvg-id="StingrayHipHop.us" tvg-name="Stingray Hip Hop" tvg-logo="https://prototype-tv.local/logo/stingray-hh.png" group-title="音乐",Stingray Hip Hop
+https://jmp2.uk/stvp-USBD3500010MT
+#EXTINF:-1 tvg-id="StingrayHipHop.us" tvg-name="Stingray Hip Hop" tvg-logo="https://prototype-tv.local/logo/stingray-hh.png" group-title="音乐",Stingray Hip Hop
+https://jmp2.uk/stvp-CABD1200029U0
+#EXTINF:-1 tvg-id="VevoHipHopRnB.gb" tvg-name="Vevo Hip-Hop R&B" tvg-logo="https://prototype-tv.local/logo/vevo-hh-rnb.png" group-title="音乐",Vevo Hip-Hop R&B
+https://jmp2.uk/stvp-GBBD2300001C0
+#EXTINF:-1 tvg-id="VevoHipHopRnB.gb" tvg-name="Vevo Hip-Hop R&B" tvg-logo="https://prototype-tv.local/logo/vevo-hh-rnb.png" group-title="音乐",Vevo Hip-Hop R&B
+https://jmp2.uk/stvp-FRBC2100002JA
+#EXTINF:-1 tvg-id="MTVSpankinNew.us" tvg-name="MTV Spankin New" tvg-logo="https://prototype-tv.local/logo/mtv-spankin.png" group-title="音乐",MTV Spankin New
+https://jmp2.uk/plu-5d14fdb8ca91eedee1633117.m3u8
+#EXTINF:-1 tvg-id="YouTube.90sHipHop" tvg-name="YouTube 90s 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/yt-90s-hh.png" group-title="音乐",YouTube 90s 嘻哈电台
+ytlive://jHbB3v8wBVU
+#EXTINF:-1 tvg-id="YouTube.Rap247" tvg-name="YouTube Gangsta Rap 电台" tvg-logo="https://prototype-tv.local/logo/yt-rap-247.png" group-title="音乐",YouTube Gangsta Rap 电台
+ytlive://0MOkLkTP-Jk
+#EXTINF:-1 tvg-id="CCTVStormMusic.cn" tvg-name="风云音乐" tvg-logo="https://prototype-tv.local/logo/fengyun-music.png" group-title="音乐",风云音乐
+https://live.264788.xyz/channel/fengyunyinyue?streamid=be37d16b874e7ba11dd383d7ecd75752&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-id="CCTVStormMusic.cn" tvg-name="风云音乐" tvg-logo="https://prototype-tv.local/logo/fengyun-music.png" group-title="音乐",风云音乐
+https://live.264788.xyz/channel/fengyunyinyue?streamid=1b41fb9153cba3ee19bd5d1b323da27e&livekey=01WgOR41rriMmMkzNsd0UoaxJRwetZdxIvtVk
+#EXTINF:-1 tvg-id="CCTVStormMusic.cn" tvg-name="风云音乐" tvg-logo="https://prototype-tv.local/logo/fengyun-music.png" group-title="音乐",风云音乐
+http://38.75.136.137:98/gslb/dsdqpub/fyyy.m3u8?auth=testpub
+#EXTINF:-1 tvg-id="CNRMusicLive.cn" tvg-name="音乐现场" tvg-logo="https://prototype-tv.local/logo/music-live.png" group-title="音乐",音乐现场
+https://satellitepull.cnr.cn/live/wx32nmgyygb/playlist.m3u8
+#EXTINF:-1 tvg-id="Twitch.LofiGirl" tvg-name="Twitch Lofi Girl 嘻哈电台" tvg-logo="https://prototype-tv.local/logo/tw-lofigirl.png" group-title="音乐",Twitch Lofi Girl 嘻哈电台
+twitchlive://lofigirl
+#EXTINF:-1 tvg-id="Twitch.Chillhop" tvg-name="Twitch Chillhop 爵士嘻哈" tvg-logo="https://prototype-tv.local/logo/tw-chillhop.png" group-title="音乐",Twitch Chillhop 爵士嘻哈
+twitchlive://chillhopradio
+#EXTINF:-1 tvg-id="Twitch.LeekBeats" tvg-name="Twitch Leek Beats 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-leekbeats.png" group-title="音乐",Twitch Leek Beats 嘻哈节拍
+twitchlive://leekbeats
+#EXTINF:-1 tvg-id="Twitch.ChilledCat" tvg-name="Twitch ChilledCat 嘻哈节拍" tvg-logo="https://prototype-tv.local/logo/tw-chilledcat.png" group-title="音乐",Twitch ChilledCat 嘻哈节拍
+twitchlive://chilledcat_music
+#EXTINF:-1 tvg-id="Twitch.RealRap" tvg-name="Twitch Real Rap 说唱现场" tvg-logo="https://prototype-tv.local/logo/tw-realrap.png" group-title="音乐",Twitch Real Rap 说唱现场
+twitchlive://djsaywhaat
+#EXTINF:-1 tvg-id="Twitch.RelaxBeats" tvg-name="Twitch Relax Beats 嘻哈放松" tvg-logo="https://prototype-tv.local/logo/tw-relaxbeats.png" group-title="音乐",Twitch Relax Beats 嘻哈放松
+twitchlive://relaxbeats

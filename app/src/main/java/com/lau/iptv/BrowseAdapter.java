@@ -298,8 +298,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.SectionVH>
             // Apple tvOS / YouTube TV 聚焦：白卡 + 军绿粗描边 + 放大 + 投影；
             // 聚焦态背景在内层卡片上切换（焦点在 itemView 上，选择器不会自动生效）
             h.itemView.setOnFocusChangeListener((v, has) -> {
-                v.animate().scaleX(has ? 1.22f : 1f)
-                        .scaleY(has ? 1.22f : 1f)
+                v.animate().scaleX(has ? 1.16f : 1f)
+                        .scaleY(has ? 1.16f : 1f)
                         .setDuration(140).start();
                 h.itemView.setTranslationZ(has ? 32f : 0f);
                 v.setAlpha(has ? 1f : 0.76f);

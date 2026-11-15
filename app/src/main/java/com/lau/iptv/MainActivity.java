@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP = "chip_filter_v2";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次扩充内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 12;
+    private static final int ASSET_VER = 13;
     private static final String CHIP_ALL = "全部";
     private static final String UA =
             "Mozilla/5.0 (Linux; Android 12; BRAVIA 4K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Mobile Safari/537.36";
@@ -127,6 +127,9 @@ public class MainActivity extends AppCompatActivity {
     private ExoPlayer player;
     private RtspMediaSource.Factory rtspFactory;
     private SpeedMeter speedMeter;
+    /** 物理网络句柄：普通频道直连；YouTube 直播需临时恢复默认（走代理）网络 */
+    private ConnectivityManager connectivity;
+    private Network physicalNetwork;
     private RecyclerView sectionList;
     private View browseView;
     private TextView titleView;
@@ -246,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cm == null) return;
+            connectivity = cm;
             NetworkRequest req = new NetworkRequest.Builder()
                     .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                     .addCapability(NetworkCapabilities.NET_CAPABILITY_NOT_VPN)
@@ -253,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
             cm.registerNetworkCallback(req, new ConnectivityManager.NetworkCallback() {
                 @Override
                 public void onAvailable(Network network) {
+                    physicalNetwork = network;
                     boolean ok = cm.bindProcessToNetwork(network);
                     android.util.Log.i("IPTV", "bindProcessToNetwork(physical) " + (ok ? "ok " + network : "FAILED(allowBypass denied)"));
                 }
@@ -264,6 +269,20 @@ public class MainActivity extends AppCompatActivity {
             });
         } catch (Exception e) {
             android.util.Log.w("IPTV", "bypassVpn failed", e);
+        }
+    }
+
+    /** 按当前线路类型选择网络：普通频道直连运营商，YouTube / Twitch 直播走 VPN/代理。 */
+    private void tuneNetworkFor(String url) {
+        if (connectivity == null) return;
+        try {
+            if (YouTubeResolver.isYtLive(url) || TwitchResolver.isTwitchLive(url)) {
+                connectivity.bindProcessToNetwork(null);
+            } else if (physicalNetwork != null) {
+                connectivity.bindProcessToNetwork(physicalNetwork);
+            }
+        } catch (Exception e) {
+            android.util.Log.w("IPTV", "tuneNetworkFor failed", e);
         }
     }
 
@@ -322,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 诊断入口：adb ... --es play_url <URL> 直接播放指定线路，用于在电视上抽帧核对频道身份
         String dbg = getIntent().getStringExtra("play_url");
+        android.util.Log.i("IPTV", "INTENT play_url=" + dbg);
         if (dbg != null && !dbg.isEmpty()) {
             debugUrl = dbg;
             main.postDelayed(this::playDebugUrl, 2500);
@@ -697,13 +717,80 @@ public class MainActivity extends AppCompatActivity {
         hideList();     // 选台后全屏
     }
 
+    /** 海外直播解析结果回调 */
+    private interface LiveResult {
+        void ok(String hls);
+        void fail(String reason);
+    }
+
+    /**
+     * 解析 YouTube / Twitch 直播：先走默认网络（VPN/代理），失败后自动切回物理网络
+     * 直连重试一次。解析成功后进程保持在该网络上，后续播放走同一条链路。
+     */
+    private void resolveLive(String raw, LiveResult result) {
+        final boolean twitch = TwitchResolver.isTwitchLive(raw);
+        if (connectivity != null) {
+            try { connectivity.bindProcessToNetwork(null); } catch (Exception ignored) { }
+        }
+        final boolean[] retried = {false};
+        LiveResult attempt = new LiveResult() {
+            @Override public void ok(String hls) { result.ok(hls); }
+            @Override public void fail(String reason) {
+                if (!retried[0] && connectivity != null && physicalNetwork != null) {
+                    retried[0] = true;
+                    android.util.Log.i("IPTV", "海外源解析失败，改走物理网络重试：" + reason);
+                    try { connectivity.bindProcessToNetwork(physicalNetwork); } catch (Exception ignored) { }
+                    runResolver(raw, twitch, this);
+                } else {
+                    result.fail(reason);
+                }
+            }
+        };
+        runResolver(raw, twitch, attempt);
+    }
+
+    private void runResolver(String raw, boolean twitch, final LiveResult r) {
+        if (twitch) {
+            TwitchResolver.resolve(raw, new TwitchResolver.Callback() {
+                @Override public void onResolved(String hls) { r.ok(hls); }
+                @Override public void onError(String reason) { r.fail(reason); }
+            });
+        } else {
+            YouTubeResolver.resolve(raw, new YouTubeResolver.Callback() {
+                @Override public void onResolved(String hls) { r.ok(hls); }
+                @Override public void onError(String reason) { r.fail(reason); }
+            });
+        }
+    }
+
     /** 诊断用：直接播放指定 URL（配合 adb 抽帧核对频道） */
     private void playDebugUrl() {
         if (debugUrl == null) return;
+        final String raw = debugUrl;
+        android.util.Log.i("IPTV", "DEBUG_PLAY " + raw);
+        tuneNetworkFor(raw);
+        hideList();
+        // 调试入口也走完整的运行时解析链路，便于在电视上验证 YouTube / Twitch 源
+        if (TwitchResolver.isTwitchLive(raw) || YouTubeResolver.isYtLive(raw)) {
+            setStatus(TwitchResolver.isTwitchLive(raw)
+                    ? "正在解析 Twitch 直播源…" : "正在解析 YouTube 直播源…");
+            resolveLive(raw, new LiveResult() {
+                @Override public void ok(String hls) { debugPlay(hls); }
+                @Override public void fail(String reason) {
+                    android.util.Log.w("IPTV", "海外源解析最终失败：" + reason);
+                    setStatus("海外源不可用：" + brief(reason));
+                }
+            });
+            return;
+        }
+        debugPlay(raw);
+    }
+
+    private void debugPlay(String url) {
         try {
             main.removeCallbacks(bufferingWatchdog);
             main.removeCallbacks(bufferTicker);
-            MediaItem item = new MediaItem.Builder().setUri(debugUrl).setMediaId("debug").build();
+            MediaItem item = new MediaItem.Builder().setUri(url).setMediaId("debug").build();
             if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {
                 player.setMediaSource(rtspFactory.createMediaSource(item));
             } else {
@@ -711,7 +798,6 @@ public class MainActivity extends AppCompatActivity {
             }
             player.prepare();
             player.play();
-            hideList();
             setStatus("调试播放");
         } catch (Exception e) {
             setStatus("调试播放失败：" + brief(e.getMessage()));
@@ -736,12 +822,30 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         if (lineIndex >= c.urls.size()) lineIndex = 0;
-        android.util.Log.i("IPTV", "PLAY[" + c.name + "] line " + (lineIndex + 1) + "/" + c.urls.size() + " " + c.urls.get(lineIndex));
+        final String raw = c.urls.get(lineIndex);
+        tuneNetworkFor(raw);
+        // 海外 24/7 直播：清单带时效签名，播放前实时解析（v1.13）
+        if (TwitchResolver.isTwitchLive(raw) || YouTubeResolver.isYtLive(raw)) {
+            setStatus(TwitchResolver.isTwitchLive(raw)
+                    ? "正在解析 Twitch 直播源…" : "正在解析 YouTube 直播源…");
+            resolveLive(raw, new LiveResult() {
+                @Override public void ok(String hls) { startPlayback(c, raw, hls); }
+                @Override public void fail(String reason) {
+                    setStatus("海外源不可用：" + brief(reason));
+                }
+            });
+            return;
+        }
+        startPlayback(c, raw, raw);
+    }
+
+    private void startPlayback(Channel c, String loggedUrl, String playUrl) {
+        android.util.Log.i("IPTV", "PLAY[" + c.name + "] line " + (lineIndex + 1) + "/" + c.urls.size() + " " + loggedUrl);
         main.removeCallbacks(bufferingWatchdog);
         main.removeCallbacks(bufferTicker);
         try {
             MediaItem item = new MediaItem.Builder()
-                    .setUri(c.urls.get(lineIndex))
+                    .setUri(playUrl)
                     .setMediaId(String.valueOf(currentIndex))
                     .build();
             if ("rtsp".equals(item.localConfiguration.uri.getScheme())) {

@@ -4,7 +4,16 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 ## 特性
 
-- 📺 内置 464 条频道线路 / 300+ 频道（央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐…），全部经 Sony 电视真实网络逐条探测验证
+- 📺 内置 485 条频道线路 / 340+ 频道（央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / 体育 / 音乐…），全部经 Sony 电视真实网络逐条探测验证
+- 🆕 **v1.13 变化：音乐扩到 28 个（以嘻哈为主）+ 接入 YouTube / Twitch 直播 + 界面再缩小**
+  - **音乐分类 13 → 28 个频道**，嘻哈 / 说唱为主：新增 Yo! MTV 经典嘻哈、BET Pluto TV 嘻哈、Stingray Hip Hop、Vevo Hip-Hop R&B、MTV Spankin New 等 FAST 频道，以及 **BET Throwbacks / Vevo / VH1 / Trace Urban** 等此前因地区限制未收录的台
+  - **接入 YouTube 24/7 嘻哈直播**：`ytlive://<videoId>` 运行时通过 Invidious 公共实例解析（YouTube 的 HLS 带 expire 签名且绑 IP，写死进 APK 几小时就失效），缓存 15 分钟，失败自动回退 YouTube 网页
+  - **接入 Twitch 24/7 嘻哈电台**：`twitchlive://<频道名>` 运行时走 Twitch GraphQL `PlaybackAccessToken` → usher 取回带签名 HLS，缓存 30 分钟；内置 Lofi Girl、Chillhop、Leek Beats、ChilledCat、Real Rap、Relax Beats 六个台
+  - **海外源自动切换网络**：普通频道仍绑定物理网卡直连运营商，YouTube / Twitch 频道播放时临时恢复默认网络走代理，解决绕过 VPN 后海外 CDN 连不上的问题
+  - **修死链**：`i.mjh.nz/SamsungTVPlus/<id>.m3u8` 实为 404，改用 `jmp2.uk/stvp-<id>` 正确格式
+  - **外部源合并与全表去重**：抓取 `github.com/ngo5/IPTV` 与 `zyscj.com` 的公开列表，电视端探测 95 条候选，仅合并 2 个干净新频道（风云音乐、音乐现场）；全表按 URL 严格去重，485 条线路无一条重复
+  - **频道区再缩小**：浏览面板 55% → **42%**（播放画面露出 58%），卡片 190×106dp → **164×92dp**，焦点放大 1.16 倍
+  - 说明：FAST / YouTube / Twitch 源需要可访问海外 CDN 的代理节点；国内运营商线路不受影响
 - 🆕 **v1.12 变化：央视线路全面复核与重建**
   - **以央视官网 EPG 为基准逐条比对**：CCTV-1《好好的时光》第 17/18 集、CCTV-13《新闻直播间》、CCTV-5 法甲第 10 轮集锦 / 速度滑冰世界杯（中国站）。对原 52 条央视线路做了 Mac 端三轮抽帧 + Sony 电视实播截图 + 画面指纹比对
   - **查出的三类问题**：① 第三方聚合源会随机插播「麦可通」类购物广告垫片（订购电话 400-689-3979、咨询热线 400-788-3916），CCTV-3 三条线路三轮采样 3/3 全是广告；② `ali-m-l.cztv.com` 那条 CCTV-13 是带「1月19日 10:42」角标的旧录播，根本不是直播；③ 错标：`cctv4k.m3u8` 实际是 CCTV-4K 超高清却标成 CCTV-4 中文国际，`espanol-liveali.cgtn.com` 是 CGTN 西语却标成 CGTN 法语
@@ -37,8 +46,8 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 🎬 **YouTube TV 官方版式**（v1.8）：
   - 扁平顶栏（标题 + 正在播放胶囊 + 时钟），无厚重卡片背景
   - **分类 chips 过滤条**：全部 / 央视 / 卫视 / 地方台 / 香港 / 台湾 / 澳门 / **体育** / **音乐**（v1.11 精简为 9 个，无国家小分类），选中白底黑字、聚焦军绿描边 + 放大
-  - 频道面板只占屏幕 **55%**（v1.11），上方 **45%** 始终露出正在播放的画面
-  - 焦点卡片：纯白底 + 黑字 + 军绿实描边 + 外层柔光晕 + 1.22 倍放大，远距离一眼锁定；未聚焦卡片压暗到 76% 以拉开对比
+  - 频道面板只占屏幕 **42%**（v1.13），上方 **58%** 始终露出正在播放的画面
+  - 焦点卡片：纯白底 + 黑字 + 军绿实描边 + 外层柔光晕 + 1.16 倍放大，远距离一眼锁定；未聚焦卡片压暗到 76% 以拉开对比
 - 🔄 **应用内在线更新**（v1.7+）：菜单「检查更新」自动比对 GitHub Release，下载 APK 一键安装；启动时也会静默检查
 - 🏷️ **频道台标**：卡片大 logo（v1.9 起不再在播放画面上叠加台标），250+ 台标离线打包进 APK，零网络依赖
 - 🛡️ 多源抓取（Guovin / YanG / vbsky / YueChan / iptv-org / Free-TV）→ 逐条电视端探测，剔除死链、盗版告警、购物台、测试卡等假流
@@ -50,6 +59,19 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 - 🔬 **线路全量实测**：内置 ProbeReceiver 以播放器同网络栈逐一探测，剔除全部死链
 - 🎮 纯遥控器操作：↑/↓ 换台、左/OK 呼出频道面板、CH+/CH- 换台、菜单键换源与检查更新
 - 🌐 支持内置精选源 + 在线源 + 自定义 m3u 链接
+
+
+## 界面截图
+
+> 以下为 Sony BRAVIA 电视（Android 12）实机截图，v1.13。
+
+| 全部频道 | 音乐分类（28 个嘻哈 / 音乐台） |
+| --- | --- |
+| ![全部频道](screenshots/01-home.png) | ![音乐分类](screenshots/02-music.png) |
+
+| 央视分类 | 全屏播放 |
+| --- | --- |
+| ![央视分类](screenshots/03-cctv.png) | ![全屏播放](screenshots/04-fullscreen.png) |
 
 ## 构建
 
@@ -77,13 +99,13 @@ YouTube TV 官方版式的 Android TV 直播应用。内置全网抓取、逐条
 
 **方式一：直接下载 APK（无需自行构建）**
 
-👉 [Releases v1.8](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.8) 下载 `Prototype-TV-1.8.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
+👉 [Releases v1.13](https://github.com/JacksonLau23/prototype-tv/releases/tag/v1.13) 下载 `Prototype-TV-1.13.apk`（约 13MB 含离线台标，纯 Java 无 native 库，全架构通用）
 
 > 已装 v1.7 的用户：菜单键 → 检查更新，可在线升级。
 
 ```bash
 adb connect <电视IP>:5555
-adb install -r Prototype-TV-1.8.apk
+adb install -r Prototype-TV-1.13.apk
 ```
 
 **方式二：自行构建**
