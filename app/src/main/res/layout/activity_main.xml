@@ -66,6 +66,58 @@
             android:textSize="11sp" />
     </LinearLayout>
 
+    <!-- 换台信息浮层（v1.23）：切台瞬间显示频道名/台标/线路，几秒后淡出，不占用状态胶囊 -->
+    <LinearLayout
+        android:id="@+id/channel_osd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="64dp"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/subtitle_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="26dp"
+        android:paddingBottom="14dp"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="16dp"
+            android:background="#8A9B62" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/channel_osd_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="620dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="#FFFFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/channel_osd_meta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:maxWidth="620dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="#8A9B62"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
     <!-- 浏览浮层：底部面板（v1.13 再缩到约 42% 屏，上方留 58% 播放画面） -->
     <LinearLayout
         android:id="@+id/browse"

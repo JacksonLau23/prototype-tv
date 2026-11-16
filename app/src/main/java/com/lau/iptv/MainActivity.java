@@ -174,6 +174,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView subtitleZh;
     private TextView subtitleSrc;
     private TextView subtitleTag;
+    /** v1.23 换台信息浮层 */
+    private View channelOsd;
+    private TextView channelOsdName;
+    private TextView channelOsdMeta;
 
     private BrowseAdapter adapter;
     /** 当前分类过滤（null = 全部） */
@@ -237,6 +241,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             statusView.setVisibility(View.GONE);
+        }
+    };
+
+    /** 换台信息浮层自动淡出（v1.23） */
+    private final Runnable hideChannelOsd = new Runnable() {
+        @Override
+        public void run() {
+            if (channelOsd != null) {
+                channelOsd.animate().alpha(0f).setDuration(300)
+                        .withEndAction(() -> channelOsd.setVisibility(View.GONE)).start();
+            }
         }
     };
 
@@ -395,6 +410,9 @@ public class MainActivity extends AppCompatActivity {
         subtitleZh = findViewById(R.id.subtitle_zh);
         subtitleSrc = findViewById(R.id.subtitle_src);
         subtitleTag = findViewById(R.id.subtitle_tag);
+        channelOsd = findViewById(R.id.channel_osd);
+        channelOsdName = findViewById(R.id.channel_osd_name);
+        channelOsdMeta = findViewById(R.id.channel_osd_meta);
 
         // v1.21 实时简中字幕：旁路服务推 SSE，客户端按播放时钟排队显示
         subtitleClient = new SubtitleClient();
@@ -410,12 +428,9 @@ public class MainActivity extends AppCompatActivity {
                 subtitleBox.setVisibility(View.GONE);
             }
             @Override public void onState(String text, boolean error) {
+                // v1.23：字幕服务不可达时只记日志，不再用 setStatus 抢占右下角状态胶囊
+                // （这里原来每 15 秒重连失败就刷一次「字幕服务未连接」，把换台信息全盖掉了）
                 if (error) android.util.Log.w("IPTV", "SUBTITLE_STATE " + text);
-                if (error && prefs.getBoolean(KEY_SUBTITLE_ON, false)) {
-                    setStatus(text);
-                    main.removeCallbacks(hideStatus);
-                    main.postDelayed(hideStatus, 3200);
-                }
             }
         });
         // ADB 诊断入口：am start -n com.lau.iptv/.MainActivity --ez subtitle_on true
@@ -559,8 +574,9 @@ public class MainActivity extends AppCompatActivity {
         browseView.animate().alpha(1f).setDuration(200).start();
         // 浏览时关掉播放器缓冲圈（避免透过面板显示），缓冲状态由右下胶囊提示
         playerView.setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER);
-        // 焦点落在第一张卡片上（若无内容则落 chips）
+        // v1.23：进入选频道时优先聚焦当前正在播放的频道（找不到再回退第一张卡）
         sectionList.postDelayed(() -> {
+            if (playingChannel != null && adapter.focusChannel(playingChannel)) return;
             if (adapter.getItemCount() > 0 && adapter.focusFirst()) return;
             if (chipsRow != null && chipsRow.getChildCount() > 0) {
                 chipsRow.getChildAt(0).requestFocus();
@@ -570,6 +586,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideList() {
         listShown = false;
+        main.removeCallbacks(hideChannelOsd);
+        if (channelOsd != null) channelOsd.setVisibility(View.GONE);
         browseView.animate().alpha(0f).setDuration(200)
                 .withEndAction(() -> browseView.setVisibility(View.GONE)).start();
         playerView.requestFocus();
@@ -1227,6 +1245,8 @@ public class MainActivity extends AppCompatActivity {
             setStatus(meta);
             main.removeCallbacks(hideStatus);
             main.postDelayed(hideStatus, hop ? 5200 : 2600);
+            // v1.23：换台信息浮层（独立于状态胶囊，不被缓冲/字幕错误刷掉）
+            showChannelOsd(c, meta);
         } catch (Exception e) {
             android.util.Log.w("IPTV", "startPlayback failed", e);
             onPlayFailed(brief(e.getMessage()));
@@ -1659,6 +1679,16 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;   // 排序期间屏蔽换台等其它按键
         }
+        // v1.23：全屏时确定键必须在分发层拦截。缓冲状态下焦点可能落在 PlayerView 的
+        // 内部控件上，走到 Activity.onKeyDown 之前就被消费，导致「按确定键没反应」。
+        if (!chipSortMode && !listShown && event.getAction() == KeyEvent.ACTION_DOWN) {
+            int kc = event.getKeyCode();
+            if (kc == KeyEvent.KEYCODE_DPAD_CENTER || kc == KeyEvent.KEYCODE_ENTER
+                    || kc == KeyEvent.KEYCODE_NUMPAD_ENTER) {
+                showList();
+                return true;
+            }
+        }
         return super.dispatchKeyEvent(event);
     }
 
@@ -1711,6 +1741,27 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    /** v1.23：换台时在画面上显示频道信息，3.6 秒后淡出 */
+    private void showChannelOsd(Channel c, String meta) {
+        if (channelOsd == null) return;
+        main.removeCallbacks(hideChannelOsd);
+        channelOsd.animate().cancel();   // 取消上一次未完成的淡出，避免竞态
+        channelOsdName.setText(c.name);
+        // 去掉 meta 里的频道名部分，只留地区/线路等补充信息
+        String extra = "";
+        if (c.region != null && !c.region.isEmpty() && !c.name.contains(c.region)) {
+            extra = c.region;
+        }
+        if (c.lineCount() > 1) {
+            extra += (extra.isEmpty() ? "" : " · ") + "线路 " + (lineIndex + 1) + "/" + c.lineCount();
+        }
+        if (extra.isEmpty()) extra = c.group == null ? "正在播放" : c.group;
+        channelOsdMeta.setText(extra);
+        channelOsd.setAlpha(1f);
+        channelOsd.setVisibility(View.VISIBLE);
+        main.postDelayed(hideChannelOsd, 3600);
     }
 
     private void setStatus(String text) {
@@ -1767,6 +1818,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         main.removeCallbacks(subtitleTicker);
+        main.removeCallbacks(hideChannelOsd);
         if (subtitleClient != null) subtitleClient.stop();
         io.shutdownNow();
         if (player != null) {

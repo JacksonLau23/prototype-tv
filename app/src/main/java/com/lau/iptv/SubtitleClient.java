@@ -100,10 +100,11 @@ public class SubtitleClient {
     /** 服务地址变化时断开当前 SSE，让接收循环用新地址重连。 */
     public void configure(String base, long offsetMs, boolean enabled) {
         String b = base == null ? "" : base.trim().replaceAll("/+$", "");
-        boolean changed = !b.equals(this.baseUrl);
+        boolean changed = !b.equals(this.baseUrl) || enabled != this.enabled;
         this.baseUrl = b;
         this.offsetMs = offsetMs;
         this.enabled = enabled;
+        // 开关变化也断开：关闭时立即停止 SSE 连接，不再无谓地重连刷日志
         if (changed && running.get()) disconnect();
     }
 
@@ -202,7 +203,8 @@ public class SubtitleClient {
     private void sseLoop() {
         int backoff = 1000;
         while (running.get()) {
-            if (baseUrl.isEmpty()) {
+            // v1.23：字幕关闭时完全不连接服务（连日志都不刷），开启后才开始握手
+            if (!enabled || baseUrl.isEmpty()) {
                 sleep(1000);
                 continue;
             }
