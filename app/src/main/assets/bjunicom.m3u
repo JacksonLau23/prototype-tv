@@ -1208,3 +1208,23 @@ twitchlive://slakuntv
 twitchlive://pickandrolltv
 #EXTINF:-1 tvg-name="Sony Sports Ten 3 Hindi" group-title="体育" tvg-logo="https://dtil.tmsimg.com/assets/GNLZZGG0025TCMR.png?lock=720x540",Sony Sports Ten 3 Hindi
 https://r2.amml.in/sony-ten-3-hd/live.m3u8
+#EXTINF:-1 tvg-name="hr-fernsehen" group-title="德国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/HR-Fernsehen_Logo_2023.svg/960px-HR-Fernsehen_Logo_2023.svg.png",hr-fernsehen
+https://hrhls.akamaized.net/hls/live/2024525/hrhls/index.m3u8
+#EXTINF:-1 tvg-name="BFM TV" group-title="法国" tvg-logo="https://i.imgur.com/YJCcczD.png",BFM TV
+https://n-5-2.eu.cdn-redge.media/livehls/oeu/mt/live/bfm_tv/live.livx/playlist.m3u8
+#EXTINF:-1 tvg-name="France 2" group-title="法国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/France_2_2018.svg/960px-France_2_2018.svg.png",France 2
+https://r.eu.cdn-redge.media/livehls/oeu/mt/live/france_2/live.livx/playlist.m3u8
+#EXTINF:-1 tvg-name="TF1" group-title="法国" tvg-logo="https://i.imgur.com/QxHt9NC.png",TF1
+https://r.eu.cdn-redge.media/livehls/oeu/mt/live/tf1/live.livx/playlist.m3u8
+#EXTINF:-1 tvg-name="NDR Fernsehen" group-title="德国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Logo_NDR_Fernsehen_2017.svg/960px-Logo_NDR_Fernsehen_2017.svg.png",NDR Fernsehen
+https://mcdn.ndr.de/ndr/hls/ndr_fs/ndr_hh/master.m3u8
+#EXTINF:-1 tvg-name="WDR Fernsehen" group-title="德国" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/WDR_Fernsehen_Logo_2018.svg/960px-WDR_Fernsehen_Logo_2018.svg.png",WDR Fernsehen
+https://wdr-live.ard-mcdn.de/wdr/live/hls/de/master.m3u8
+#EXTINF:-1 tvg-name="NTV (Russia)" group-title="俄罗斯" tvg-logo="https://i.imgur.com/9r1BKzK.png",NTV (Russia)
+http://31.148.5.241/kanal_4/index.m3u8
+#EXTINF:-1 tvg-name="NHK World Premium" group-title="日本" tvg-logo="https://i.imgur.com/4ESi2La.png",NHK World Premium
+https://media-tyo.hls.nhkworld.jp/hls/wp/live/master.m3u8
+#EXTINF:-1 tvg-name="TV Chosun" group-title="韩国" tvg-logo="https://i.imgur.com/62EwaCG.png",TV Chosun
+http://onair.cdn.tvchosun.com/origin1/_definst_/tvchosun_s1/playlist.m3u8
+#EXTINF:-1 tvg-name="Domashniy" group-title="俄罗斯" tvg-logo="https://i.imgur.com/WaLwOyt.jpeg",Domashniy
+http://31.148.5.241/kanal_14/index.m3u8
