@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String KEY_CHIP_ORDER = "chip_order_v1";
     private static final String KEY_ASSET_VER = "asset_ver";
     /** 内置频道表版本号：每次变更内置表后 +1，自动把用户切回内置源 + 全部分类 */
-    private static final int ASSET_VER = 18;
+    private static final int ASSET_VER = 21;
     /** v1.21 实时简中字幕：旁路服务地址、开关、范围、时钟偏移 */
     private static final String KEY_SUBTITLE_ON = "subtitle_on";
     private static final String KEY_SUBTITLE_URL = "subtitle_url";

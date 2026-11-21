@@ -170,13 +170,14 @@ public final class Catalog {
             if (n.contains("纪录") || n.contains("DOC")) return 890;
             return 800 + Math.abs(norm(name).hashCode() % 50);
         }
+        // CCTV-4K / CCTV-8K 先判定，避免被 CCTV 正则截成 4 / 8
+        if (n.contains("8K")) return 785;
+        if (n.contains("4K")) return 780;
         Matcher m = CCTV.matcher(name);
         if (m.find()) {
             int num = Integer.parseInt(m.group(1));
             return num * 10 + (m.group(2) != null ? 5 : 0);
         }
-        if (n.contains("4K")) return 780;
-        if (n.contains("8K")) return 785;
         return 700 + Math.abs(norm(name).hashCode() % 50);
     }
 
@@ -197,6 +198,10 @@ public final class Catalog {
         // 去掉括号里的补充说明
         s = s.replaceAll("[\\(（\\[【「].*?[\\)）\\]】」]", "");
         String upper = s.toUpperCase();
+        // CCTV-4K / CCTV-8K 是超高清频道，不能被当成 CCTV-4 / CCTV-8 合并
+        if (upper.contains("CCTV") && (upper.contains("4K") || upper.contains("8K"))) {
+            return "CCTV" + (upper.contains("8K") ? "8K" : "4K");
+        }
         Matcher c = CCTV.matcher(s);
         if (upper.contains("CCTV") && c.find()) {
             return "CCTV" + c.group(1) + (c.group(2) != null ? "PLUS" : "");
@@ -392,5 +397,40 @@ public final class Catalog {
                 && n.matches(".*[\\u4e00-\\u9fa5].*")
                 && !n.matches(".*[A-Za-z]{2,}.*")) return null;
         return "国际";
+    }
+
+    /**
+     * 自然排序比较器：名称里的连续数字按数值比较，而非字典序。
+     * 例如 CCTV-2 排在 CCTV-10 前、ESPN 2 排在 ESPN 10 前、新闻1+1 排在 新闻2 前。
+     * 数字前的非数字部分按字符逐一比较；遇到数字段时，先去掉前导零后按长度+字典序比数值。
+     */
+    public static int naturalCompare(String a, String b) {
+        if (a == null) a = "";
+        if (b == null) b = "";
+        int i = 0, j = 0;
+        while (i < a.length() && j < b.length()) {
+            char ca = a.charAt(i), cb = b.charAt(j);
+            if (Character.isDigit(ca) && Character.isDigit(cb)) {
+                // 取各自连续数字段
+                int sa = i, sb = j;
+                while (i < a.length() && Character.isDigit(a.charAt(i))) i++;
+                while (j < b.length() && Character.isDigit(b.charAt(j))) j++;
+                String na = a.substring(sa, i), nb = b.substring(sb, j);
+                // 去前导零
+                int za = 0; while (za < na.length() - 1 && na.charAt(za) == '0') za++;
+                int zb = 0; while (zb < nb.length() - 1 && nb.charAt(zb) == '0') zb++;
+                na = na.substring(za); nb = nb.substring(zb);
+                if (na.length() != nb.length()) return Integer.compare(na.length(), nb.length());
+                int c = na.compareTo(nb);
+                if (c != 0) return c;
+                // 数值相等但位数不同（如 02 vs 2）时，位数短的在前
+                if ((i - sa) != (j - sb)) return Integer.compare(i - sa, j - sb);
+            } else {
+                if (ca != cb) return Character.compare(ca, cb);
+                i++; j++;
+            }
+        }
+        // 一方已耗尽：短的在前
+        return Integer.compare(a.length() - i, b.length() - j);
     }
 }

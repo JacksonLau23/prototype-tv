@@ -46,7 +46,8 @@ public class M3uParser {
             int ca = Catalog.order(a.group, a.name);
             int cb = Catalog.order(b.group, b.name);
             if (ca != cb) return Integer.compare(ca, cb);
-            return a.name.compareTo(b.name);
+            // 名称里的数字按数值比较：CCTV-2 在 CCTV-10 前，ESPN 2 在 ESPN 10 前
+            return Catalog.naturalCompare(a.name, b.name);
         });
         return out;
     }
