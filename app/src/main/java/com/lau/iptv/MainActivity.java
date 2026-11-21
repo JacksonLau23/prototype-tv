@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
     private PlayerView playerView;
     private ExoPlayer player;
+    /** 返回键触发彻底退出后，禁止任何残留异步回调再次拉起播放 */
+    private boolean exiting = false;
     private RtspMediaSource.Factory rtspFactory;
     private SpeedMeter speedMeter;
     /** 物理网络句柄：普通频道直连；YouTube 直播需临时恢复默认（走代理）网络 */
@@ -1683,6 +1685,11 @@ public class MainActivity extends AppCompatActivity {
         // 内部控件上，走到 Activity.onKeyDown 之前就被消费，导致「按确定键没反应」。
         if (!chipSortMode && !listShown && event.getAction() == KeyEvent.ACTION_DOWN) {
             int kc = event.getKeyCode();
+            // 全屏播放时返回键直接彻底退出（在分发层拦截，避免被 PlayerView 内部控件消费）
+            if (kc == KeyEvent.KEYCODE_BACK) {
+                exitApp();
+                return true;
+            }
             if (kc == KeyEvent.KEYCODE_DPAD_CENTER || kc == KeyEvent.KEYCODE_ENTER
                     || kc == KeyEvent.KEYCODE_NUMPAD_ENTER) {
                 showList();
@@ -1736,8 +1743,12 @@ public class MainActivity extends AppCompatActivity {
             showList();
             return true;
         }
-        if (keyCode == KeyEvent.KEYCODE_BACK && listShown) {
-            hideList();
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (listShown) {
+                hideList();
+                return true;
+            }
+            exitApp();
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -1812,6 +1823,27 @@ public class MainActivity extends AppCompatActivity {
     private static String brief(String s) {
         if (s == null) return "未知错误";
         return s.length() > 36 ? s.substring(0, 36) + "…" : s;
+    }
+
+    /**
+     * 全屏播放时按返回键 = 真正退出：停流、释放播放器、结束整个进程。
+     * 部分电视在 Activity stop 后仍保留进程，若不主动 kill，ExoPlayer/字幕/异步解析
+     * 会继续在后台拉流（切到别的 App 后仍有网络请求与声音）。
+     */
+    private void exitApp() {
+        if (exiting) return;
+        exiting = true;
+        main.removeCallbacksAndMessages(null);   // 缓冲看门狗、时钟、OSD、更新提示等
+        io.shutdownNow();                        // 中断源解析 / 网络请求
+        if (subtitleClient != null) subtitleClient.stop();
+        if (player != null) {
+            try { player.stop(); } catch (Exception ignored) { }
+            try { player.clearMediaItems(); } catch (Exception ignored) { }
+            try { player.release(); } catch (Exception ignored) { }
+            player = null;
+        }
+        finishAffinity();
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 
     @Override
